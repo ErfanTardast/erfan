@@ -1,0 +1,1309 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Darya Rice — مجموعه محصولات</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#1d251d;--deep:#223024;--olive:#6c775f;--olive2:#87917a;--cream:#f5f1e9;
+      --paper:#fbf8f1;--sand:#e8e0d3;--line:#d8d0c3;--muted:#77776e;--gold:#b59b67;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:'Vazirmatn',sans-serif;color:var(--ink);background:var(--cream)}
+    .latin{font-family:'Fraunces',serif}
+
+    /* Nav */
+    .nav-glass{background:rgba(245,241,233,.72);backdrop-filter:blur(20px);transition:.3s ease}
+    .nav-glass.scrolled{background:rgba(245,241,233,.95);box-shadow:0 10px 40px rgba(34,48,36,.07)}
+
+    /* Overlays */
+    .hero-overlay{background:linear-gradient(90deg,rgba(10,16,11,.82),rgba(10,16,11,.46) 42%,rgba(10,16,11,.08))}
+    .editorial-overlay{background:linear-gradient(135deg,rgba(10,16,11,.88) 0%,rgba(10,16,11,.52) 55%,transparent 100%)}
+
+    /* Shadows */
+    .soft-shadow{box-shadow:0 24px 70px rgba(33,42,32,.11)}
+    .card-shadow{box-shadow:0 12px 40px rgba(33,42,32,.08)}
+
+    /* Typography */
+    .section-eyebrow{font-size:10px;letter-spacing:.26em;text-transform:uppercase}
+    .small-copy{font-size:12px;line-height:1.95}
+    .body-copy{font-size:14px;line-height:2.1}
+    .title-xl{font-size:58px;line-height:1.16;letter-spacing:-.06em;font-weight:300}
+    .title-lg{font-size:44px;line-height:1.2;letter-spacing:-.05em;font-weight:300}
+    .title-md{font-size:28px;line-height:1.4;font-weight:300}
+    .product-title{font-size:16px;font-weight:500;line-height:1.5}
+
+    /* Mega menu */
+    .mega-menu{opacity:0;visibility:hidden;transform:translateY(12px);transition:.25s ease}
+    .has-mega:hover .mega-menu,.has-mega:focus-within .mega-menu{opacity:1;visibility:visible;transform:translateY(0)}
+
+    /* Product cards */
+    .product-card{transition:transform .38s cubic-bezier(.2,.7,.2,1)}
+    .product-card:hover{transform:translateY(-5px)}
+    .product-card .img-inner{transition:transform .85s cubic-bezier(.2,.7,.2,1)}
+    .product-card:hover .img-inner{transform:scale(1.06)}
+    .product-card .product-actions{opacity:0;transform:translateY(12px);transition:.28s ease}
+    .product-card:hover .product-actions{opacity:1;transform:translateY(0)}
+
+    /* Accordions */
+    .accordion-content{max-height:0;overflow:hidden;transition:max-height .38s ease}
+    .accordion-row.open .accordion-content{max-height:500px}
+    .accordion-row.open .accordion-icon{transform:rotate(45deg)}
+    .accordion-icon{transition:.25s ease}
+
+    /* Drawers / overlays */
+    .overlay{opacity:0;visibility:hidden;transition:.28s ease}
+    .overlay.open{opacity:1;visibility:visible}
+    .drawer-left{transform:translateX(-100%);transition:.38s cubic-bezier(.4,0,.2,1)}
+    .drawer-left.open{transform:translateX(0)}
+    .drawer-right{transform:translateX(100%);transition:.38s cubic-bezier(.4,0,.2,1)}
+    .drawer-right.open{transform:translateX(0)}
+    .modal-panel{opacity:0;transform:translateY(18px) scale(.98);transition:.32s ease}
+    .overlay.open .modal-panel{opacity:1;transform:translateY(0) scale(1)}
+
+    /* Wishlist */
+    .wishlist-active{background:#223024!important;color:white!important}
+    .wishlist-active svg{stroke:white!important}
+
+    /* Sort dropdown */
+    .sort-dd{position:absolute;top:calc(100% + 6px);right:0;background:#fbf8f1;border:1px solid #d8d0c3;min-width:210px;z-index:30;opacity:0;visibility:hidden;transform:translateY(6px);transition:.2s ease;box-shadow:0 16px 40px rgba(33,42,32,.1)}
+    .sort-dd.open{opacity:1;visibility:visible;transform:translateY(0)}
+    .sort-dd button{display:block;width:100%;text-align:right;padding:11px 16px;font-size:12px;color:#1d251d;background:transparent;border:none;cursor:pointer;transition:.15s;font-family:'Vazirmatn',sans-serif}
+    .sort-dd button:hover{background:#f0ebe0;color:#223024}
+    .sort-dd button.active{color:#6c775f;font-weight:600}
+
+    /* Price track */
+    .price-track{position:relative;height:2px;background:#d5cdbf;margin:20px 4px}
+    .price-fill{position:absolute;height:100%;background:#2b362b}
+    .price-thumb{position:absolute;top:50%;width:14px;height:14px;background:#2b362b;border-radius:50%;transform:translate(-50%,-50%);cursor:grab;transition:.15s;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+    .price-thumb:hover{transform:translate(-50%,-50%) scale(1.2)}
+
+    /* Toggle */
+    .toggle-btn{width:40px;height:22px;border-radius:11px;position:relative;cursor:pointer;transition:.25s;border:none;outline:none;flex-shrink:0}
+    .toggle-thumb{position:absolute;top:4px;width:14px;height:14px;border-radius:50%;background:white;transition:.25s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+
+    /* Filter tag */
+    .ftag{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid #d3cabd;font-size:11px;cursor:pointer;transition:.2s;line-height:1}
+    .ftag:hover{border-color:#6c775f}
+    .ftag .rem{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:#ddd4c5;font-size:9px;line-height:1;font-weight:700}
+
+    /* Input */
+    input[type="checkbox"]{accent-color:#223024;width:14px;height:14px;cursor:pointer;flex-shrink:0}
+
+    /* Scrollbar */
+    ::-webkit-scrollbar{width:4px}
+    ::-webkit-scrollbar-track{background:transparent}
+    ::-webkit-scrollbar-thumb{background:#c5bdb5;border-radius:2px}
+
+    /* Focus */
+    button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+    /* Mobile sort sheet */
+    .sort-sheet{position:fixed;inset-x:0;bottom:0;z-index:60;background:#f7f2e9;border-top:1px solid #ddd4c7;padding:24px;transform:translateY(100%);transition:.35s cubic-bezier(.4,0,.2,1)}
+    .sort-sheet.open{transform:translateY(0)}
+    .sort-sheet-backdrop{position:fixed;inset:0;z-index:59;background:rgba(0,0,0,.3);opacity:0;visibility:hidden;transition:.28s}
+    .sort-sheet-backdrop.open{opacity:1;visibility:visible}
+
+    /* Recently viewed hover */
+    .recent-card{transition:.2s ease}
+    .recent-card:hover img{opacity:.88}
+    .recent-card:hover .rc-title{color:var(--olive)}
+
+    @media(max-width:1024px){
+      .title-xl{font-size:44px}
+      .title-lg{font-size:36px}
+    }
+    @media(max-width:768px){
+      .title-xl{font-size:36px}
+      .title-lg{font-size:30px}
+      .product-card .product-actions{opacity:1;transform:none}
+    }
+    @media(max-width:480px){
+      .title-xl{font-size:30px}
+      .title-lg{font-size:24px}
+    }
+  </style>
+</head>
+<body class="w-full overflow-x-hidden">
+
+  <!-- ===================== STICKY HEADER ===================== -->
+  <header id="siteHeader" class="nav-glass sticky top-0 z-40 border-b border-white/40">
+    <div class="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 h-[74px] flex items-center justify-between">
+
+      <!-- Right: Hamburger + Brand -->
+      <div class="flex items-center gap-4">
+        <button id="mobileMenuBtn" class="lg:hidden p-1 -mr-1" aria-label="باز کردن منو">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+        <a href="#" class="block">
+          <div class="latin text-[30px] leading-none tracking-[-.04em] text-[var(--ink)]">Darya</div>
+          <div class="text-[9px] tracking-[.26em] mt-[3px] text-[var(--olive)]">PERSIAN RICE</div>
+        </a>
+      </div>
+
+      <!-- Center: Nav links -->
+      <nav class="hidden lg:flex items-center gap-9 text-[13px]">
+        <div class="relative has-mega">
+          <button class="py-7 flex items-center gap-1.5 hover:text-[var(--olive)] transition-colors">
+            فروشگاه <i data-lucide="chevron-down" class="w-3 h-3 opacity-50 mt-0.5"></i>
+          </button>
+          <!-- Mega menu -->
+          <div class="mega-menu absolute top-[70px] right-0 w-[740px] bg-[#fbf8f1] border border-[#ddd5c8] soft-shadow p-7">
+            <div class="grid grid-cols-[1fr_1fr_1.15fr] gap-7">
+              <div>
+                <p class="section-eyebrow text-[var(--muted)] mb-5">انواع برنج</p>
+                <div class="space-y-3.5 text-[14px]">
+                  <p class="hover:text-[var(--olive)] cursor-pointer transition-colors">طارم هاشمی</p>
+                  <p class="hover:text-[var(--olive)] cursor-pointer transition-colors">شیرودی</p>
+                  <p class="hover:text-[var(--olive)] cursor-pointer transition-colors">دمسیاه</p>
+                  <p class="hover:text-[var(--olive)] cursor-pointer transition-colors">علی‌کاظمی</p>
+                  <p class="hover:text-[var(--olive)] cursor-pointer transition-colors">لنگرودی</p>
+                </div>
+              </div>
+              <div>
+                <p class="section-eyebrow text-[var(--muted)] mb-5">بر اساس کاربرد</p>
+                <div class="space-y-3.5 text-[14px]">
+                  <p class="hover:text-[var(--olive)] cursor-pointer transition-colors">پلو مجلسی</p>
+                  <p class="hover:text-[var(--olive)] cursor-pointer transition-colors">چلو روزانه</p>
+                  <p class="hover:text-[var(--olive)] cursor-pointer transition-colors">ارگانیک</p>
+                  <p class="hover:text-[var(--olive)] cursor-pointer transition-colors">بسته هدیه</p>
+                </div>
+              </div>
+              <div class="relative min-h-[200px] overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=420&q=80"
+                     class="absolute inset-0 w-full h-full object-cover" loading="lazy" alt="مزارع برنج">
+                <div class="absolute inset-0 bg-black/28"></div>
+                <p class="absolute right-4 bottom-4 text-white small-copy max-w-[155px] leading-relaxed">
+                  مزارع سبز شمال ایران، منشأ بهترین برنج‌های جهان
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="hover:text-[var(--olive)] transition-colors">داستان ما</button>
+        <button class="hover:text-[var(--olive)] transition-colors">دستور پخت</button>
+        <button class="hover:text-[var(--olive)] transition-colors">مجله</button>
+      </nav>
+
+      <!-- Left: Icons -->
+      <div class="flex items-center gap-4 md:gap-5">
+        <button id="searchBtn" class="p-1" aria-label="جستجو">
+          <i data-lucide="search" class="w-4 h-4"></i>
+        </button>
+        <button class="hidden sm:block p-1" aria-label="علاقه‌مندی‌ها">
+          <i data-lucide="heart" class="w-4 h-4"></i>
+        </button>
+        <button id="cartBtn" class="relative p-1" aria-label="سبد خرید">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span class="absolute -top-1.5 -left-1.5 bg-[#223024] text-white rounded-full w-[18px] h-[18px] text-[9px] flex items-center justify-center font-medium">۲</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MOBILE MENU DRAWER ===================== -->
+  <aside id="mobilePanel" class="drawer-right fixed inset-y-0 right-0 z-50 w-[84%] max-w-[360px] bg-[#f7f2e9] p-7 border-l border-[#ddd4c7]">
+    <div class="flex items-center justify-between mb-12">
+      <div>
+        <div class="latin text-[30px] tracking-[-.04em]">Darya</div>
+        <div class="text-[9px] tracking-[.22em] mt-[3px] text-[var(--olive)]">PERSIAN RICE</div>
+      </div>
+      <button id="closeMobileBtn" class="p-1" aria-label="بستن منو">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <nav class="space-y-6 text-[24px] font-light">
+      <button class="block w-full text-right hover:text-[var(--olive)] transition-colors">فروشگاه</button>
+      <button class="block w-full text-right hover:text-[var(--olive)] transition-colors">داستان ما</button>
+      <button class="block w-full text-right hover:text-[var(--olive)] transition-colors">دستور پخت</button>
+      <button class="block w-full text-right hover:text-[var(--olive)] transition-colors">مجله</button>
+    </nav>
+    <div class="absolute bottom-6 right-7 left-7 border-t border-[#d8d0c2] pt-5 small-copy text-[#76766d] leading-loose">
+      ارسال رایگان برای سفارش‌های بالای ۵۰۰،۰۰۰ تومان<br>
+      پشتیبانی: ۰۲۱-۱۲۳۴۵۶۷۸
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="relative min-h-[580px] md:min-h-[700px] overflow-hidden flex items-end">
+      <img src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1800&q=80"
+           class="absolute inset-0 w-full h-full object-cover" loading="eager" alt="مزارع برنج شمال ایران">
+      <div class="absolute inset-0 hero-overlay"></div>
+      <div class="relative max-w-[1500px] mx-auto w-full px-5 md:px-8 lg:px-12 pb-16 md:pb-24 text-white">
+        <div class="max-w-[800px]">
+          <!-- Breadcrumb -->
+          <div class="flex items-center gap-2 text-[11px] text-[#c8cfc3] mb-6 opacity-80">
+            <span>خانه</span>
+            <i data-lucide="chevron-left" class="w-3 h-3"></i>
+            <span class="opacity-100 text-white">فروشگاه</span>
+          </div>
+          <!-- Badge -->
+          <span class="inline-block border border-white/32 px-3.5 py-1.5 text-[10px] tracking-[.18em] mb-5 uppercase">
+            کلکسیون بهار ۱۴۰۳
+          </span>
+          <!-- Eyebrow -->
+          <p class="section-eyebrow text-[#c8d0c2] mb-5">برنج‌های ممتاز ایرانی</p>
+          <!-- Title -->
+          <h1 class="title-xl max-w-[760px]">
+            مجموعه کامل<br>برنج‌های اصیل
+          </h1>
+          <!-- Copy -->
+          <p class="body-copy text-[#e6e9e2] max-w-[560px] mt-6 leading-loose">
+            از مزارع سبز شمال ایران تا سفره شما — هر دانه با دقت انتخاب شده، با عشق بسته‌بندی شده است. تجربه‌ای از طبیعت اصیل ایران در هر وعده.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== COLLECTION BODY ===================== -->
+    <section class="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-10 md:py-16">
+
+      <!-- Mobile filter/sort bar -->
+      <div class="lg:hidden sticky top-[74px] z-30 bg-[#f5f1e9]/96 backdrop-blur border-y border-[#d8d0c3] -mx-5 px-5 py-3 mb-7 flex justify-between items-center">
+        <button id="mobileFilterBtn" class="flex items-center gap-2 text-[13px]">
+          <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+          <span>فیلترها</span>
+          <span class="w-4 h-4 rounded-full bg-[#223024] text-white text-[9px] flex items-center justify-center">۳</span>
+        </button>
+        <button id="mobileSortBtn" class="flex items-center gap-2 text-[13px]">
+          <span id="mobileSortLabel">پیشنهادی</span>
+          <i data-lucide="chevron-down" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="grid lg:grid-cols-[260px_1fr] gap-10 xl:gap-16">
+
+        <!-- ============ FILTER SIDEBAR ============ -->
+        <aside class="hidden lg:block">
+          <div class="sticky top-[98px]">
+            <div class="flex items-center justify-between border-b border-[#d8d0c3] pb-4 mb-1">
+              <h2 class="text-[17px] font-medium">فیلترها</h2>
+              <button id="clearFilters" class="text-[11px] underline text-[var(--olive)] hover:text-[var(--ink)] transition-colors">پاک کردن همه</button>
+            </div>
+
+            <!-- Rice Type -->
+            <div class="accordion-row open border-b border-[#d8d0c3]">
+              <button class="accordion-toggle w-full py-5 flex items-center justify-between text-right">
+                <span class="text-[13px] font-medium">نوع برنج</span>
+                <i data-lucide="plus" class="accordion-icon w-4 h-4 text-[var(--muted)]"></i>
+              </button>
+              <div class="accordion-content">
+                <div class="space-y-3.5 pb-5 text-[12px] text-[#61665d]">
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox" checked> طارم هاشمی
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> شیرودی
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> دمسیاه
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> علی‌کاظمی
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Grain Length -->
+            <div class="accordion-row border-b border-[#d8d0c3]">
+              <button class="accordion-toggle w-full py-5 flex items-center justify-between text-right">
+                <span class="text-[13px] font-medium">طول دانه</span>
+                <i data-lucide="plus" class="accordion-icon w-4 h-4 text-[var(--muted)]"></i>
+              </button>
+              <div class="accordion-content">
+                <div class="space-y-3.5 pb-5 text-[12px] text-[#61665d]">
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox" checked> دانه بلند
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> دانه متوسط
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> دانه کوتاه
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Aroma -->
+            <div class="accordion-row border-b border-[#d8d0c3]">
+              <button class="accordion-toggle w-full py-5 flex items-center justify-between text-right">
+                <span class="text-[13px] font-medium">پروفایل عطر</span>
+                <i data-lucide="plus" class="accordion-icon w-4 h-4 text-[var(--muted)]"></i>
+              </button>
+              <div class="accordion-content">
+                <div class="space-y-3.5 pb-5 text-[12px] text-[#61665d]">
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> عطر شدید
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox" checked> عطر ملایم
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> بدون عطر
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Region -->
+            <div class="accordion-row border-b border-[#d8d0c3]">
+              <button class="accordion-toggle w-full py-5 flex items-center justify-between text-right">
+                <span class="text-[13px] font-medium">منطقه کشت</span>
+                <i data-lucide="plus" class="accordion-icon w-4 h-4 text-[var(--muted)]"></i>
+              </button>
+              <div class="accordion-content">
+                <div class="space-y-3.5 pb-5 text-[12px] text-[#61665d]">
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox" checked> گیلان
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> مازندران
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> گلستان
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Weight -->
+            <div class="accordion-row border-b border-[#d8d0c3]">
+              <button class="accordion-toggle w-full py-5 flex items-center justify-between text-right">
+                <span class="text-[13px] font-medium">وزن بسته‌بندی</span>
+                <i data-lucide="plus" class="accordion-icon w-4 h-4 text-[var(--muted)]"></i>
+              </button>
+              <div class="accordion-content">
+                <div class="space-y-3.5 pb-5 text-[12px] text-[#61665d]">
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> ۲ کیلوگرم
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox" checked> ۳ کیلوگرم
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> ۵ کیلوگرم
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> ۱۰ کیلوگرم
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Range -->
+            <div class="accordion-row border-b border-[#d8d0c3]">
+              <button class="accordion-toggle w-full py-5 flex items-center justify-between text-right">
+                <span class="text-[13px] font-medium">محدوده قیمت</span>
+                <i data-lucide="plus" class="accordion-icon w-4 h-4 text-[var(--muted)]"></i>
+              </button>
+              <div class="accordion-content">
+                <div class="pb-5">
+                  <div class="price-track">
+                    <div class="price-fill" style="right:10%;left:20%"></div>
+                    <span class="price-thumb" style="right:10%"></span>
+                    <span class="price-thumb" style="right:80%"></span>
+                  </div>
+                  <div class="flex justify-between text-[11px] text-[var(--muted)] mt-1">
+                    <span>۲۴۰،۰۰۰ تومان</span>
+                    <span>۱۴۰،۰۰۰ تومان</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Organic Toggle -->
+            <div class="py-5 border-b border-[#d8d0c3] flex justify-between items-center">
+              <span class="text-[13px]">فقط ارگانیک</span>
+              <button id="organicToggle" class="toggle-btn bg-[#cad0c4]">
+                <span class="toggle-thumb" id="organicThumb" style="left:4px"></span>
+              </button>
+            </div>
+
+            <!-- Premium Toggle -->
+            <div class="py-5 border-b border-[#d8d0c3] flex justify-between items-center">
+              <span class="text-[13px]">کلکسیون ممتاز</span>
+              <button id="premiumToggle" class="toggle-btn bg-[#2b362b]">
+                <span class="toggle-thumb" id="premiumThumb" style="left:22px"></span>
+              </button>
+            </div>
+
+            <!-- Availability -->
+            <div class="accordion-row open border-b border-[#d8d0c3]">
+              <button class="accordion-toggle w-full py-5 flex items-center justify-between text-right">
+                <span class="text-[13px] font-medium">موجودی</span>
+                <i data-lucide="plus" class="accordion-icon w-4 h-4 text-[var(--muted)]"></i>
+              </button>
+              <div class="accordion-content">
+                <div class="space-y-3.5 pb-5 text-[12px] text-[#61665d]">
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox" checked> موجود
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer hover:text-[var(--ink)] transition-colors">
+                    <input type="checkbox"> پیش‌سفارش
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+
+        <!-- ============ PRODUCTS AREA ============ -->
+        <section>
+
+          <!-- Toolbar -->
+          <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8">
+            <div>
+              <p class="section-eyebrow text-[var(--olive)] mb-3">مجموعه بهاره ۱۴۰۳</p>
+              <h2 class="title-lg">همه محصولات</h2>
+              <p class="small-copy text-[var(--muted)] mt-2">۸ محصول برگزیده</p>
+            </div>
+            <div class="hidden md:flex items-center gap-3">
+              <!-- Search within collection -->
+              <div class="border-b border-[#cfc7bb] flex items-center gap-2 pb-2 min-w-[200px]">
+                <i data-lucide="search" class="w-4 h-4 text-[#7b7b70] flex-shrink-0"></i>
+                <input id="collectionSearch" class="bg-transparent text-[12px] flex-1 outline-none" placeholder="جستجو در مجموعه">
+              </div>
+              <!-- Sort -->
+              <div class="relative">
+                <button id="sortBtn" class="border border-[#d2cabd] px-4 py-3 text-[12px] flex items-center gap-3 hover:border-[#b0a898] transition-colors">
+                  <span id="sortLabel">پیشنهادی</span>
+                  <i data-lucide="chevron-down" class="w-4 h-4 opacity-60"></i>
+                </button>
+                <div id="sortDropdown" class="sort-dd">
+                  <button class="active" data-sort="featured">پیشنهادی</button>
+                  <button data-sort="newest">جدیدترین</button>
+                  <button data-sort="price-asc">قیمت: کم به زیاد</button>
+                  <button data-sort="price-desc">قیمت: زیاد به کم</button>
+                  <button data-sort="rating">بیشترین امتیاز</button>
+                </div>
+              </div>
+              <!-- Grid toggles -->
+              <button id="gridBtn2" class="border border-[#d2cabd] p-3 hover:bg-[#ede8df] transition-colors" title="نمای ۲ ستون">
+                <i data-lucide="layout-grid" class="w-4 h-4"></i>
+              </button>
+              <button id="gridBtn3" class="border border-[#223024] bg-[#223024] text-white p-3" title="نمای ۳ ستون">
+                <i data-lucide="grid-3x3" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Active filter tags -->
+          <div id="filterTags" class="flex flex-wrap gap-2 mb-8">
+            <span class="ftag" data-filter="type-1">طارم هاشمی <span class="rem">×</span></span>
+            <span class="ftag" data-filter="aroma-1">عطر ملایم <span class="rem">×</span></span>
+            <span class="ftag" data-filter="region-1">گیلان <span class="rem">×</span></span>
+          </div>
+
+          <!-- ===== PRODUCT GRID ===== -->
+          <div id="productGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-14">
+
+            <!-- Card 1 -->
+            <article class="product-card">
+              <div class="image-wrap relative aspect-[4/5] overflow-hidden bg-[#e8e0d4] card-shadow">
+                <div class="img-inner w-full h-full">
+                  <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=640&q=80"
+                       class="w-full h-full object-cover" loading="lazy" alt="برنج طارم هاشمی ممتاز">
+                </div>
+                <button class="wishlist-btn absolute top-3 left-3 bg-white/86 backdrop-blur-sm w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200" aria-label="علاقه‌مندی">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </button>
+                <span class="absolute top-3 right-3 bg-white/86 backdrop-blur-sm text-[10px] tracking-[.12em] px-2.5 py-1.5">۵ کیلوگرم</span>
+                <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                    افزودن به سبد
+                  </button>
+                  <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="1" aria-label="نمای سریع">
+                    <i data-lucide="scan-eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pt-4">
+                <p class="section-eyebrow text-[var(--olive)] mb-2">برنج دانه بلند</p>
+                <div class="flex justify-between items-start gap-3">
+                  <h3 class="product-title">طارم هاشمی ممتاز</h3>
+                  <p class="text-[13px] whitespace-nowrap pt-0.5">۱۸۵،۰۰۰ ت</p>
+                </div>
+                <p class="small-copy text-[var(--muted)] mt-2">عطر بهشتی، بافت ابریشمی — مناسب پلوهای مجلسی</p>
+                <p class="text-[11px] text-[#c4a35a] mt-2.5">★★★★★ <span class="text-[var(--muted)]">(۴.۹)</span></p>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="product-card">
+              <div class="image-wrap relative aspect-[4/5] overflow-hidden bg-[#e4ddd3] card-shadow">
+                <div class="img-inner w-full h-full">
+                  <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=640&q=80"
+                       class="w-full h-full object-cover" loading="lazy" alt="برنج شیرودی اصیل">
+                </div>
+                <button class="wishlist-btn absolute top-3 left-3 bg-white/86 backdrop-blur-sm w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200" aria-label="علاقه‌مندی">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </button>
+                <span class="absolute top-3 right-3 bg-white/86 backdrop-blur-sm text-[10px] tracking-[.12em] px-2.5 py-1.5">۵ کیلوگرم</span>
+                <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                    افزودن به سبد
+                  </button>
+                  <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="2" aria-label="نمای سریع">
+                    <i data-lucide="scan-eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pt-4">
+                <p class="section-eyebrow text-[var(--olive)] mb-2">برنج نیمه معطر</p>
+                <div class="flex justify-between items-start gap-3">
+                  <h3 class="product-title">شیرودی اصیل</h3>
+                  <p class="text-[13px] whitespace-nowrap pt-0.5">۱۴۵،۰۰۰ ت</p>
+                </div>
+                <p class="small-copy text-[var(--muted)] mt-2">سفید یکنواخت، پخت آسان — ایده‌آل برای کته</p>
+                <p class="text-[11px] text-[#c4a35a] mt-2.5">★★★★☆ <span class="text-[var(--muted)]">(۴.۷)</span></p>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="product-card">
+              <div class="image-wrap relative aspect-[4/5] overflow-hidden bg-[#e0dbd2] card-shadow">
+                <div class="img-inner w-full h-full">
+                  <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=640&q=80"
+                       class="w-full h-full object-cover" loading="lazy" alt="برنج دمسیاه شمالی">
+                </div>
+                <button class="wishlist-btn absolute top-3 left-3 bg-white/86 backdrop-blur-sm w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200" aria-label="علاقه‌مندی">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </button>
+                <span class="absolute top-3 right-3 bg-[#223024] text-white text-[10px] tracking-[.12em] px-2.5 py-1.5">ممتاز</span>
+                <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                    افزودن به سبد
+                  </button>
+                  <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="3" aria-label="نمای سریع">
+                    <i data-lucide="scan-eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pt-4">
+                <p class="section-eyebrow text-[var(--olive)] mb-2">برنج اعلا</p>
+                <div class="flex justify-between items-start gap-3">
+                  <h3 class="product-title">دمسیاه شمالی</h3>
+                  <p class="text-[13px] whitespace-nowrap pt-0.5">۲۲۰،۰۰۰ ت</p>
+                </div>
+                <p class="small-copy text-[var(--muted)] mt-2">دانه‌های کشیده، عطر ملایم — انتخاب خاص</p>
+                <p class="text-[11px] text-[#c4a35a] mt-2.5">★★★★★ <span class="text-[var(--muted)]">(۵.۰)</span></p>
+              </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="product-card">
+              <div class="image-wrap relative aspect-[4/5] overflow-hidden bg-[#e6dfda] card-shadow">
+                <div class="img-inner w-full h-full">
+                  <img src="https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=640&q=80"
+                       class="w-full h-full object-cover" loading="lazy" alt="برنج علی‌کاظمی">
+                </div>
+                <button class="wishlist-btn absolute top-3 left-3 bg-white/86 backdrop-blur-sm w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200" aria-label="علاقه‌مندی">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </button>
+                <span class="absolute top-3 right-3 bg-white/86 backdrop-blur-sm text-[10px] tracking-[.12em] px-2.5 py-1.5">۵ کیلوگرم</span>
+                <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                    افزودن به سبد
+                  </button>
+                  <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="4" aria-label="نمای سریع">
+                    <i data-lucide="scan-eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pt-4">
+                <p class="section-eyebrow text-[var(--olive)] mb-2">برنج دانه بلند</p>
+                <div class="flex justify-between items-start gap-3">
+                  <h3 class="product-title">علی‌کاظمی درجه یک</h3>
+                  <p class="text-[13px] whitespace-nowrap pt-0.5">۱۶۵،۰۰۰ ت</p>
+                </div>
+                <p class="small-copy text-[var(--muted)] mt-2">دانه بلند ممتاز — تاج طلایی خوان ایرانی</p>
+                <p class="text-[11px] text-[#c4a35a] mt-2.5">★★★★☆ <span class="text-[var(--muted)]">(۴.۶)</span></p>
+              </div>
+            </article>
+
+            <!-- ===== EDITORIAL BANNER ===== -->
+            <div class="sm:col-span-2 xl:col-span-3 my-2">
+              <div class="relative min-h-[460px] overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1468078809804-4c7b3e60a478?auto=format&fit=crop&w=1700&q=80"
+                     class="absolute inset-0 w-full h-full object-cover" loading="lazy" alt="مزارع برنج">
+                <div class="absolute inset-0 editorial-overlay"></div>
+                <div class="relative p-8 md:p-14 text-white flex flex-col justify-center min-h-[460px] max-w-[680px]">
+                  <p class="section-eyebrow text-[#c0cdb9] mb-5">داستان ما</p>
+                  <h2 class="title-lg leading-tight">از زمین تا سفره،<br>یک مسیر عاشقانه</h2>
+                  <p class="body-copy text-[#dde2d8] max-w-[480px] mt-6 leading-loose">
+                    هر کیسه برنج دریا، سفری است از مزارع سبز رشت تا آشپزخانه شما. کشاورزانی که نسل‌ها با دست‌های خود، بهترین دانه‌ها را برای ما می‌کارند.
+                  </p>
+                  <button class="bg-white text-[#1f2a20] px-7 py-3.5 mt-8 text-[12px] tracking-[.1em] self-start hover:bg-[#f0ebe0] transition-colors">
+                    بیشتر بدانید
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 5 -->
+            <article class="product-card">
+              <div class="image-wrap relative aspect-[4/5] overflow-hidden bg-[#dfe9da] card-shadow">
+                <div class="img-inner w-full h-full">
+                  <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=640&q=80"
+                       class="w-full h-full object-cover" loading="lazy" alt="برنج ارگانیک">
+                </div>
+                <button class="wishlist-btn absolute top-3 left-3 bg-white/86 backdrop-blur-sm w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200" aria-label="علاقه‌مندی">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </button>
+                <span class="absolute top-3 right-3 bg-[#6c775f] text-white text-[10px] tracking-[.12em] px-2.5 py-1.5">ارگانیک</span>
+                <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                    افزودن به سبد
+                  </button>
+                  <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="5" aria-label="نمای سریع">
+                    <i data-lucide="scan-eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pt-4">
+                <p class="section-eyebrow text-[var(--olive)] mb-2">محصول ارگانیک</p>
+                <div class="flex justify-between items-start gap-3">
+                  <h3 class="product-title">طارم ارگانیک</h3>
+                  <p class="text-[13px] whitespace-nowrap pt-0.5">۱۹۵،۰۰۰ ت</p>
+                </div>
+                <p class="small-copy text-[var(--muted)] mt-2">کشت طبیعی، بدون سموم — تأیید شده ارگانیک</p>
+                <p class="text-[11px] text-[#c4a35a] mt-2.5">★★★★★ <span class="text-[var(--muted)]">(۴.۸)</span></p>
+              </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="product-card">
+              <div class="image-wrap relative aspect-[4/5] overflow-hidden bg-[#e6e0d8] card-shadow">
+                <div class="img-inner w-full h-full">
+                  <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=640&q=80"
+                       class="w-full h-full object-cover" loading="lazy" alt="برنج هاشمی سفید">
+                </div>
+                <button class="wishlist-btn absolute top-3 left-3 bg-white/86 backdrop-blur-sm w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200" aria-label="علاقه‌مندی">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </button>
+                <span class="absolute top-3 right-3 bg-white/86 backdrop-blur-sm text-[10px] tracking-[.12em] px-2.5 py-1.5">۵ کیلوگرم</span>
+                <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                    افزودن به سبد
+                  </button>
+                  <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="6" aria-label="نمای سریع">
+                    <i data-lucide="scan-eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pt-4">
+                <p class="section-eyebrow text-[var(--olive)] mb-2">برنج کلاسیک</p>
+                <div class="flex justify-between items-start gap-3">
+                  <h3 class="product-title">هاشمی سفید</h3>
+                  <p class="text-[13px] whitespace-nowrap pt-0.5">۱۵۵،۰۰۰ ت</p>
+                </div>
+                <p class="small-copy text-[var(--muted)] mt-2">سفید مرواریدی، عطر لطیف — مناسب هر روز</p>
+                <p class="text-[11px] text-[#c4a35a] mt-2.5">★★★★☆ <span class="text-[var(--muted)]">(۴.۵)</span></p>
+              </div>
+            </article>
+
+            <!-- Card 7 -->
+            <article class="product-card">
+              <div class="image-wrap relative aspect-[4/5] overflow-hidden bg-[#e2d9d0] card-shadow">
+                <div class="img-inner w-full h-full">
+                  <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=640&q=80"
+                       class="w-full h-full object-cover" loading="lazy" alt="برنج کشت اول بهاره">
+                </div>
+                <button class="wishlist-btn absolute top-3 left-3 bg-white/86 backdrop-blur-sm w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200" aria-label="علاقه‌مندی">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </button>
+                <span class="absolute top-3 right-3 bg-[#b59b67] text-white text-[10px] tracking-[.12em] px-2.5 py-1.5">فصلی</span>
+                <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                    افزودن به سبد
+                  </button>
+                  <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="7" aria-label="نمای سریع">
+                    <i data-lucide="scan-eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pt-4">
+                <p class="section-eyebrow text-[var(--olive)] mb-2">محصول فصلی</p>
+                <div class="flex justify-between items-start gap-3">
+                  <h3 class="product-title">کشت اول بهاره</h3>
+                  <p class="text-[13px] whitespace-nowrap pt-0.5">۲۴۰،۰۰۰ ت</p>
+                </div>
+                <p class="small-copy text-[var(--muted)] mt-2">اولین محصول سال — طعم تازه‌ی بهار در سفره</p>
+                <p class="text-[11px] text-[#c4a35a] mt-2.5">★★★★★ <span class="text-[var(--muted)]">(۵.۰)</span></p>
+              </div>
+            </article>
+
+            <!-- Card 8 -->
+            <article class="product-card">
+              <div class="image-wrap relative aspect-[4/5] overflow-hidden bg-[#ddd4cc] card-shadow">
+                <div class="img-inner w-full h-full">
+                  <img src="https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=640&q=80"
+                       class="w-full h-full object-cover" loading="lazy" alt="برنج لنگرودی">
+                </div>
+                <button class="wishlist-btn absolute top-3 left-3 bg-white/86 backdrop-blur-sm w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200" aria-label="علاقه‌مندی">
+                  <i data-lucide="heart" class="w-4 h-4"></i>
+                </button>
+                <span class="absolute top-3 right-3 bg-white/86 backdrop-blur-sm text-[10px] tracking-[.12em] px-2.5 py-1.5">۳ کیلوگرم</span>
+                <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                    افزودن به سبد
+                  </button>
+                  <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="8" aria-label="نمای سریع">
+                    <i data-lucide="scan-eye" class="w-4 h-4"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="pt-4">
+                <p class="section-eyebrow text-[var(--olive)] mb-2">برنج دانه کوتاه</p>
+                <div class="flex justify-between items-start gap-3">
+                  <h3 class="product-title">لنگرودی ممتاز</h3>
+                  <p class="text-[13px] whitespace-nowrap pt-0.5">۲۱۰،۰۰۰ ت</p>
+                </div>
+                <p class="small-copy text-[var(--muted)] mt-2">دانه گرد، بافت نرم — عالی برای دمی و کته</p>
+                <p class="text-[11px] text-[#c4a35a] mt-2.5">★★★★☆ <span class="text-[var(--muted)]">(۴.۷)</span></p>
+              </div>
+            </article>
+
+          </div>
+          <!-- End product grid -->
+
+          <!-- Load more -->
+          <div class="text-center mt-16 pt-10 border-t border-[#d8d0c3]">
+            <p class="small-copy text-[var(--muted)] mb-5">نمایش ۸ از ۲۴ محصول</p>
+            <button class="border border-[#223024] px-10 py-4 text-[12px] tracking-[.14em] hover:bg-[#223024] hover:text-white transition-all duration-300">
+              محصولات بیشتر
+            </button>
+          </div>
+
+        </section>
+        <!-- End products area -->
+
+      </div>
+    </section>
+
+    <!-- ===================== RECENTLY VIEWED ===================== -->
+    <section class="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-12 md:py-20">
+      <div class="flex justify-between items-end mb-9">
+        <div>
+          <p class="section-eyebrow text-[var(--olive)] mb-3">بازدیدهای اخیر</p>
+          <h2 class="title-lg">اخیراً دیده‌اید</h2>
+        </div>
+        <button class="hidden md:block border-b border-[#223024] pb-1 text-[12px] hover:text-[var(--olive)] transition-colors">
+          مشاهده همه
+        </button>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <article class="recent-card flex gap-4 border-t border-[#d8d0c3] pt-5 cursor-pointer group">
+          <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=220&q=80"
+               class="w-24 h-28 object-cover flex-shrink-0 transition-opacity" loading="lazy" alt="">
+          <div>
+            <p class="rc-title text-[14px] font-medium transition-colors">طارم هاشمی ممتاز</p>
+            <p class="small-copy text-[var(--muted)] mt-1.5">عطر بهشتی، بافت ابریشمی</p>
+            <p class="text-[12px] mt-2.5">۱۸۵،۰۰۰ تومان</p>
+          </div>
+        </article>
+        <article class="recent-card flex gap-4 border-t border-[#d8d0c3] pt-5 cursor-pointer group">
+          <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=220&q=80"
+               class="w-24 h-28 object-cover flex-shrink-0 transition-opacity" loading="lazy" alt="">
+          <div>
+            <p class="rc-title text-[14px] font-medium transition-colors">دمسیاه شمالی</p>
+            <p class="small-copy text-[var(--muted)] mt-1.5">دانه‌های کشیده، انتخاب خاص</p>
+            <p class="text-[12px] mt-2.5">۲۲۰،۰۰۰ تومان</p>
+          </div>
+        </article>
+        <article class="recent-card flex gap-4 border-t border-[#d8d0c3] pt-5 cursor-pointer group">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=220&q=80"
+               class="w-24 h-28 object-cover flex-shrink-0 transition-opacity" loading="lazy" alt="">
+          <div>
+            <p class="rc-title text-[14px] font-medium transition-colors">کشت اول بهاره</p>
+            <p class="small-copy text-[var(--muted)] mt-1.5">طعم تازه‌ی بهار در سفره</p>
+            <p class="text-[12px] mt-2.5">۲۴۰،۰۰۰ تومان</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== EDUCATIONAL SECTION ===================== -->
+    <section class="bg-[#ece5d9]">
+      <div class="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-20 md:py-28">
+        <div class="grid lg:grid-cols-[.92fr_1.08fr] gap-14 items-start">
+          <div>
+            <p class="section-eyebrow text-[var(--olive)] mb-4">راهنمای خریدار</p>
+            <h2 class="title-lg max-w-[560px]">رازهای برنج ایرانی</h2>
+            <p class="body-copy text-[#686c63] max-w-[520px] mt-6 leading-loose">
+              آنچه هر دوستدار برنج باید بداند — از طول دانه تا پروفایل عطر، از منطقه کشت تا هنر پخت. با دریا، از انتخاب تا سفره آگاهانه تصمیم بگیرید.
+            </p>
+            <button class="mt-9 border border-[#223024] px-8 py-3.5 text-[12px] tracking-[.12em] hover:bg-[#223024] hover:text-white transition-all duration-300">
+              راهنمای کامل برنج
+            </button>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="border-t border-[#bdb5a8] pt-6">
+              <span class="latin text-[32px] text-[var(--olive)] font-medium">01</span>
+              <h3 class="text-[18px] mt-4 font-normal">انواع دانه</h3>
+              <p class="small-copy text-[#71746d] mt-3 leading-loose">
+                طارم هاشمی با دانه‌های ظریف و کشیده‌اش، عطری که از مزارع شمال تا سفره شما همراه است. هر نوع، داستانی متفاوت دارد.
+              </p>
+            </div>
+            <div class="border-t border-[#bdb5a8] pt-6">
+              <span class="latin text-[32px] text-[var(--olive)] font-medium">02</span>
+              <h3 class="text-[18px] mt-4 font-normal">پروفایل عطر</h3>
+              <p class="small-copy text-[#71746d] mt-3 leading-loose">
+                ترکیب طبیعی ۲-استیل-۱-پیرولین، همان مولکولی که عطر منحصربه‌فرد برنج‌های شمالی ایران را می‌سازد.
+              </p>
+            </div>
+            <div class="border-t border-[#bdb5a8] pt-6">
+              <span class="latin text-[32px] text-[var(--olive)] font-medium">03</span>
+              <h3 class="text-[18px] mt-4 font-normal">هنر پخت</h3>
+              <p class="small-copy text-[#71746d] mt-3 leading-loose">
+                آب مناسب، آبکشی کافی و حرارت ملایم — سه رازی که پلو را به شاهکار تبدیل می‌کنند.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== NEWSLETTER ===================== -->
+    <section class="max-w-[980px] mx-auto px-5 py-20 md:py-28 text-center">
+      <p class="section-eyebrow text-[var(--olive)] mb-4">خبرنامه</p>
+      <h2 class="title-lg">زودتر از همه بدانید</h2>
+      <p class="body-copy text-[#6f7169] max-w-[540px] mx-auto mt-5 leading-loose">
+        از جدیدترین محصولات، تخفیف‌های ویژه و دستورپخت‌های فصلی مطلع شوید. بدون ایمیل‌های غیرضروری، قول می‌دهیم.
+      </p>
+      <form id="newsletterForm" class="max-w-[520px] mx-auto mt-9">
+        <label for="newsletter-email" class="sr-only">ایمیل شما</label>
+        <div class="flex border-b border-[#837d72]">
+          <input id="newsletter-email" type="email" required class="flex-1 bg-transparent py-4 text-[13px] outline-none placeholder-[#a8a49d]" placeholder="ایمیل شما را وارد کنید">
+          <button class="px-5 text-[12px] tracking-[.1em] hover:text-[var(--olive)] transition-colors" type="submit">عضویت</button>
+        </div>
+        <p id="newsletterSuccess" class="hidden small-copy text-[#5f6d58] mt-4">
+          ممنون! به خانواده دریا خوش آمدید ✓
+        </p>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-[#1d251d] text-white">
+    <div class="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-14">
+      <div class="grid md:grid-cols-[1.4fr_.8fr_.8fr] gap-10">
+        <div>
+          <p class="latin text-[34px] tracking-[-.04em]">Darya</p>
+          <p class="small-copy text-[#cdd2ca] mt-4 max-w-[330px] leading-loose">
+            از مزارع سرسبز شمال ایران، با عشق به سفره شما می‌آوریم. تجربه‌ای از طبیعت اصیل ایران در هر وعده.
+          </p>
+          <div class="flex gap-3 mt-6">
+            <button class="w-8 h-8 border border-[#3a4a3a] flex items-center justify-center hover:border-[#7a9b7a] transition-colors" aria-label="اینستاگرام">
+              <i data-lucide="instagram" class="w-3.5 h-3.5"></i>
+            </button>
+            <button class="w-8 h-8 border border-[#3a4a3a] flex items-center justify-center hover:border-[#7a9b7a] transition-colors" aria-label="توییتر">
+              <i data-lucide="twitter" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+        <div>
+          <p class="section-eyebrow text-[#aab5a5] mb-5">فروشگاه</p>
+          <div class="space-y-2.5 text-[13px] text-[#dce0d8]">
+            <p class="hover:text-white cursor-pointer transition-colors">همه محصولات</p>
+            <p class="hover:text-white cursor-pointer transition-colors">فروش ویژه</p>
+            <p class="hover:text-white cursor-pointer transition-colors">بسته‌بندی هدیه</p>
+          </div>
+        </div>
+        <div>
+          <p class="section-eyebrow text-[#aab5a5] mb-5">شرکت</p>
+          <div class="space-y-2.5 text-[13px] text-[#dce0d8]">
+            <p class="hover:text-white cursor-pointer transition-colors">درباره ما</p>
+            <p class="hover:text-white cursor-pointer transition-colors">تماس با ما</p>
+            <p class="hover:text-white cursor-pointer transition-colors">مجله دریا</p>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-[#2e3e2e] mt-12 pt-5 flex flex-col md:flex-row justify-between gap-3 text-[11px] text-[#aeb8aa]">
+        <span>© ۱۴۰۳ دریا رایس — تمام حقوق محفوظ است</span>
+        <span>ساخته شده با محبت در ایران</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== SEARCH OVERLAY ===================== -->
+  <div id="searchOverlay" class="overlay fixed inset-0 z-50 bg-[#f6f1e8]/96 backdrop-blur-lg">
+    <div class="max-w-[1100px] mx-auto px-5 py-8">
+      <div class="flex justify-between items-center mb-20">
+        <p class="section-eyebrow text-[var(--olive)]">جستجو</p>
+        <button id="closeSearch" class="p-1" aria-label="بستن جستجو">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="border-b border-[#bab2a6] flex items-center gap-4 pb-5">
+        <input id="searchInput" class="bg-transparent text-[32px] md:text-[52px] font-light flex-1 outline-none text-[var(--ink)]" placeholder="جستجو برنج، دستور پخت، هدیه...">
+        <i data-lucide="search" class="w-6 h-6 text-[#687064] flex-shrink-0"></i>
+      </div>
+      <div class="mt-9">
+        <p class="section-eyebrow text-[var(--muted)] mb-4">جستجوهای محبوب</p>
+        <div class="flex flex-wrap gap-2">
+          <button class="border border-[#d3cabd] px-4 py-2 text-[12px] hover:bg-[#ede8df] hover:border-[#b0a898] transition-all">طارم هاشمی</button>
+          <button class="border border-[#d3cabd] px-4 py-2 text-[12px] hover:bg-[#ede8df] hover:border-[#b0a898] transition-all">برنج ارگانیک</button>
+          <button class="border border-[#d3cabd] px-4 py-2 text-[12px] hover:bg-[#ede8df] hover:border-[#b0a898] transition-all">بسته هدیه</button>
+          <button class="border border-[#d3cabd] px-4 py-2 text-[12px] hover:bg-[#ede8df] hover:border-[#b0a898] transition-all">دمسیاه</button>
+          <button class="border border-[#d3cabd] px-4 py-2 text-[12px] hover:bg-[#ede8df] hover:border-[#b0a898] transition-all">کشت اول</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== QUICK VIEW MODAL ===================== -->
+  <div id="quickView" class="overlay fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+    <div class="modal-panel bg-[#f7f2e9] max-w-[960px] w-full grid md:grid-cols-2 relative max-h-[90vh] overflow-auto">
+      <button id="closeQuickView" class="absolute top-4 left-4 z-10 bg-white/85 rounded-full w-9 h-9 flex items-center justify-center hover:bg-white transition-colors" aria-label="بستن">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+      <div class="aspect-square md:aspect-auto bg-[#e9e1d4] min-h-[360px]">
+        <img id="qvImage" src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=700&q=80"
+             class="w-full h-full object-cover" loading="lazy" alt="">
+      </div>
+      <div class="p-7 md:p-10 flex flex-col">
+        <p id="qvKicker" class="section-eyebrow text-[var(--olive)] mb-4">برنج دانه بلند</p>
+        <h2 id="qvTitle" class="title-md">طارم هاشمی ممتاز</h2>
+        <p id="qvPrice" class="text-[18px] mt-4">۱۸۵،۰۰۰ تومان</p>
+        <p class="text-[11px] text-[#c4a35a] mt-2">★★★★★ <span class="text-[var(--muted)]">(۴.۹ از ۵ — ۱۲۷ نظر)</span></p>
+        <p id="qvCopy" class="body-copy text-[#74756d] mt-5 leading-loose flex-1">
+          برنج طارم هاشمی ممتاز با دانه‌های کشیده و عطر بهشتی، انتخاب مجالس و سفره‌های خاص ایرانی است.
+        </p>
+        <div class="mt-auto pt-6 flex gap-3">
+          <button class="add-cart flex-1 bg-[#1f2a20] text-white py-4 text-[13px] hover:bg-[#2d3f2d] transition-colors">
+            افزودن به سبد خرید
+          </button>
+          <button class="wishlist-btn border border-[#d8d0c3] w-12 flex items-center justify-center hover:border-[#6c775f] transition-colors" aria-label="علاقه‌مندی">
+            <i data-lucide="heart" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== CART BACKDROP ===================== -->
+  <div id="cartBackdrop" class="overlay fixed inset-0 z-40 bg-black/38"></div>
+
+  <!-- ===================== CART DRAWER ===================== -->
+  <aside id="cartDrawer" class="drawer-left fixed top-0 left-0 z-50 h-full w-[92%] max-w-[420px] bg-[#f8f4ec] border-r border-[#ddd4c7] flex flex-col">
+    <div class="p-5 border-b border-[#ddd4c7] flex items-center justify-between flex-shrink-0">
+      <h2 class="text-[20px] font-medium">سبد خرید</h2>
+      <button id="closeCart" class="p-1" aria-label="بستن سبد خرید">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-5">
+      <!-- Item 1 -->
+      <div class="flex gap-3 border-b border-[#ddd4c7] pb-5 mb-5">
+        <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=200&q=80"
+             class="w-20 h-24 object-cover flex-shrink-0" loading="lazy" alt="">
+        <div class="flex-1 min-w-0">
+          <p class="text-[13px] font-medium">طارم هاشمی ممتاز</p>
+          <p class="small-copy text-[#77776f] mt-1">۵ کیلوگرم</p>
+          <div class="flex items-center gap-3 mt-2.5">
+            <button class="w-6 h-6 border border-[#d8d0c3] flex items-center justify-center text-[13px] hover:bg-[#ede8df] transition-colors">−</button>
+            <span class="text-[12px] w-4 text-center">۱</span>
+            <button class="w-6 h-6 border border-[#d8d0c3] flex items-center justify-center text-[13px] hover:bg-[#ede8df] transition-colors">+</button>
+          </div>
+        </div>
+        <div class="text-left flex-shrink-0">
+          <p class="text-[12px]">۱۸۵،۰۰۰</p>
+          <button class="mt-2 text-[#9a9891] hover:text-[#1d251d] transition-colors block" aria-label="حذف">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Item 2 -->
+      <div class="flex gap-3 border-b border-[#ddd4c7] pb-5">
+        <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=200&q=80"
+             class="w-20 h-24 object-cover flex-shrink-0" loading="lazy" alt="">
+        <div class="flex-1 min-w-0">
+          <p class="text-[13px] font-medium">دمسیاه شمالی</p>
+          <p class="small-copy text-[#77776f] mt-1">۳ کیلوگرم</p>
+          <div class="flex items-center gap-3 mt-2.5">
+            <button class="w-6 h-6 border border-[#d8d0c3] flex items-center justify-center text-[13px] hover:bg-[#ede8df] transition-colors">−</button>
+            <span class="text-[12px] w-4 text-center">۱</span>
+            <button class="w-6 h-6 border border-[#d8d0c3] flex items-center justify-center text-[13px] hover:bg-[#ede8df] transition-colors">+</button>
+          </div>
+        </div>
+        <div class="text-left flex-shrink-0">
+          <p class="text-[12px]">۲۲۰،۰۰۰</p>
+          <button class="mt-2 text-[#9a9891] hover:text-[#1d251d] transition-colors block" aria-label="حذف">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart footer -->
+    <div class="border-t border-[#ddd4c7] p-5 flex-shrink-0 bg-[#f8f4ec]">
+      <div class="flex justify-between text-[13px] mb-1.5">
+        <span>جمع سبد</span>
+        <span>۴۰۵،۰۰۰ تومان</span>
+      </div>
+      <p class="small-copy text-[#77776f] mb-4">ارسال رایگان برای این سفارش ✓</p>
+      <button class="w-full bg-[#1f2a20] text-white py-4 text-[13px] hover:bg-[#2d3f2d] transition-colors">
+        تکمیل خرید
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===================== MOBILE FILTER DRAWER ===================== -->
+  <aside id="mobileFilterDrawer" class="drawer-right fixed inset-y-0 right-0 z-50 w-[88%] max-w-[390px] bg-[#f7f2e9] border-l border-[#ddd4c7] flex flex-col">
+    <div class="p-6 border-b border-[#ddd4c7] flex items-center justify-between flex-shrink-0">
+      <h2 class="text-[20px] font-medium">فیلترها</h2>
+      <button id="closeMobileFilter" class="p-1" aria-label="بستن فیلترها">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-6 space-y-7 text-[13px]">
+      <div>
+        <p class="font-medium mb-3.5">نوع برنج</p>
+        <div class="space-y-3 text-[#61665d]">
+          <label class="flex gap-2.5 cursor-pointer items-center"><input type="checkbox" checked><span>طارم هاشمی</span></label>
+          <label class="flex gap-2.5 cursor-pointer items-center"><input type="checkbox"><span>شیرودی</span></label>
+          <label class="flex gap-2.5 cursor-pointer items-center"><input type="checkbox"><span>دمسیاه</span></label>
+          <label class="flex gap-2.5 cursor-pointer items-center"><input type="checkbox"><span>علی‌کاظمی</span></label>
+        </div>
+      </div>
+      <div>
+        <p class="font-medium mb-3.5">منطقه کشت</p>
+        <div class="space-y-3 text-[#61665d]">
+          <label class="flex gap-2.5 cursor-pointer items-center"><input type="checkbox" checked><span>گیلان</span></label>
+          <label class="flex gap-2.5 cursor-pointer items-center"><input type="checkbox"><span>مازندران</span></label>
+          <label class="flex gap-2.5 cursor-pointer items-center"><input type="checkbox"><span>گلستان</span></label>
+        </div>
+      </div>
+      <div>
+        <p class="font-medium mb-3.5">وزن بسته‌بندی</p>
+        <div class="space-y-3 text-[#61665d]">
+          <label class="flex gap-2.5 cursor-pointer items-center"><input type="checkbox"><span>۲ کیلوگرم</span></label>
+          <label class="flex gap-2.5 cursor-pointer items-center"><input type="checkbox" checked><span>۵ کیلوگرم</span></label>
+          <label class="flex gap-2.5 cursor-pointer items-center"><input type="checkbox"><span>۱۰ کیلوگرم</span></label>
+        </div>
+      </div>
+      <div>
+        <p class="font-medium mb-3.5">محدوده قیمت</p>
+        <div class="price-track">
+          <div class="price-fill" style="right:10%;left:20%"></div>
+          <span class="price-thumb" style="right:10%"></span>
+          <span class="price-thumb" style="right:80%"></span>
+        </div>
+        <div class="flex justify-between text-[11px] text-[var(--muted)] mt-2">
+          <span>۲۴۰،۰۰۰ تومان</span>
+          <span>۱۴۰،۰۰۰ تومان</span>
+        </div>
+      </div>
+    </div>
+    <div class="p-6 border-t border-[#ddd4c7] flex-shrink-0">
+      <button id="mobileApplyFilters" class="w-full bg-[#1f2a20] text-white py-4 text-[13px] hover:bg-[#2d3f2d] transition-colors">
+        اعمال فیلترها
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===================== MOBILE SORT SHEET ===================== -->
+  <div id="sortSheetBackdrop" class="sort-sheet-backdrop"></div>
+  <div id="mobileSortSheet" class="sort-sheet">
+    <div class="flex items-center justify-between mb-6">
+      <h3 class="text-[18px] font-medium">مرتب‌سازی</h3>
+      <button id="closeSortSheet" class="p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+    </div>
+    <div class="space-y-1" id="mobileSortOptions">
+      <button class="block w-full text-right py-3 text-[14px] text-[var(--olive)] font-medium" data-msort="featured">پیشنهادی</button>
+      <button class="block w-full text-right py-3 text-[14px]" data-msort="newest">جدیدترین</button>
+      <button class="block w-full text-right py-3 text-[14px]" data-msort="price-asc">قیمت: کم به زیاد</button>
+      <button class="block w-full text-right py-3 text-[14px]" data-msort="price-desc">قیمت: زیاد به کم</button>
+      <button class="block w-full text-right py-3 text-[14px]" data-msort="rating">بیشترین امتیاز</button>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // ── Sticky header ──────────────────────────────────────
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 18), { passive: true });
+
+    // ── Mobile menu ────────────────────────────────────────
+    const mobilePanel = document.getElementById('mobilePanel');
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => mobilePanel.classList.add('open'));
+    document.getElementById('closeMobileBtn').addEventListener('click', () => mobilePanel.classList.remove('open'));
+
+    // ── Search overlay ─────────────────────────────────────
+    const searchOverlay = document.getElementById('searchOverlay');
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      searchOverlay.classList.add('open');
+      setTimeout(() => document.getElementById('searchInput').focus(), 220);
+    });
+    document.getElementById('closeSearch').addEventListener('click', () => searchOverlay.classList.remove('open'));
+    searchOverlay.addEventListener('click', e => { if (e.target === searchOverlay) searchOverlay.classList.remove('open'); });
+
+    // ── Accordion filters ──────────────────────────────────
+    document.querySelectorAll('.accordion-toggle').forEach(btn => {
+      btn.addEventListener('click', () => btn.closest('.accordion-row').classList.toggle('open'));
+    });
+
+    // ── Wishlist toggles ───────────────────────────────────
+    document.querySelectorAll('.wishlist-btn').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        btn.classList.toggle('wishlist-active');
+      });
+    });
+
+    // ── Quick view ─────────────────────────────────────────
+    const qvData = {
+      '1': { kicker: 'برنج دانه بلند', title: 'طارم هاشمی ممتاز', price: '۱۸۵،۰۰۰ تومان', copy: 'برنج طارم هاشمی ممتاز با دانه‌های کشیده و عطر بهشتی، انتخاب مجالس و سفره‌های خاص ایرانی است. هر وعده با این برنج، تجربه‌ای از طبیعت شمال ایران است.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&q=80' },
+      '2': { kicker: 'برنج نیمه معطر', title: 'شیرودی اصیل', price: '۱۴۵،۰۰۰ تومان', copy: 'شیرودی اصیل با سفیدی یکنواخت و پخت آسانش، ایده‌آل برای کته روزانه و غذاهای خانوادگی است. بهترین گزینه برای استفاده روزمره.', img: 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=720&q=80' },
+      '3': { kicker: 'برنج اعلا', title: 'دمسیاه شمالی', price: '۲۲۰،۰۰۰ تومان', copy: 'دمسیاه شمالی با دانه‌های کشیده و عطر ملایمش، انتخاب افرادی است که کیفیت واقعی را می‌شناسند. محدود و ارزشمند.', img: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=720&q=80' },
+      '4': { kicker: 'برنج دانه بلند', title: 'علی‌کاظمی درجه یک', price: '۱۶۵،۰۰۰ تومان', copy: 'علی‌کاظمی با دانه‌های بلند و ممتاز، تاج طلایی خوان ایرانی است که هر وعده را به مناسبتی خاص تبدیل می‌کند.', img: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=720&q=80' },
+      '5': { kicker: 'محصول ارگانیک', title: 'طارم ارگانیک', price: '۱۹۵،۰۰۰ تومان', copy: 'کشت طبیعی بدون سموم شیمیایی، تأیید شده ارگانیک — برای خانواده‌هایی که سلامت را در اولویت قرار می‌دهند.', img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=720&q=80' },
+      '6': { kicker: 'برنج کلاسیک', title: 'هاشمی سفید', price: '۱۵۵،۰۰۰ تومان', copy: 'هاشمی سفید با سفیدی مرواریدی و عطر لطیف، همراه همیشگی سفره‌های ایرانی است. پایه‌ای که هیچ آشپزخانه‌ای از آن بی‌نیاز نیست.', img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=720&q=80' },
+      '7': { kicker: 'محصول فصلی', title: 'کشت اول بهاره', price: '۲۴۰،۰۰۰ تومان', copy: 'اولین محصول سال، با طعم تازه‌ی بهار در سفره. این برنج فصلی در مقدار محدود موجود است — فرصت را از دست ندهید.', img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=720&q=80' },
+      '8': { kicker: 'برنج دانه کوتاه', title: 'لنگرودی ممتاز', price: '۲۱۰،۰۰۰ تومان', copy: 'لنگرودی ممتاز با دانه‌های گرد و بافت نرم، برای دمی و کته‌های خاص بی‌نظیر است. عطری آرام و پختی یکنواخت.', img: 'https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=720&q=80' },
+    };
+
+    const quickView = document.getElementById('quickView');
+    document.querySelectorAll('.quickview').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const p = qvData[btn.dataset.product];
+        if (p) {
+          document.getElementById('qvKicker').textContent = p.kicker;
+          document.getElementById('qvTitle').textContent = p.title;
+          document.getElementById('qvPrice').textContent = p.price;
+          document.getElementById('qvCopy').textContent = p.copy;
+          document.getElementById('qvImage').src = p.img;
+        }
+        quickView.classList.add('open');
+      });
+    });
+    document.getElementById('closeQuickView').addEventListener('click', () => quickView.classList.remove('open'));
+    quickView.addEventListener('click', e => { if (e.target === quickView) quickView.classList.remove('open'); });
+
+    // ── Cart drawer ────────────────────────────────────────
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartBackdrop = document.getElementById('cartBackdrop');
+    function openCart() { cartDrawer.classList.add('open'); cartBackdrop.classList.add('open'); }
+    function closeCart() { cartDrawer.classList.remove('open'); cartBackdrop.classList.remove('open'); }
+    document.getElementById('cartBtn').addEventListener('click', openCart);
+    document.getElementById('closeCart').addEventListener('click', closeCart);
+    cartBackdrop.addEventListener('click', closeCart);
+    document.querySelectorAll('.add-cart').forEach(btn => btn.addEventListener('click', openCart));
+
+    // ── Mobile filter drawer ───────────────────────────────
+    const mobileFilterDrawer = document.getElementById('mobileFilterDrawer');
+    document.getElementById('mobileFilterBtn').addEventListener('click', () => mobileFilterDrawer.classList.add('open'));
+    document.getElementById('closeMobileFilter').addEventListener('click', () => mobileFilterDrawer.classList.remove('open'));
+    document.getElementById('mobileApplyFilters').addEventListener('click', () => mobileFilterDrawer.classList.remove('open'));
+
+    // ── Mobile sort sheet ──────────────────────────────────
+    const sortSheet = document.getElementById('mobileSortSheet');
+    const sortSheetBg = document.getElementById('sortSheetBackdrop');
+    function openSortSheet() { sortSheet.classList.add('open'); sortSheetBg.classList.add('open'); }
+    function closeSortSheet() { sortSheet.classList.remove('open'); sortSheetBg.classList.remove('open'); }
+    document.getElementById('mobileSortBtn').addEventListener('click', openSortSheet);
+    document.getElementById('closeSortSheet').addEventListener('click', closeSortSheet);
+    sortSheetBg.addEventListener('click', closeSortSheet);
+    document.querySelectorAll('[data-msort]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-msort]').forEach(b => { b.classList.remove('text-[var(--olive)]', 'font-medium'); });
+        btn.classList.add('text-[var(--olive)]', 'font-medium');
+        document.getElementById('mobileSortLabel').textContent = btn.textContent;
+        closeSortSheet();
+      });
+    });
+
+    // ── Desktop sort dropdown ──────────────────────────────
+    const sortBtn = document.getElementById('sortBtn');
+    const sortDropdown = document.getElementById('sortDropdown');
+    const sortLabel = document.getElementById('sortLabel');
+    sortBtn.addEventListener('click', e => { e.stopPropagation(); sortDropdown.classList.toggle('open'); });
+    document.addEventListener('click', () => sortDropdown.classList.remove('open'));
+    sortDropdown.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sortDropdown.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        sortLabel.textContent = btn.textContent;
+        sortDropdown.classList.remove('open');
+      });
+    });
+
+    // ── Grid view toggle ───────────────────────────────────
+    const productGrid = document.getElementById('productGrid');
+    const grid2Btn = document.getElementById('gridBtn2');
+    const grid3Btn = document.getElementById('gridBtn3');
+    grid2Btn.addEventListener('click', () => {
+      productGrid.className = 'grid sm:grid-cols-2 gap-x-6 gap-y-14';
+      grid2Btn.className = 'border border-[#223024] bg-[#223024] text-white p-3';
+      grid3Btn.className = 'border border-[#d2cabd] p-3 hover:bg-[#ede8df] transition-colors';
+    });
+    grid3Btn.addEventListener('click', () => {
+      productGrid.className = 'grid sm:grid-cols-2 xl:grid-cols-3 gap-x-6 gap-y-14';
+      grid3Btn.className = 'border border-[#223024] bg-[#223024] text-white p-3';
+      grid2Btn.className = 'border border-[#d2cabd] p-3 hover:bg-[#ede8df] transition-colors';
+    });
+
+    // ── Filter tags ────────────────────────────────────────
+    document.querySelectorAll('.ftag').forEach(tag => {
+      tag.addEventListener('click', () => {
+        tag.style.opacity = '0';
+        tag.style.transform = 'scale(.92)';
+        tag.style.transition = '.2s ease';
+        setTimeout(() => tag.remove(), 200);
+      });
+    });
+    document.getElementById('clearFilters').addEventListener('click', () => {
+      document.querySelectorAll('.ftag').forEach(t => t.click());
+      document.querySelectorAll('.accordion-content input[type="checkbox"]').forEach(cb => cb.checked = false);
+    });
+
+    // ── Toggle buttons ─────────────────────────────────────
+    function setupToggle(btnId, thumbId, initialOn) {
+      const btn = document.getElementById(btnId);
+      const thumb = document.getElementById(thumbId);
+      let on = initialOn;
+      btn.addEventListener('click', () => {
+        on = !on;
+        btn.style.backgroundColor = on ? '#2b362b' : '#cad0c4';
+        thumb.style.left = on ? '22px' : '4px';
+      });
+    }
+    setupToggle('organicToggle', 'organicThumb', false);
+    setupToggle('premiumToggle', 'premiumThumb', true);
+
+    // ── Newsletter ─────────────────────────────────────────
+    document.getElementById('newsletterForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const success = document.getElementById('newsletterSuccess');
+      success.classList.remove('hidden');
+      e.target.querySelector('input').value = '';
+    });
+
+    // ── Escape key ─────────────────────────────────────────
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      searchOverlay.classList.remove('open');
+      quickView.classList.remove('open');
+      closeCart();
+      mobileFilterDrawer.classList.remove('open');
+      mobilePanel.classList.remove('open');
+      closeSortSheet();
+    });
+  </script>
+</body>
+</html>
