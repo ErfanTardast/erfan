@@ -110,6 +110,25 @@
     .ann-close:hover{color:white}
     .ann-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:#b59b67;margin:0 10px;vertical-align:middle;flex-shrink:0}
 
+    /* Toast */
+    .toast{position:fixed;bottom:24px;right:24px;z-index:80;background:#1f2a20;color:white;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 50px rgba(0,0,0,.18);transform:translateX(120%);transition:.4s cubic-bezier(.4,0,.2,1);min-width:280px;max-width:360px}
+    .toast.show{transform:translateX(0)}
+    .toast-icon{background:#3a4f3a;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .toast-text{flex:1;font-size:13px;line-height:1.5}
+    .toast-text strong{font-weight:500}
+    .toast-text .sm{font-size:11px;color:#aab5a5;display:block;margin-top:2px}
+    .toast-btn{background:white;color:#1f2a20;padding:8px 12px;font-size:11px;flex-shrink:0;border:none;cursor:pointer;transition:.2s}
+    .toast-btn:hover{background:#f0ebe0}
+    @media(max-width:480px){.toast{right:16px;left:16px;min-width:0}}
+
+    /* Cart empty state */
+    .cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 24px;color:var(--muted)}
+
+    /* Qty input */
+    .qty-btn{width:24px;height:24px;border:1px solid #d8d0c3;background:white;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:.15s;color:#1d251d}
+    .qty-btn:hover{background:#ede8df;border-color:#b0a898}
+    .qty-btn:disabled{opacity:.4;cursor:not-allowed}
+
     /* Trust bar */
     .trust-bar{border-bottom:1px solid #e4ddd3}
     .trust-item{display:flex;align-items:center;gap:10px;padding:14px 0;border-left:1px solid #e4ddd3;justify-content:center}
@@ -583,7 +602,7 @@
                 </button>
                 <span class="absolute top-3 right-3 bg-white/86 backdrop-blur-sm text-[10px] tracking-[.12em] px-2.5 py-1.5">۵ کیلوگرم</span>
                 <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
-                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors" data-product="1">
                     افزودن به سبد
                   </button>
                   <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="1" aria-label="نمای سریع">
@@ -614,7 +633,7 @@
                 </button>
                 <span class="absolute top-3 right-3 bg-white/86 backdrop-blur-sm text-[10px] tracking-[.12em] px-2.5 py-1.5">۵ کیلوگرم</span>
                 <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
-                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors" data-product="2">
                     افزودن به سبد
                   </button>
                   <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="2" aria-label="نمای سریع">
@@ -645,7 +664,7 @@
                 </button>
                 <span class="absolute top-3 right-3 bg-[#223024] text-white text-[10px] tracking-[.12em] px-2.5 py-1.5">ممتاز</span>
                 <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
-                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors" data-product="3">
                     افزودن به سبد
                   </button>
                   <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="3" aria-label="نمای سریع">
@@ -676,7 +695,7 @@
                 </button>
                 <span class="absolute top-3 right-3 bg-white/86 backdrop-blur-sm text-[10px] tracking-[.12em] px-2.5 py-1.5">۵ کیلوگرم</span>
                 <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
-                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors" data-product="4">
                     افزودن به سبد
                   </button>
                   <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="4" aria-label="نمای سریع">
@@ -726,7 +745,7 @@
                 </button>
                 <span class="absolute top-3 right-3 bg-[#6c775f] text-white text-[10px] tracking-[.12em] px-2.5 py-1.5">ارگانیک</span>
                 <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
-                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors" data-product="5">
                     افزودن به سبد
                   </button>
                   <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="5" aria-label="نمای سریع">
@@ -757,7 +776,7 @@
                 </button>
                 <span class="absolute top-3 right-3 bg-white/86 backdrop-blur-sm text-[10px] tracking-[.12em] px-2.5 py-1.5">۵ کیلوگرم</span>
                 <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
-                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors" data-product="6">
                     افزودن به سبد
                   </button>
                   <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="6" aria-label="نمای سریع">
@@ -788,7 +807,7 @@
                 </button>
                 <span class="absolute top-3 right-3 bg-[#b59b67] text-white text-[10px] tracking-[.12em] px-2.5 py-1.5">فصلی</span>
                 <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
-                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors" data-product="7">
                     افزودن به سبد
                   </button>
                   <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="7" aria-label="نمای سریع">
@@ -819,7 +838,7 @@
                 </button>
                 <span class="absolute top-3 right-3 bg-white/86 backdrop-blur-sm text-[10px] tracking-[.12em] px-2.5 py-1.5">۳ کیلوگرم</span>
                 <div class="product-actions absolute right-3 left-3 bottom-3 flex gap-2">
-                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors">
+                  <button class="add-cart flex-1 py-3 text-[12px] bg-[#1f2a20] text-white hover:bg-[#2d3f2d] transition-colors" data-product="8">
                     افزودن به سبد
                   </button>
                   <button class="quickview bg-white w-11 flex items-center justify-center hover:bg-[#f0ebe0] transition-colors" data-product="8" aria-label="نمای سریع">
@@ -1046,7 +1065,7 @@
           برنج طارم هاشمی ممتاز با دانه‌های کشیده و عطر بهشتی، انتخاب مجالس و سفره‌های خاص ایرانی است.
         </p>
         <div class="mt-auto pt-6 flex gap-3">
-          <button class="add-cart flex-1 bg-[#1f2a20] text-white py-4 text-[13px] hover:bg-[#2d3f2d] transition-colors">
+          <button id="qvAddCart" class="add-cart flex-1 bg-[#1f2a20] text-white py-4 text-[13px] hover:bg-[#2d3f2d] transition-colors" data-product="1">
             افزودن به سبد خرید
           </button>
           <button class="wishlist-btn border border-[#d8d0c3] w-12 flex items-center justify-center hover:border-[#6c775f] transition-colors" aria-label="علاقه‌مندی">
@@ -1069,56 +1088,17 @@
       </button>
     </div>
 
-    <div class="flex-1 overflow-y-auto p-5">
-      <!-- Item 1 -->
-      <div class="flex gap-3 border-b border-[#ddd4c7] pb-5 mb-5">
-        <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=200&q=80"
-             class="w-20 h-24 object-cover flex-shrink-0" loading="lazy" alt="">
-        <div class="flex-1 min-w-0">
-          <p class="text-[13px] font-medium">طارم هاشمی ممتاز</p>
-          <p class="small-copy text-[#77776f] mt-1">۵ کیلوگرم</p>
-          <div class="flex items-center gap-3 mt-2.5">
-            <button class="w-6 h-6 border border-[#d8d0c3] flex items-center justify-center text-[13px] hover:bg-[#ede8df] transition-colors">−</button>
-            <span class="text-[12px] w-4 text-center">۱</span>
-            <button class="w-6 h-6 border border-[#d8d0c3] flex items-center justify-center text-[13px] hover:bg-[#ede8df] transition-colors">+</button>
-          </div>
-        </div>
-        <div class="text-left flex-shrink-0">
-          <p class="text-[12px]">۱۸۵،۰۰۰</p>
-          <button class="mt-2 text-[#9a9891] hover:text-[#1d251d] transition-colors block" aria-label="حذف">
-            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
-      </div>
-      <!-- Item 2 -->
-      <div class="flex gap-3 border-b border-[#ddd4c7] pb-5">
-        <img src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=200&q=80"
-             class="w-20 h-24 object-cover flex-shrink-0" loading="lazy" alt="">
-        <div class="flex-1 min-w-0">
-          <p class="text-[13px] font-medium">دمسیاه شمالی</p>
-          <p class="small-copy text-[#77776f] mt-1">۳ کیلوگرم</p>
-          <div class="flex items-center gap-3 mt-2.5">
-            <button class="w-6 h-6 border border-[#d8d0c3] flex items-center justify-center text-[13px] hover:bg-[#ede8df] transition-colors">−</button>
-            <span class="text-[12px] w-4 text-center">۱</span>
-            <button class="w-6 h-6 border border-[#d8d0c3] flex items-center justify-center text-[13px] hover:bg-[#ede8df] transition-colors">+</button>
-          </div>
-        </div>
-        <div class="text-left flex-shrink-0">
-          <p class="text-[12px]">۲۲۰،۰۰۰</p>
-          <button class="mt-2 text-[#9a9891] hover:text-[#1d251d] transition-colors block" aria-label="حذف">
-            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-          </button>
-        </div>
-      </div>
+    <div id="cartItemsList" class="flex-1 overflow-y-auto p-5">
+      <!-- items injected by JS -->
     </div>
 
     <!-- Cart footer -->
-    <div class="border-t border-[#ddd4c7] p-5 flex-shrink-0 bg-[#f8f4ec]">
+    <div id="cartFooter" class="border-t border-[#ddd4c7] p-5 flex-shrink-0 bg-[#f8f4ec]">
       <div class="flex justify-between text-[13px] mb-1.5">
         <span>جمع سبد</span>
-        <span>۴۰۵،۰۰۰ تومان</span>
+        <span id="cartTotal">۰ تومان</span>
       </div>
-      <p class="small-copy text-[#77776f] mb-4">ارسال رایگان برای این سفارش ✓</p>
+      <p id="cartShipNote" class="small-copy text-[#77776f] mb-4">ارسال رایگان برای این سفارش ✓</p>
       <button class="w-full bg-[#1f2a20] text-white py-4 text-[13px] hover:bg-[#2d3f2d] transition-colors">
         تکمیل خرید
       </button>
@@ -1195,6 +1175,18 @@
     </div>
   </div>
 
+  <!-- ===================== TOAST ===================== -->
+  <div id="toast" class="toast">
+    <div class="toast-icon">
+      <i data-lucide="check" class="w-4 h-4"></i>
+    </div>
+    <div class="toast-text">
+      <strong id="toastTitle">به سبد اضافه شد</strong>
+      <span class="sm" id="toastSub">طارم هاشمی ممتاز</span>
+    </div>
+    <button id="toastView" class="toast-btn">مشاهده</button>
+  </div>
+
   <script>
     lucide.createIcons();
 
@@ -1229,17 +1221,24 @@
       });
     });
 
-    // ── Quick view ─────────────────────────────────────────
-    const qvData = {
-      '1': { kicker: 'برنج دانه بلند', title: 'طارم هاشمی ممتاز', price: '۱۸۵،۰۰۰ تومان', copy: 'برنج طارم هاشمی ممتاز با دانه‌های کشیده و عطر بهشتی، انتخاب مجالس و سفره‌های خاص ایرانی است. هر وعده با این برنج، تجربه‌ای از طبیعت شمال ایران است.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&q=80' },
-      '2': { kicker: 'برنج نیمه معطر', title: 'شیرودی اصیل', price: '۱۴۵،۰۰۰ تومان', copy: 'شیرودی اصیل با سفیدی یکنواخت و پخت آسانش، ایده‌آل برای کته روزانه و غذاهای خانوادگی است. بهترین گزینه برای استفاده روزمره.', img: 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=720&q=80' },
-      '3': { kicker: 'برنج اعلا', title: 'دمسیاه شمالی', price: '۲۲۰،۰۰۰ تومان', copy: 'دمسیاه شمالی با دانه‌های کشیده و عطر ملایمش، انتخاب افرادی است که کیفیت واقعی را می‌شناسند. محدود و ارزشمند.', img: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=720&q=80' },
-      '4': { kicker: 'برنج دانه بلند', title: 'علی‌کاظمی درجه یک', price: '۱۶۵،۰۰۰ تومان', copy: 'علی‌کاظمی با دانه‌های بلند و ممتاز، تاج طلایی خوان ایرانی است که هر وعده را به مناسبتی خاص تبدیل می‌کند.', img: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=720&q=80' },
-      '5': { kicker: 'محصول ارگانیک', title: 'طارم ارگانیک', price: '۱۹۵،۰۰۰ تومان', copy: 'کشت طبیعی بدون سموم شیمیایی، تأیید شده ارگانیک — برای خانواده‌هایی که سلامت را در اولویت قرار می‌دهند.', img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=720&q=80' },
-      '6': { kicker: 'برنج کلاسیک', title: 'هاشمی سفید', price: '۱۵۵،۰۰۰ تومان', copy: 'هاشمی سفید با سفیدی مرواریدی و عطر لطیف، همراه همیشگی سفره‌های ایرانی است. پایه‌ای که هیچ آشپزخانه‌ای از آن بی‌نیاز نیست.', img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=720&q=80' },
-      '7': { kicker: 'محصول فصلی', title: 'کشت اول بهاره', price: '۲۴۰،۰۰۰ تومان', copy: 'اولین محصول سال، با طعم تازه‌ی بهار در سفره. این برنج فصلی در مقدار محدود موجود است — فرصت را از دست ندهید.', img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=720&q=80' },
-      '8': { kicker: 'برنج دانه کوتاه', title: 'لنگرودی ممتاز', price: '۲۱۰،۰۰۰ تومان', copy: 'لنگرودی ممتاز با دانه‌های گرد و بافت نرم، برای دمی و کته‌های خاص بی‌نظیر است. عطری آرام و پختی یکنواخت.', img: 'https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=720&q=80' },
+    // ── Product catalog ────────────────────────────────────
+    const PRODUCTS = {
+      '1': { kicker: 'برنج دانه بلند', title: 'طارم هاشمی ممتاز', price: 185000, weight: '۵ کیلوگرم', copy: 'برنج طارم هاشمی ممتاز با دانه‌های کشیده و عطر بهشتی، انتخاب مجالس و سفره‌های خاص ایرانی است. هر وعده با این برنج، تجربه‌ای از طبیعت شمال ایران است.', img: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&q=80' },
+      '2': { kicker: 'برنج نیمه معطر', title: 'شیرودی اصیل', price: 145000, weight: '۵ کیلوگرم', copy: 'شیرودی اصیل با سفیدی یکنواخت و پخت آسانش، ایده‌آل برای کته روزانه و غذاهای خانوادگی است. بهترین گزینه برای استفاده روزمره.', img: 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=720&q=80' },
+      '3': { kicker: 'برنج اعلا', title: 'دمسیاه شمالی', price: 220000, weight: '۵ کیلوگرم', copy: 'دمسیاه شمالی با دانه‌های کشیده و عطر ملایمش، انتخاب افرادی است که کیفیت واقعی را می‌شناسند. محدود و ارزشمند.', img: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=720&q=80' },
+      '4': { kicker: 'برنج دانه بلند', title: 'علی‌کاظمی درجه یک', price: 165000, weight: '۵ کیلوگرم', copy: 'علی‌کاظمی با دانه‌های بلند و ممتاز، تاج طلایی خوان ایرانی است که هر وعده را به مناسبتی خاص تبدیل می‌کند.', img: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?auto=format&fit=crop&w=720&q=80' },
+      '5': { kicker: 'محصول ارگانیک', title: 'طارم ارگانیک', price: 195000, weight: '۵ کیلوگرم', copy: 'کشت طبیعی بدون سموم شیمیایی، تأیید شده ارگانیک — برای خانواده‌هایی که سلامت را در اولویت قرار می‌دهند.', img: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=720&q=80' },
+      '6': { kicker: 'برنج کلاسیک', title: 'هاشمی سفید', price: 155000, weight: '۵ کیلوگرم', copy: 'هاشمی سفید با سفیدی مرواریدی و عطر لطیف، همراه همیشگی سفره‌های ایرانی است. پایه‌ای که هیچ آشپزخانه‌ای از آن بی‌نیاز نیست.', img: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=720&q=80' },
+      '7': { kicker: 'محصول فصلی', title: 'کشت اول بهاره', price: 240000, weight: '۵ کیلوگرم', copy: 'اولین محصول سال، با طعم تازه‌ی بهار در سفره. این برنج فصلی در مقدار محدود موجود است — فرصت را از دست ندهید.', img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=720&q=80' },
+      '8': { kicker: 'برنج دانه کوتاه', title: 'لنگرودی ممتاز', price: 210000, weight: '۳ کیلوگرم', copy: 'لنگرودی ممتاز با دانه‌های گرد و بافت نرم، برای دمی و کته‌های خاص بی‌نظیر است. عطری آرام و پختی یکنواخت.', img: 'https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=720&q=80' },
     };
+
+    // Persian digit + currency helpers
+    const FA_DIGITS = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+    const toFa = n => String(n).replace(/\d/g, d => FA_DIGITS[+d]);
+    const fmtPrice = n => toFa(n.toLocaleString('en-US')) + ' تومان';
+
+    const qvData = PRODUCTS; // alias for back-compat
 
     const quickView = document.getElementById('quickView');
     document.querySelectorAll('.quickview').forEach(btn => {
@@ -1249,9 +1248,10 @@
         if (p) {
           document.getElementById('qvKicker').textContent = p.kicker;
           document.getElementById('qvTitle').textContent = p.title;
-          document.getElementById('qvPrice').textContent = p.price;
+          document.getElementById('qvPrice').textContent = fmtPrice(p.price);
           document.getElementById('qvCopy').textContent = p.copy;
           document.getElementById('qvImage').src = p.img;
+          document.getElementById('qvAddCart').dataset.product = btn.dataset.product;
         }
         quickView.classList.add('open');
       });
@@ -1259,15 +1259,117 @@
     document.getElementById('closeQuickView').addEventListener('click', () => quickView.classList.remove('open'));
     quickView.addEventListener('click', e => { if (e.target === quickView) quickView.classList.remove('open'); });
 
-    // ── Cart drawer ────────────────────────────────────────
+    // ── CART STATE ─────────────────────────────────────────
+    const cart = new Map(); // id -> qty
+    // Seed initial cart (matches header badge of 2)
+    cart.set('1', 1);
+    cart.set('3', 1);
+
     const cartDrawer = document.getElementById('cartDrawer');
     const cartBackdrop = document.getElementById('cartBackdrop');
+    const cartItemsList = document.getElementById('cartItemsList');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const cartShipNote = document.getElementById('cartShipNote');
+    const cartBadge = document.querySelector('#cartBtn span');
+
+    function renderCart() {
+      cartItemsList.innerHTML = '';
+      let total = 0, count = 0;
+      if (cart.size === 0) {
+        cartItemsList.innerHTML = `
+          <div class="cart-empty">
+            <i data-lucide="shopping-bag" class="w-10 h-10 text-[#c5bdb5] mb-4"></i>
+            <p class="text-[14px] text-[#1d251d]">سبد خرید شما خالی است</p>
+            <p class="small-copy mt-2">با افزودن محصول، خرید را آغاز کنید</p>
+            <button id="emptyContinue" class="mt-6 border border-[#223024] px-6 py-2.5 text-[12px] hover:bg-[#223024] hover:text-white transition-all">ادامه خرید</button>
+          </div>`;
+        cartTotalEl.textContent = fmtPrice(0);
+        cartShipNote.textContent = 'هنوز محصولی اضافه نشده';
+        cartBadge.textContent = toFa(0);
+        cartBadge.style.opacity = '0';
+        lucide.createIcons();
+        const ec = document.getElementById('emptyContinue');
+        if (ec) ec.addEventListener('click', closeCart);
+        return;
+      }
+      cartBadge.style.opacity = '1';
+      cart.forEach((qty, id) => {
+        const p = PRODUCTS[id];
+        if (!p) return;
+        total += p.price * qty;
+        count += qty;
+        const row = document.createElement('div');
+        row.className = 'flex gap-3 border-b border-[#ddd4c7] pb-5 mb-5';
+        row.innerHTML = `
+          <img src="${p.img}" class="w-20 h-24 object-cover flex-shrink-0" loading="lazy" alt="${p.title}">
+          <div class="flex-1 min-w-0">
+            <p class="text-[13px] font-medium">${p.title}</p>
+            <p class="small-copy text-[#77776f] mt-1">${p.weight}</p>
+            <div class="flex items-center gap-2 mt-2.5">
+              <button class="qty-btn" data-act="dec" data-id="${id}" ${qty <= 1 ? 'disabled' : ''}>−</button>
+              <span class="text-[12px] w-5 text-center">${toFa(qty)}</span>
+              <button class="qty-btn" data-act="inc" data-id="${id}">+</button>
+            </div>
+          </div>
+          <div class="text-left flex-shrink-0">
+            <p class="text-[12px]">${toFa((p.price * qty).toLocaleString('en-US'))}</p>
+            <button class="mt-2 text-[#9a9891] hover:text-[#1d251d] transition-colors block" data-act="rem" data-id="${id}" aria-label="حذف">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>`;
+        cartItemsList.appendChild(row);
+      });
+      cartTotalEl.textContent = fmtPrice(total);
+      cartShipNote.textContent = total >= 500000 ? 'ارسال رایگان برای این سفارش ✓' : `${fmtPrice(500000 - total)} تا ارسال رایگان`;
+      cartBadge.textContent = toFa(count);
+      lucide.createIcons();
+    }
+
+    cartItemsList.addEventListener('click', e => {
+      const btn = e.target.closest('[data-act]');
+      if (!btn) return;
+      const id = btn.dataset.id;
+      const act = btn.dataset.act;
+      if (act === 'inc') cart.set(id, cart.get(id) + 1);
+      else if (act === 'dec' && cart.get(id) > 1) cart.set(id, cart.get(id) - 1);
+      else if (act === 'rem') cart.delete(id);
+      renderCart();
+    });
+
     function openCart() { cartDrawer.classList.add('open'); cartBackdrop.classList.add('open'); }
     function closeCart() { cartDrawer.classList.remove('open'); cartBackdrop.classList.remove('open'); }
     document.getElementById('cartBtn').addEventListener('click', openCart);
     document.getElementById('closeCart').addEventListener('click', closeCart);
     cartBackdrop.addEventListener('click', closeCart);
-    document.querySelectorAll('.add-cart').forEach(btn => btn.addEventListener('click', openCart));
+
+    // ── Toast ──────────────────────────────────────────────
+    const toast = document.getElementById('toast');
+    const toastSub = document.getElementById('toastSub');
+    let toastTimer;
+    function showToast(productTitle) {
+      toastSub.textContent = productTitle;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+    document.getElementById('toastView').addEventListener('click', () => {
+      toast.classList.remove('show');
+      openCart();
+    });
+
+    // ── Add to cart from any button ────────────────────────
+    document.querySelectorAll('.add-cart').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = btn.dataset.product;
+        if (!id || !PRODUCTS[id]) return;
+        cart.set(id, (cart.get(id) || 0) + 1);
+        renderCart();
+        showToast(PRODUCTS[id].title);
+      });
+    });
+
+    renderCart();
 
     // ── Mobile filter drawer ───────────────────────────────
     const mobileFilterDrawer = document.getElementById('mobileFilterDrawer');
