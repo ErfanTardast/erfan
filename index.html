@@ -103,6 +103,22 @@
     /* Focus */
     button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 
+    /* Announcement bar */
+    .ann-bar{background:#223024;color:#dde4d9;font-size:12px;text-align:center;padding:10px 40px;position:relative;line-height:1.5;transition:height .3s ease,opacity .3s ease,padding .3s ease}
+    .ann-bar.hidden-bar{height:0;opacity:0;padding:0;overflow:hidden}
+    .ann-close{position:absolute;left:16px;top:50%;transform:translateY(-50%);background:none;border:none;color:#9db09a;cursor:pointer;padding:4px;line-height:1;transition:.2s}
+    .ann-close:hover{color:white}
+    .ann-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:#b59b67;margin:0 10px;vertical-align:middle;flex-shrink:0}
+
+    /* Trust bar */
+    .trust-bar{border-bottom:1px solid #e4ddd3}
+    .trust-item{display:flex;align-items:center;gap:10px;padding:14px 0;border-left:1px solid #e4ddd3;justify-content:center}
+    .trust-item:last-child{border-left:none}
+    @media(max-width:640px){
+      .trust-item{border-left:none;border-bottom:1px solid #e4ddd3;padding:12px 0}
+      .trust-item:last-child{border-bottom:none}
+    }
+
     /* Mobile sort sheet */
     .sort-sheet{position:fixed;inset-x:0;bottom:0;z-index:60;background:#f7f2e9;border-top:1px solid #ddd4c7;padding:24px;transform:translateY(100%);transition:.35s cubic-bezier(.4,0,.2,1)}
     .sort-sheet.open{transform:translateY(0)}
@@ -130,6 +146,18 @@
   </style>
 </head>
 <body class="w-full overflow-x-hidden">
+
+  <!-- ===================== ANNOUNCEMENT BAR ===================== -->
+  <div id="annBar" class="ann-bar">
+    <span>ارسال رایگان برای سفارش‌های بالای ۵۰۰،۰۰۰ تومان</span>
+    <span class="ann-dot"></span>
+    <span>کد تخفیف ۱۵٪: <strong class="text-white tracking-wider">DARYA15</strong></span>
+    <span class="ann-dot"></span>
+    <span>تضمین اصالت محصول</span>
+    <button id="annClose" class="ann-close" aria-label="بستن">
+      <i data-lucide="x" class="w-3.5 h-3.5"></i>
+    </button>
+  </div>
 
   <!-- ===================== STICKY HEADER ===================== -->
   <header id="siteHeader" class="nav-glass sticky top-0 z-40 border-b border-white/40">
@@ -261,6 +289,42 @@
         </div>
       </div>
     </section>
+
+    <!-- ===================== TRUST SIGNALS BAR ===================== -->
+    <div class="trust-bar bg-[#fbf8f1]">
+      <div class="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12">
+        <div class="grid grid-cols-2 md:grid-cols-4">
+          <div class="trust-item">
+            <i data-lucide="truck" class="w-4 h-4 text-[var(--olive)] flex-shrink-0"></i>
+            <div>
+              <p class="text-[12px] font-medium">ارسال رایگان</p>
+              <p class="text-[10px] text-[var(--muted)]">از ۵۰۰ هزار تومان</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <i data-lucide="shield-check" class="w-4 h-4 text-[var(--olive)] flex-shrink-0"></i>
+            <div>
+              <p class="text-[12px] font-medium">ضمانت اصالت</p>
+              <p class="text-[10px] text-[var(--muted)]">۱۰۰٪ محصول اصل</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <i data-lucide="refresh-ccw" class="w-4 h-4 text-[var(--olive)] flex-shrink-0"></i>
+            <div>
+              <p class="text-[12px] font-medium">بازگشت ۷ روزه</p>
+              <p class="text-[10px] text-[var(--muted)]">بدون قید و شرط</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <i data-lucide="headphones" class="w-4 h-4 text-[var(--olive)] flex-shrink-0"></i>
+            <div>
+              <p class="text-[12px] font-medium">پشتیبانی ۲۴/۷</p>
+              <p class="text-[10px] text-[var(--muted)]">همیشه در کنار شما</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ===================== COLLECTION BODY ===================== -->
     <section class="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-10 md:py-16">
@@ -1292,6 +1356,13 @@
       const success = document.getElementById('newsletterSuccess');
       success.classList.remove('hidden');
       e.target.querySelector('input').value = '';
+    });
+
+    // ── Announcement bar dismiss ───────────────────────────
+    document.getElementById('annClose').addEventListener('click', () => {
+      const bar = document.getElementById('annBar');
+      bar.style.height = bar.offsetHeight + 'px';
+      requestAnimationFrame(() => bar.classList.add('hidden-bar'));
     });
 
     // ── Escape key ─────────────────────────────────────────
