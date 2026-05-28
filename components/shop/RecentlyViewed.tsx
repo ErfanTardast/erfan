@@ -3,11 +3,12 @@ import { motion } from 'framer-motion';
 import { PRODUCTS } from '@/lib/products';
 import { fmtPrice } from '@/lib/format';
 import { useUI } from '@/lib/store/ui';
+import { useHistory } from '@/lib/store/history';
 import { useCart } from '@/lib/store/cart';
 import { EASE, stagger, fadeUp } from '@/lib/motion';
 
 export function RecentlyViewed() {
-  const recentlyViewed = useUI((s) => s.recentlyViewed);
+  const recentlyViewed = useHistory((s) => s.recentlyViewed);
   const setQuickView = useUI((s) => s.setQuickView);
   const add = useCart((s) => s.add);
   const openCart = useCart((s) => s.open);

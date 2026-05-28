@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { Search, X, Clock, TrendingUp } from 'lucide-react';
 import { useUI } from '@/lib/store/ui';
+import { useHistory } from '@/lib/store/history';
 import { PRODUCTS } from '@/lib/products';
 import { fmtPrice } from '@/lib/format';
 import { EASE } from '@/lib/motion';
@@ -13,8 +14,8 @@ export function SearchOverlay() {
   const open = useUI((s) => s.searchOpen);
   const setSearch = useUI((s) => s.setSearch);
   const setQuickView = useUI((s) => s.setQuickView);
-  const addRecentSearch = useUI((s) => s.addRecentSearch);
-  const recentSearches = useUI((s) => s.recentSearches);
+  const addRecentSearch = useHistory((s) => s.addRecentSearch);
+  const recentSearches = useHistory((s) => s.recentSearches);
   const inputRef = useRef<HTMLInputElement>(null);
   const [q, setQ] = useState('');
   const [focused, setFocused] = useState(-1);

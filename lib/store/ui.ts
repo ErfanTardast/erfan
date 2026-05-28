@@ -9,8 +9,6 @@ type UIState = {
   mobileSortOpen: boolean;
   quickViewProduct: Product | null;
   toast: { title: string; sub: string; key: number } | null;
-  recentlyViewed: string[];
-  recentSearches: string[];
   setSearch: (v: boolean) => void;
   setMobileMenu: (v: boolean) => void;
   setMobileFilter: (v: boolean) => void;
@@ -18,8 +16,6 @@ type UIState = {
   setQuickView: (p: Product | null) => void;
   showToast: (title: string, sub: string) => void;
   closeAll: () => void;
-  addRecentlyViewed: (id: string) => void;
-  addRecentSearch: (q: string) => void;
 };
 
 export const useUI = create<UIState>((set) => ({
@@ -29,8 +25,6 @@ export const useUI = create<UIState>((set) => ({
   mobileSortOpen: false,
   quickViewProduct: null,
   toast: null,
-  recentlyViewed: [],
-  recentSearches: [],
   setSearch: (v) => set({ searchOpen: v }),
   setMobileMenu: (v) => set({ mobileMenuOpen: v }),
   setMobileFilter: (v) => set({ mobileFilterOpen: v }),
@@ -45,8 +39,4 @@ export const useUI = create<UIState>((set) => ({
       mobileSortOpen: false,
       quickViewProduct: null,
     }),
-  addRecentlyViewed: (id) =>
-    set((s) => ({ recentlyViewed: [id, ...s.recentlyViewed.filter((x) => x !== id)].slice(0, 8) })),
-  addRecentSearch: (q) =>
-    set((s) => ({ recentSearches: [q, ...s.recentSearches.filter((x) => x !== q)].slice(0, 6) })),
 }));

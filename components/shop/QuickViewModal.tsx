@@ -2,6 +2,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Heart, Truck, ShieldCheck } from 'lucide-react';
 import { useState } from 'react';
+import Link from 'next/link';
 import { useUI } from '@/lib/store/ui';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
@@ -183,6 +184,13 @@ export function QuickViewModal() {
                   <ShieldCheck className="w-4 h-4 shrink-0 text-olive" />
                   <span>ضمانت اصالت محصول · بازگشت ۷ روزه</span>
                 </div>
+                <Link
+                  href={`/product/${p.slug}`}
+                  onClick={() => setQuickView(null)}
+                  className="block mt-1 text-[11px] tracking-[0.12em] text-muted hover:text-ink transition-colors text-center border-t border-line pt-4"
+                >
+                  مشاهده صفحه کامل محصول ←
+                </Link>
               </div>
 
               {/* Luxury product details */}

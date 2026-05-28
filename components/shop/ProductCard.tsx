@@ -2,11 +2,13 @@
 import { Heart, ScanEye, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import Link from 'next/link';
 import { type Product } from '@/lib/products';
 import { fmtPriceShort, toFa } from '@/lib/format';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
 import { useUI } from '@/lib/store/ui';
+import { useHistory } from '@/lib/store/history';
 import { EASE } from '@/lib/motion';
 
 const TONE_CLASSES: Record<NonNullable<Product['badge']>['tone'], string> = {
@@ -36,7 +38,7 @@ export function ProductCard({ product }: { product: Product }) {
   const toggleWish = useWishlist((s) => s.toggle);
   const showToast = useUI((s) => s.showToast);
   const openQuickView = useUI((s) => s.setQuickView);
-  const addRecentlyViewed = useUI((s) => s.addRecentlyViewed);
+  const addRecentlyViewed = useHistory((s) => s.addRecentlyViewed);
   const [hovered, setHovered] = useState(false);
   const [adding, setAdding] = useState(false);
 
@@ -161,7 +163,7 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="pt-4 pb-1">
         <p className="section-eyebrow text-olive mb-2">{product.kicker}</p>
         <div className="flex justify-between items-start gap-3">
-          <h3 className="product-title group-hover:text-olive transition-colors duration-300">{product.title}</h3>
+          <Link href={`/product/${product.slug}`} className="hover:text-olive transition-colors duration-300 block product-title">{product.title}</Link>
           <p className="text-[13px] whitespace-nowrap pt-0.5 text-muted">
             {fmtPriceShort(product.price)} ت
           </p>
