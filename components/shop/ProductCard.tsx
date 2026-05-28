@@ -175,6 +175,30 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
           <span className="text-[11px] text-muted">({toFa(product.reviewCount)})</span>
         </div>
+        {product.collection && (
+          <div className="mt-2.5">
+            {product.collection === 'chef-choice' && (
+              <span className="text-[8px] tracking-[0.14em] border border-olive/40 text-olive px-2 py-0.5">
+                انتخاب سرآشپز
+              </span>
+            )}
+            {product.collection === 'rare-harvest' && (
+              <span className="text-[8px] tracking-[0.14em] border border-ink/30 text-muted px-2 py-0.5">
+                برداشت نادر
+              </span>
+            )}
+            {product.collection === 'limited-seasonal' && (
+              <span className="text-[8px] tracking-[0.14em] border border-gold/40 text-gold/80 px-2 py-0.5">
+                فصلی محدود
+              </span>
+            )}
+            {product.collection === 'aged-reserve' && (
+              <span className="text-[8px] tracking-[0.14em] border border-muted/40 text-muted px-2 py-0.5">
+                ذخیره اعلا
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </motion.article>
   );

@@ -3,7 +3,7 @@ import { Marquee } from '@/components/ui/Marquee';
 
 export function MarqueeWall() {
   return (
-    <section className="bg-ink text-cream overflow-hidden border-y border-cream/10">
+    <section className="bg-ink text-cream overflow-hidden border-y border-cream/10 relative grain-overlay">
       <div className="py-10 md:py-14 border-b border-cream/10">
         <Marquee
           speed="slow"

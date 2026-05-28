@@ -15,7 +15,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-ink"
+      className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-ink grain-overlay"
     >
       <motion.div className="absolute inset-0" style={{ y: imgY, scale: imgScale }}>
         <img

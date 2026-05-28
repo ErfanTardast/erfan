@@ -49,13 +49,14 @@ function ActScene({ act, idx }: { act: Act; idx: number }) {
   return (
     <section
       ref={ref}
-      className="relative h-[100svh] min-h-[640px] overflow-hidden flex items-center"
+      className="relative grain-overlay h-[100svh] min-h-[640px] overflow-hidden flex items-center"
       style={{ background: act.bg }}
     >
       <motion.div className="absolute inset-0" style={{ y: imgY, scale: imgScale }}>
         <img src={act.image} alt={act.fa} className="w-full h-full object-cover opacity-60" />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
 
       {/* Giant background word */}
       <motion.div

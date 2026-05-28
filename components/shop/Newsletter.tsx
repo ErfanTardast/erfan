@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { EASE } from '@/lib/motion';
 
 export function Newsletter() {
   const [email, setEmail] = useState('');
@@ -18,53 +20,150 @@ export function Newsletter() {
       const data = await res.json();
       if (res.ok) {
         setStatus('success');
-        setMsg('ممنون! به خانواده دریا خوش آمدید ✓');
+        setMsg(data.message ?? 'به خانواده دریا خوش آمدید');
         setEmail('');
       } else {
         setStatus('error');
         setMsg(data.error ?? 'مشکلی پیش آمد');
       }
     } catch {
-      // Fallback for static export
       setStatus('success');
-      setMsg('ممنون! به خانواده دریا خوش آمدید ✓');
+      setMsg('به خانواده دریا خوش آمدید');
       setEmail('');
     }
   };
 
   return (
-    <section className="max-w-[980px] mx-auto px-5 py-20 md:py-28 text-center">
-      <p className="section-eyebrow text-olive mb-4">خبرنامه</p>
-      <h2 className="title-lg">زودتر از همه بدانید</h2>
-      <p className="body-copy text-[#6f7169] max-w-[540px] mx-auto mt-5 leading-loose">
-        از جدیدترین محصولات، تخفیف‌های ویژه و دستورپخت‌های فصلی مطلع شوید.
-      </p>
-      <form onSubmit={submit} className="max-w-[520px] mx-auto mt-9">
-        <label htmlFor="newsletter-email" className="sr-only">ایمیل</label>
-        <div className="flex border-b border-[#837d72]">
-          <input
-            id="newsletter-email"
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 bg-transparent py-4 text-[13px] outline-none placeholder-[#a8a49d]"
-            placeholder="ایمیل شما را وارد کنید"
-          />
-          <button
-            type="submit"
-            disabled={status === 'loading'}
-            className="px-5 text-[12px] tracking-[0.1em] hover:text-olive transition-colors disabled:opacity-50"
+    <section className="relative overflow-hidden bg-[#1a2a1a] text-cream grain-overlay">
+      {/* Background texture image */}
+      <div className="absolute inset-0 opacity-[0.12]">
+        <img
+          src="https://images.unsplash.com/photo-1468078809804-4c7b3e60a478?auto=format&fit=crop&w=1800&q=60"
+          alt=""
+          aria-hidden
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[#1a2a1a]/60 to-[#1a2a1a]" />
+
+      <div className="relative max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-24 md:py-32">
+        <div className="grid lg:grid-cols-[1fr_1fr] gap-16 items-center">
+          {/* Left: editorial copy */}
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="section-eyebrow text-olive2 mb-5"
+            >
+              — مجله دریا —
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: EASE }}
+              className="title-lg !text-[clamp(28px,4vw,52px)] max-w-[460px]"
+            >
+              داستان‌هایی از مزرعه تا سفره
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.7 }}
+              className="body-copy text-cream/60 max-w-[400px] mt-5 leading-[2.1]"
+            >
+              دستورپخت‌های فصلی، گفت‌وگو با کشاورزان، راهنمای خرید برنج، و تخفیف‌های اختصاصی
+              — مستقیم در ایمیل شما.
+            </motion.p>
+
+            {/* Benefits list */}
+            <motion.ul
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.35, duration: 0.7 }}
+              className="mt-7 space-y-2.5"
+            >
+              {[
+                'دستورپخت‌های مجلسی هر ماه',
+                'داستان مزارع و کشاورزان',
+                'تخفیف ویژه اعضا تا ۱۵٪',
+              ].map(item => (
+                <li key={item} className="flex items-center gap-3 text-[12px] text-cream/65">
+                  <span className="w-1 h-1 rounded-full bg-olive2 shrink-0" />
+                  {item}
+                </li>
+              ))}
+            </motion.ul>
+          </div>
+
+          {/* Right: form */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.85, ease: EASE }}
           >
-            {status === 'loading' ? '…' : 'عضویت'}
-          </button>
+            <AnimatePresence mode="wait">
+              {status === 'success' ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                  className="text-center py-10"
+                >
+                  <div className="w-12 h-12 rounded-full border border-olive2/40 flex items-center justify-center mx-auto mb-5">
+                    <span className="text-olive2 text-[20px]">✓</span>
+                  </div>
+                  <p className="text-[15px] font-light text-cream/90">{msg}</p>
+                  <p className="small-copy text-cream/45 mt-2">
+                    به‌زودی اولین نامه دریا را دریافت می‌کنید.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  onSubmit={submit}
+                  className="space-y-5"
+                >
+                  <div>
+                    <label htmlFor="nl-email" className="block text-[10px] tracking-[0.18em] text-cream/50 mb-3">
+                      آدرس ایمیل
+                    </label>
+                    <input
+                      id="nl-email"
+                      type="email"
+                      required
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      dir="ltr"
+                      className="w-full bg-cream/[0.06] border border-cream/15 px-5 py-4 text-[13px] text-cream placeholder-cream/30 outline-none focus:border-olive2/60 transition-colors latin"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="w-full py-4 text-[12px] tracking-[0.12em] border border-cream/30 hover:border-cream hover:bg-cream/8 transition-all duration-300 disabled:opacity-50"
+                  >
+                    {status === 'loading' ? '…' : 'عضویت در مجله دریا'}
+                  </button>
+                  {status === 'error' && (
+                    <p className="small-copy text-red-400 text-center">{msg}</p>
+                  )}
+                  <p className="text-[10px] text-cream/30 text-center tracking-wide">
+                    هیچ‌وقت اسپم نمی‌فرستیم · لغو اشتراک آسان است
+                  </p>
+                </motion.form>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </div>
-        {msg && (
-          <p className={`small-copy mt-4 ${status === 'success' ? 'text-[#5f6d58]' : 'text-red-700'}`}>
-            {msg}
-          </p>
-        )}
-      </form>
+      </div>
     </section>
   );
 }

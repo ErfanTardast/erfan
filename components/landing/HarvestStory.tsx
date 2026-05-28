@@ -35,7 +35,7 @@ export function HarvestStory() {
   const imgY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
 
   return (
-    <section ref={ref} className="bg-[#0f160f] text-cream overflow-hidden">
+    <section ref={ref} className="bg-[#0f160f] text-cream overflow-hidden relative grain-overlay">
       {/* Full-width cinematic image */}
       <div className="relative h-[60vh] md:h-[80vh] overflow-hidden">
         <motion.div className="absolute inset-0" style={{ y: imgY }}>

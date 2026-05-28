@@ -6,7 +6,7 @@ import { ArrowLeft } from 'lucide-react';
 
 export function CTAEnter() {
   return (
-    <section className="bg-ink text-cream relative overflow-hidden">
+    <section className="bg-ink text-cream relative overflow-hidden grain-overlay">
       <div className="absolute inset-0 opacity-30">
         <img
           src="https://images.unsplash.com/photo-1468078809804-4c7b3e60a478?auto=format&fit=crop&w=2000&q=85"

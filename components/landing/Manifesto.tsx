@@ -40,7 +40,7 @@ export function Manifesto() {
   const inView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section className="bg-[#0f160f] text-cream py-32 md:py-44 overflow-hidden">
+    <section className="bg-[#0f160f] text-cream py-32 md:py-44 overflow-hidden relative grain-overlay">
       <div className="max-w-[1300px] mx-auto px-5 md:px-10 lg:px-16">
         <motion.p
           initial={{ opacity: 0, y: 14 }}
