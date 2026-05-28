@@ -184,6 +184,69 @@ export function QuickViewModal() {
                   <span>ضمانت اصالت محصول · بازگشت ۷ روزه</span>
                 </div>
               </div>
+
+              {/* Luxury product details */}
+              {(p.flavorNotes || p.originStory || p.pairings || p.chefNote) && (
+                <div className="mt-5 pt-5 border-t border-line space-y-5">
+                  {p.harvestYear && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] tracking-[0.18em] text-muted">برداشت</span>
+                      <span className="text-[13px] font-medium">{p.harvestYear}</span>
+                      {p.collection === 'limited-seasonal' && (
+                        <span className="text-[9px] tracking-[0.12em] bg-gold/15 text-gold px-2 py-0.5 border border-gold/30">
+                          محدود
+                        </span>
+                      )}
+                      {p.collection === 'rare-harvest' && (
+                        <span className="text-[9px] tracking-[0.12em] bg-ink/10 text-ink px-2 py-0.5 border border-ink/20">
+                          نادر
+                        </span>
+                      )}
+                      {p.collection === 'chef-choice' && (
+                        <span className="text-[9px] tracking-[0.12em] bg-olive/15 text-olive px-2 py-0.5 border border-olive/30">
+                          انتخاب سرآشپز
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  {p.flavorNotes && (
+                    <div>
+                      <p className="text-[10px] tracking-[0.18em] text-muted mb-2.5">پروفایل طعم</p>
+                      <div className="flex flex-wrap gap-2">
+                        {p.flavorNotes.map((note, i) => (
+                          <span key={i} className="text-[11px] border border-line px-3 py-1.5 text-ink/80 bg-paper">
+                            {note}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {p.pairings && (
+                    <div>
+                      <p className="text-[10px] tracking-[0.18em] text-muted mb-2.5">پیشنهاد همراهی</p>
+                      <p className="text-[12px] text-ink/70 leading-relaxed">{p.pairings.join(' · ')}</p>
+                    </div>
+                  )}
+                  {p.originStory && (
+                    <div>
+                      <p className="text-[10px] tracking-[0.18em] text-muted mb-2">داستان منشأ</p>
+                      <p className="text-[12px] text-ink/70 leading-relaxed italic">{p.originStory}</p>
+                    </div>
+                  )}
+                  {p.chefNote && (
+                    <div className="bg-[#f0ebe0] p-4 border-r-2 border-olive">
+                      <p className="text-[9px] tracking-[0.2em] text-olive mb-1.5">توصیه سرآشپز</p>
+                      <p className="text-[12px] text-ink/80 leading-relaxed">{p.chefNote}</p>
+                    </div>
+                  )}
+                  {p.cookingTip && (
+                    <div>
+                      <p className="text-[10px] tracking-[0.18em] text-muted mb-1.5">راز پخت</p>
+                      <p className="text-[12px] text-ink/70 leading-relaxed">{p.cookingTip}</p>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </motion.div>
         </motion.div>

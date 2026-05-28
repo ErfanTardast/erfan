@@ -26,6 +26,15 @@ export type Product = {
   inStock: boolean;
   isNew?: boolean;
   isFeatured?: boolean;
+  harvestYear?: string;
+  originStory?: string;
+  flavorNotes?: string[];
+  aromaProfile?: string;
+  textureProfile?: string;
+  pairings?: string[];
+  chefNote?: string;
+  collection?: 'chef-choice' | 'rare-harvest' | 'limited-seasonal' | 'aged-reserve';
+  cookingTip?: string;
 };
 
 export const PRODUCTS: Product[] = [
@@ -51,6 +60,15 @@ export const PRODUCTS: Product[] = [
     premium: true,
     inStock: true,
     isFeatured: true,
+    harvestYear: '۱۴۰۳',
+    originStory: 'از دل مزارع پرآب رشت، جایی که مه صبحگاهی آرام روی خوشه‌های برنج می‌نشیند و کشاورزان نسل‌ها است این آیین را زنده نگه داشته‌اند.',
+    flavorNotes: ['گلبرگ بهاری', 'دانه‌ی سفید زعفران', 'نفس کوه البرز'],
+    aromaProfile: 'عطری که لحظه‌ای چشمانت را می‌بندد و به باغ‌های شمال می‌بری',
+    textureProfile: 'ابریشمی، سبک و جداجدا — هر دانه یک دنیای مستقل',
+    pairings: ['خورش فسنجان', 'مرغ زعفرانی', 'باقالی‌پلو با ماهی'],
+    chefNote: 'برای بهترین پلو، این برنج را یک ساعت خیس کنید. آب کش ملایم، دم آرام.',
+    collection: 'chef-choice',
+    cookingTip: 'قبل از پخت ۴۵ دقیقه در آب سرد خیس کنید تا دانه‌ها به تمام زیباییشان برسند.',
   },
   {
     id: '2',
@@ -73,6 +91,13 @@ export const PRODUCTS: Product[] = [
     organic: false,
     premium: false,
     inStock: true,
+    harvestYear: '۱۴۰۳',
+    originStory: 'از جنگل‌های سرسبز مازندران، برنجی که سادگی را به هنر تبدیل می‌کند.',
+    flavorNotes: ['برنج تازه', 'نان گرم', 'روستای باران‌خورده'],
+    aromaProfile: 'عطر ساده و صادق — مثل خانه‌ی مادربزرگ',
+    textureProfile: 'یکنواخت و نرم، پخت مطمئن و همیشه درست',
+    pairings: ['کته ساده', 'لوبیا‌پلو', 'ته‌دیگ نان'],
+    cookingTip: 'برای کته‌ای عالی، نسبت یک به یک و نیم آب به برنج را رعایت کنید.',
   },
   {
     id: '3',
@@ -96,6 +121,15 @@ export const PRODUCTS: Product[] = [
     premium: true,
     inStock: true,
     isFeatured: true,
+    harvestYear: '۱۴۰۳',
+    originStory: 'از فومن گیلان، شهری که برنج‌اش معروف‌ترین شهر در ایران است. دمسیاه با دانه‌های کشیده‌اش نجیب‌ترین برنج ایران است.',
+    flavorNotes: ['گل یاس', 'چوب صندل', 'نور آفتاب صبحگاهی'],
+    aromaProfile: 'عطری شاعرانه و عمیق که حتی قبل از پخت هم حس می‌شود',
+    textureProfile: 'کشیده، شفاف و جداجدا — هر دانه یک شعر کوتاه',
+    pairings: ['قورمه سبزی', 'باقالی‌پلو', 'مجلسی زعفرانی'],
+    chefNote: 'دمسیاه را باید آرام و با حوصله پخت. حرارت کم، دم طولانی، نتیجه بی‌نظیر.',
+    collection: 'rare-harvest',
+    cookingTip: 'یک ساعت خیس، آبکش کامل، دم ملایم با دمکنی — این رمز طارم دمسیاه است.',
   },
   {
     id: '4',
@@ -118,6 +152,13 @@ export const PRODUCTS: Product[] = [
     organic: false,
     premium: false,
     inStock: true,
+    harvestYear: '۱۴۰۳',
+    originStory: 'علی‌کاظمی از مازندران، جایی که خاک سرخ و آب معدنی کوه‌های البرز ترکیبی منحصربه‌فرد می‌سازند.',
+    flavorNotes: ['دانه طلایی', 'شیر برنج', 'خاک باران‌خورده'],
+    aromaProfile: 'عطر ملایمی که با گرما شکوفا می‌شود',
+    textureProfile: 'بلند و ممتاز، با قوام عالی برای پلوهای مجلسی',
+    pairings: ['جوجه کباب', 'خورش قیمه', 'آبگوشت'],
+    cookingTip: 'برای پلوی مجلسی، کره طبیعی یا روغن حیوانی به ته‌دیگ اضافه کنید.',
   },
   {
     id: '5',
@@ -140,6 +181,15 @@ export const PRODUCTS: Product[] = [
     organic: true,
     premium: true,
     inStock: true,
+    harvestYear: '۱۴۰۳',
+    originStory: 'کشتی بدون کمک شیمی و با دست‌های کشاورزانی که به طبیعت احترام می‌گذارند. گواهی سبز از خاک سالم گیلان.',
+    flavorNotes: ['طبیعت خالص', 'آفتاب مستقیم', 'باد شمال'],
+    aromaProfile: 'پاک‌ترین عطر برنج ایرانی — طبیعت در هر نفس',
+    textureProfile: 'نرم و سبک، با طعمی که سادگی را تجلیل می‌کند',
+    pairings: ['سبزی‌پلو', 'ماهی دودی', 'سالاد تازه'],
+    chefNote: 'بهترین انتخاب برای کسانی که طعم واقعی برنج ایرانی را می‌خواهند، بدون هیچ افزودنی.',
+    collection: 'chef-choice',
+    cookingTip: 'به خاطر بافت طبیعی، کمی بیشتر آب نیاز دارد. هر کیلو را با ۱.۷۵ برابر آب بپزید.',
   },
   {
     id: '6',
@@ -162,6 +212,13 @@ export const PRODUCTS: Product[] = [
     organic: false,
     premium: false,
     inStock: true,
+    harvestYear: '۱۴۰۲',
+    originStory: 'هاشمی کلاسیک، قدیمی‌ترین عضو خانواده طارم. نسل‌هاست که صادقانه روی سفره‌های ایرانی حاضر است.',
+    flavorNotes: ['برنج خالص', 'کمی شیرینی طبیعی', 'سادگی اصیل'],
+    aromaProfile: 'عطر آشنا و دلنشین — مثل بوی دم در آشپزخانه‌ی خانواده',
+    textureProfile: 'نرم، سفید و یکنواخت — اعتمادپذیر و همیشه درست',
+    pairings: ['هر خورشت ایرانی', 'کباب', 'مرغ'],
+    cookingTip: 'ساده‌ترین پخت: آبکش با نمک و زعفران، دم با دمکنی تمیز.',
   },
   {
     id: '7',
@@ -185,6 +242,15 @@ export const PRODUCTS: Product[] = [
     premium: true,
     inStock: true,
     isNew: true,
+    harvestYear: '۱۴۰۳',
+    originStory: 'اولین محصول سال از بهترین مزارع گیلان. بهار همه چیز را تازه می‌کند — این برنج هم.',
+    flavorNotes: ['شکوفه بهار', 'علف تازه', 'باران نوروز'],
+    aromaProfile: 'تازه‌ترین عطر ممکن — انگار بهار در کیسه‌ی برنج است',
+    textureProfile: 'ظریف و شکننده، با طعمی که فصل را یادت می‌اندازد',
+    pairings: ['سبزی‌پلو ماهی', 'رشته‌پلو', 'آش نوروزی'],
+    chefNote: 'این برنج فقط یک بار در سال موجود است. هر دانه یک لحظه‌ی بهاری ناب.',
+    collection: 'limited-seasonal',
+    cookingTip: 'به خاطر تازگی، زمان خیس کردن را به ۳۰ دقیقه کاهش دهید.',
   },
   {
     id: '8',
@@ -207,6 +273,14 @@ export const PRODUCTS: Product[] = [
     organic: false,
     premium: true,
     inStock: true,
+    harvestYear: '۱۴۰۳',
+    originStory: 'از شهر لنگرود گیلان، جایی که برنج دانه‌کوتاه با طعمی متفاوت به دنیا می‌آید.',
+    flavorNotes: ['خامه‌ی طبیعی', 'رزی گرم', 'مرواریدی سفید'],
+    aromaProfile: 'عطر کمرنگ و خوشایند — خودش را با غذا هماهنگ می‌کند',
+    textureProfile: 'گرد و نرم، می‌چسبد به هم — ایده‌آل برای دمی و کته‌های خاص',
+    pairings: ['دمی باقالی', 'کته گوجه', 'لوبیا‌پلو سنتی'],
+    collection: 'aged-reserve',
+    cookingTip: 'برای دمی عالی: نسبت یک به یک آب، حرارت خیلی کم، دم طولانی ۴۵ دقیقه.',
   },
 ];
 

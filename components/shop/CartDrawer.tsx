@@ -1,6 +1,7 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Trash2, ShoppingBag, Truck } from 'lucide-react';
+import { useState } from 'react';
 import { useCart } from '@/lib/store/cart';
 import { getProductById, PRODUCTS } from '@/lib/products';
 import { fmtPrice, toFa, fmtPriceShort } from '@/lib/format';
@@ -41,6 +42,8 @@ export function CartDrawer() {
   const { items, isOpen, close, inc, dec, remove } = useCart();
   const showToast = useUI((s) => s.showToast);
   void showToast;
+  const [giftWrap, setGiftWrap] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
 
   const lines = items
     .map((i) => ({ ...i, p: getProductById(i.id) }))
@@ -191,15 +194,49 @@ export function CartDrawer() {
             {/* Footer */}
             {lines.length > 0 && (
               <div className="border-t border-line p-5 shrink-0 bg-[#f3ede3]">
+                {/* Extras */}
+                <div className="space-y-2.5 mb-5">
+                  <label className="flex items-center justify-between cursor-pointer group">
+                    <div>
+                      <p className="text-[12px] font-medium">بسته‌بندی هدیه</p>
+                      <p className="text-[10px] text-muted mt-0.5">کاغذ کرافت، روبان طلایی، کارت دست‌نویس</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] text-muted">+{toFa(25000)} ت</span>
+                      <button
+                        onClick={() => setGiftWrap(v => !v)}
+                        className={`w-10 h-[22px] rounded-full relative transition-colors ${giftWrap ? 'bg-deep' : 'bg-[#cad0c4]'}`}
+                        aria-pressed={giftWrap}
+                        type="button"
+                      >
+                        <span className={`absolute top-1 w-[14px] h-[14px] rounded-full bg-white shadow transition-all ${giftWrap ? 'right-1' : 'right-[22px]'}`} />
+                      </button>
+                    </div>
+                  </label>
+                  <label className="flex items-center justify-between cursor-pointer group">
+                    <div>
+                      <p className="text-[12px] font-medium">اشتراک ماهانه</p>
+                      <p className="text-[10px] text-muted mt-0.5">هر ماه تحویل، ۱۰٪ تخفیف دائمی</p>
+                    </div>
+                    <button
+                      onClick={() => setSubscribed(v => !v)}
+                      className={`w-10 h-[22px] rounded-full relative transition-colors shrink-0 mr-2 ${subscribed ? 'bg-deep' : 'bg-[#cad0c4]'}`}
+                      aria-pressed={subscribed}
+                      type="button"
+                    >
+                      <span className={`absolute top-1 w-[14px] h-[14px] rounded-full bg-white shadow transition-all ${subscribed ? 'right-1' : 'right-[22px]'}`} />
+                    </button>
+                  </label>
+                </div>
                 <div className="flex justify-between items-baseline mb-1">
                   <span className="text-[13px] text-muted">جمع</span>
                   <motion.span
-                    key={total}
+                    key={total + (giftWrap ? 25000 : 0)}
                     initial={{ opacity: 0.6 }}
                     animate={{ opacity: 1 }}
                     className="text-[16px] font-medium"
                   >
-                    {fmtPrice(total)}
+                    {fmtPrice(total + (giftWrap ? 25000 : 0))}
                   </motion.span>
                 </div>
                 <p className="small-copy text-[#77776f] mb-5">
