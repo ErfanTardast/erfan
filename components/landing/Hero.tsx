@@ -68,7 +68,7 @@ export function Hero() {
         transition={{ delay: 3.5, duration: 0.6 }}
         className="absolute bottom-6 right-1/2 translate-x-1/2 flex flex-col items-center gap-2 text-cream/70 text-[10px] tracking-[0.3em]"
       >
-        <span>SCROLL</span>
+        <span>پایین بکشید</span>
         <motion.span
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}

@@ -143,6 +143,13 @@ export function GrainShowcase() {
                 <Row label="طول دانه" value={active.length} />
                 <Row label="بهترین برای" value={active.best} />
               </dl>
+              <a
+                href="/shop"
+                className="mt-10 w-full flex items-center justify-center gap-3 border border-cream/40 hover:border-cream hover:bg-cream/10 transition-all py-4 text-[13px] tracking-wider"
+              >
+                <span>مشاهده در فروشگاه</span>
+                <span>←</span>
+              </a>
             </motion.div>
           </AnimatePresence>
         </div>

@@ -46,7 +46,7 @@ export function Splash() {
             transition={{ delay: 0.85, duration: 0.6 }}
             className="text-olive2 text-[11px] tracking-[0.36em] mt-6 uppercase"
           >
-            Persian Rice · Since 1387
+            برنج ایرانی · از ۱۳۸۷
           </motion.p>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -60,7 +60,7 @@ export function Splash() {
             transition={{ delay: 1.5, duration: 0.6 }}
             className="absolute bottom-16 text-cream/60 text-[10px] tracking-widest"
           >
-            CLICK TO SKIP
+            برای رد کردن کلیک کنید
           </motion.p>
         </motion.div>
       )}

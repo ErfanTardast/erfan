@@ -29,11 +29,11 @@ export function CartDrawer() {
           />
           <motion.aside
             key="dr"
-            initial={{ x: '-100%' }}
+            initial={{ x: '100%' }}
             animate={{ x: 0 }}
-            exit={{ x: '-100%' }}
+            exit={{ x: '100%' }}
             transition={{ duration: 0.38, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed top-0 left-0 z-50 h-full w-[92%] max-w-[420px] bg-[#f8f4ec] border-r border-line flex flex-col"
+            className="fixed top-0 right-0 z-50 h-full w-[92%] max-w-[420px] bg-[#f8f4ec] border-l border-line flex flex-col"
           >
             <div className="p-5 border-b border-line flex items-center justify-between shrink-0">
               <h2 className="text-[20px] font-medium">سبد خرید</h2>

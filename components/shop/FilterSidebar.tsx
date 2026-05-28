@@ -165,7 +165,7 @@ function Toggle({ on, onChange }: { on: boolean; onChange: () => void }) {
     >
       <span
         className="absolute top-1 w-[14px] h-[14px] rounded-full bg-white shadow transition-all"
-        style={{ left: on ? 22 : 4 }}
+        style={{ right: on ? 22 : 4 }}
       />
     </button>
   );

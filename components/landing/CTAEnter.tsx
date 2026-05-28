@@ -44,7 +44,7 @@ export function CTAEnter() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="latin text-olive2 text-[14px] tracking-[0.36em] mt-6 uppercase"
         >
-          Enter the Shop
+          Enter the Collection
         </motion.p>
 
         <PageTransitionTrigger>
@@ -61,7 +61,7 @@ export function CTAEnter() {
                 className="group relative inline-flex items-center justify-center w-44 h-44 md:w-56 md:h-56 rounded-full border border-cream/40 hover:border-cream transition-colors text-cream"
               >
                 <span className="flex flex-col items-center gap-3">
-                  <span className="latin text-[18px] tracking-wider">EXPLORE</span>
+                  <span className="text-[16px] tracking-wider">ورود</span>
                   <ArrowLeft className="w-6 h-6 transition-transform group-hover:-translate-x-1" />
                 </span>
                 <span className="absolute inset-0 rounded-full border border-cream/15 scale-110 group-hover:scale-125 transition-transform duration-500" />

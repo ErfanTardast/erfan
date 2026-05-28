@@ -73,7 +73,7 @@ function ActScene({ act, idx }: { act: Act; idx: number }) {
       >
         <div className="flex items-end gap-6 mb-6">
           <span className="latin text-[64px] md:text-[120px] leading-none text-olive2 font-medium">{act.num}</span>
-          <span className="text-[11px] tracking-[0.3em] text-cream/60 mb-4">CHAPTER</span>
+          <span className="text-[11px] tracking-[0.2em] text-cream/60 mb-4">فصل</span>
         </div>
         <h2 className="title-xl !text-[clamp(48px,9vw,140px)] !leading-[0.95] !tracking-tight max-w-[720px]">
           {act.fa}

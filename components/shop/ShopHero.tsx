@@ -23,7 +23,7 @@ export function ShopHero() {
             <ChevronLeft className="w-3 h-3" />
             <span className="text-white">فروشگاه</span>
           </div>
-          <span className="inline-block border border-white/35 px-3.5 py-1.5 text-[10px] tracking-[0.18em] mb-5 uppercase">
+          <span className="inline-block border border-white/35 px-3.5 py-1.5 text-[10px] tracking-[0.12em] mb-5">
             کلکسیون بهار ۱۴۰۳
           </span>
           <p className="section-eyebrow text-white/80 mb-5">برنج‌های ممتاز ایرانی</p>
