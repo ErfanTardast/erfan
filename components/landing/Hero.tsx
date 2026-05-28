@@ -19,8 +19,9 @@ export function Hero() {
     >
       <motion.div className="absolute inset-0" style={{ y: imgY, scale: imgScale }}>
         <img
-          src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=2200&q=85"
+          src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1600&q=80"
           alt="مزارع برنج شمال ایران"
+          fetchPriority="high"
           className="w-full h-full object-cover"
         />
       </motion.div>
@@ -33,7 +34,7 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2.7, duration: 0.8 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
           className="section-eyebrow text-cream/70 mb-6"
         >
           از زمین تا سفره
@@ -42,7 +43,7 @@ export function Hero() {
           <motion.h1
             initial={{ y: '120%' }}
             animate={{ y: '0%' }}
-            transition={{ delay: 2.5, duration: 1, ease: [0.2, 0.7, 0.2, 1] }}
+            transition={{ delay: 0.2, duration: 1, ease: [0.2, 0.7, 0.2, 1] }}
             className="latin font-medium text-[clamp(72px,16vw,260px)] leading-[0.85] tracking-tighter"
           >
             Darya
@@ -51,7 +52,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3.1, duration: 0.7 }}
+          transition={{ delay: 0.7, duration: 0.7 }}
           className="mt-6 max-w-[520px] flex items-start gap-6"
         >
           <span className="block w-12 h-px bg-cream mt-3 shrink-0" />
@@ -65,7 +66,7 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.7 }}
-        transition={{ delay: 3.5, duration: 0.6 }}
+        transition={{ delay: 1.1, duration: 0.6 }}
         className="absolute bottom-6 right-1/2 translate-x-1/2 flex flex-col items-center gap-2 text-cream/70 text-[10px] tracking-[0.3em]"
       >
         <span>پایین بکشید</span>

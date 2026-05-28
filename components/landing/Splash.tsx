@@ -3,10 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export function Splash() {
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setShow(false), 2200);
+    if (sessionStorage.getItem('darya_splash')) return;
+    sessionStorage.setItem('darya_splash', '1');
+    setShow(true);
+    const t = setTimeout(() => setShow(false), 1500);
     return () => clearTimeout(t);
   }, []);
 

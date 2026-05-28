@@ -18,7 +18,7 @@ const ACTS: Act[] = [
     fa: 'از زمین',
     en: 'EARTH',
     copy: 'مزارع سبز رشت، آمل و فومن — جایی که هر کشاورز، نسل پدرش را در ادب کشت برنج زنده می‌کند.',
-    image: 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1800&q=85',
+    image: 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1200&q=85',
   },
   {
     num: '02',
@@ -26,7 +26,7 @@ const ACTS: Act[] = [
     fa: 'تا دانه',
     en: 'GRAIN',
     copy: 'دانه‌هایی که زیر آفتاب طلایی شمال شکل گرفتند — کشیده، شفاف، عطردار. هر دانه، گواهی از مزرعه است.',
-    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1800&q=85',
+    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=85',
   },
   {
     num: '03',
@@ -34,7 +34,7 @@ const ACTS: Act[] = [
     fa: 'تا سفره',
     en: 'TABLE',
     copy: 'پلویی که در دیگ‌های مسی دم می‌کشد، ته‌دیگی که طلایی می‌شود — و خاطره‌ای که سال‌ها در ذهن می‌ماند.',
-    image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=1800&q=85',
+    image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=1200&q=85',
   },
 ];
 

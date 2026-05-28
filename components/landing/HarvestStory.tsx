@@ -40,7 +40,7 @@ export function HarvestStory() {
       <div className="relative h-[60vh] md:h-[80vh] overflow-hidden">
         <motion.div className="absolute inset-0" style={{ y: imgY }}>
           <img
-            src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=2400&q=85"
+            src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1400&q=75"
             alt="برداشت برنج شمال ایران"
             className="w-full h-full object-cover scale-110"
           />
