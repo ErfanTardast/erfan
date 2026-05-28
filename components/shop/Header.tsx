@@ -28,14 +28,17 @@ export function Header() {
     <header
       className={`nav-glass sticky top-0 z-40 border-b border-white/40 ${scrolled ? 'scrolled' : ''}`}
     >
-      <div className="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 h-[74px] flex items-center justify-between">
+      <div
+        className="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 flex items-center justify-between transition-all duration-300"
+        style={{ height: scrolled ? 62 : 74 }}
+      >
         <div className="flex items-center gap-4">
           <button onClick={() => setMobileMenu(true)} className="lg:hidden p-1" aria-label="منو">
             <Menu className="w-5 h-5" />
           </button>
           <Link href="/" className="block">
-            <div className="latin text-[30px] leading-none tracking-tighter text-ink">Darya</div>
-            <div className="text-[9px] tracking-eyebrow mt-[3px] text-olive">PERSIAN RICE</div>
+            <div className={`latin leading-none tracking-tighter text-ink transition-all duration-300 ${scrolled ? 'text-[26px]' : 'text-[30px]'}`}>Darya</div>
+            <div className={`text-[9px] tracking-[0.18em] text-olive transition-all duration-300 ${scrolled ? 'opacity-0 mt-0 h-0 overflow-hidden' : 'opacity-100 mt-[3px]'}`}>PERSIAN RICE</div>
           </Link>
         </div>
 
@@ -44,7 +47,7 @@ export function Header() {
             <button className="py-7 flex items-center gap-1.5 hover:text-olive transition-colors">
               فروشگاه <ChevronDown className="w-3 h-3 opacity-50 mt-0.5" />
             </button>
-            <div className="absolute top-[70px] right-0 w-[740px] bg-paper border border-line soft-shadow p-7 opacity-0 invisible translate-y-3 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
+            <div className="absolute top-full right-0 w-[740px] bg-paper border border-line soft-shadow p-7 opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-[cubic-bezier(.2,.7,.2,1)]">
               <div className="grid grid-cols-[1fr_1fr_1.15fr] gap-7">
                 <div>
                   <p className="section-eyebrow text-muted mb-5">انواع برنج</p>
