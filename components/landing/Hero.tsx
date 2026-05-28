@@ -1,7 +1,9 @@
 'use client';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { ShoppingBag } from 'lucide-react';
 import { Marquee } from '@/components/ui/Marquee';
+import { PageTransitionTrigger } from '@/components/ui/PageTransition';
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -26,6 +28,27 @@ export function Hero() {
         />
       </motion.div>
       <motion.div className="absolute inset-0 bg-ink" style={{ opacity: overlayOp }} />
+
+      {/* Top nav bar */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.7 }}
+        className="absolute top-0 inset-x-0 z-10 flex justify-between items-center px-5 md:px-10 lg:px-16 py-5"
+      >
+        <span className="latin text-cream/70 text-[13px] tracking-[0.24em]">DARYA</span>
+        <PageTransitionTrigger>
+          {(navigate) => (
+            <button
+              onClick={() => navigate('/shop')}
+              className="flex items-center gap-2.5 bg-cream/10 hover:bg-cream/20 backdrop-blur-sm border border-cream/20 hover:border-cream/40 text-cream text-[12px] tracking-[0.1em] px-5 py-2.5 transition-all duration-300"
+            >
+              <ShoppingBag className="w-3.5 h-3.5" />
+              ورود به فروشگاه
+            </button>
+          )}
+        </PageTransitionTrigger>
+      </motion.div>
 
       <motion.div
         className="relative h-full max-w-[1500px] mx-auto px-5 md:px-10 lg:px-16 flex flex-col justify-end pb-32 md:pb-40 text-cream"
@@ -59,6 +82,26 @@ export function Hero() {
           <p className="body-copy text-cream/85 leading-loose">
             از مزارع سبز شمال ایران تا سفره شما — هر دانه با دقت انتخاب شده، با عشق بسته‌بندی شده است.
           </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.7 }}
+          className="mt-10 flex items-center gap-4"
+        >
+          <PageTransitionTrigger>
+            {(navigate) => (
+              <button
+                onClick={() => navigate('/shop')}
+                className="group flex items-center gap-3 bg-cream text-ink text-[13px] tracking-[0.1em] px-7 py-4 hover:bg-olive hover:text-white transition-all duration-300"
+              >
+                <ShoppingBag className="w-4 h-4" />
+                مشاهده محصولات
+              </button>
+            )}
+          </PageTransitionTrigger>
+          <span className="text-cream/45 text-[11px] tracking-[0.18em]">۸ محصول · ارسال رایگان</span>
         </motion.div>
       </motion.div>
 
