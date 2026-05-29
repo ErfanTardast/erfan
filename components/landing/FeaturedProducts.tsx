@@ -35,7 +35,7 @@ export function FeaturedProducts() {
           <div>
             <p className="section-eyebrow text-olive mb-3">— سفارش مستقیم —</p>
             <h2 className="title-lg !text-[clamp(32px,5.5vw,72px)] !leading-[1.08] max-w-[560px]">
-              پیشنهادهای ویژه همین لحظه
+              پیشنهادهای ویژه
             </h2>
           </div>
           <PageTransitionTrigger>
