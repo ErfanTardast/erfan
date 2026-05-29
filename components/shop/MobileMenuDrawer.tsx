@@ -1,6 +1,7 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X } from 'lucide-react';
+import Link from 'next/link';
 import { useUI } from '@/lib/store/ui';
 
 export function MobileMenuDrawer() {
@@ -35,10 +36,11 @@ export function MobileMenuDrawer() {
               </button>
             </div>
             <nav className="space-y-6 text-[24px] font-light">
-              <button className="block w-full text-right hover:text-olive transition-colors">فروشگاه</button>
-              <button className="block w-full text-right hover:text-olive transition-colors">داستان ما</button>
-              <button className="block w-full text-right hover:text-olive transition-colors">دستور پخت</button>
-              <button className="block w-full text-right hover:text-olive transition-colors">مجله</button>
+              <Link href="/shop" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">فروشگاه</Link>
+              <Link href="/shop" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">کلکسیون‌ها</Link>
+              <Link href="/about" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">داستان ما</Link>
+              <Link href="/recipes" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">دستور پخت</Link>
+              <Link href="/contact" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">تماس با ما</Link>
             </nav>
             <div className="absolute bottom-6 right-7 left-7 border-t border-line pt-5 small-copy text-[#76766d] leading-loose">
               ارسال رایگان برای سفارش‌های بالای ۵۰۰،۰۰۰ تومان<br />

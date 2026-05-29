@@ -66,8 +66,8 @@ export function Footer() {
               <li><Link href="/about" className="hover:text-white transition-colors duration-200 cursor-pointer">داستان مزارع</Link></li>
               <li><Link href="/recipes" className="hover:text-white transition-colors duration-200 cursor-pointer">مجله دریا</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors duration-200 cursor-pointer">تماس با ما</Link></li>
-              <li><a href="#" className="hover:text-white transition-colors duration-200 cursor-pointer">حریم خصوصی</a></li>
-              <li><a href="#" className="hover:text-white transition-colors duration-200 cursor-pointer">شرایط فروش</a></li>
+              <li><Link href="/privacy" className="hover:text-white transition-colors duration-200 cursor-pointer">حریم خصوصی</Link></li>
+              <li><Link href="/terms" className="hover:text-white transition-colors duration-200 cursor-pointer">شرایط فروش</Link></li>
             </ul>
           </div>
 
