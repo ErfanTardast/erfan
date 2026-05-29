@@ -62,13 +62,12 @@ export function Footer() {
           <div>
             <p className="section-eyebrow text-[#596355] mb-6">اطلاعات</p>
             <ul className="space-y-3 text-[13px] text-[#bdc5b7]">
-              {['درباره دریا', 'داستان مزارع', 'مجله دریا', 'تماس با ما', 'حریم خصوصی', 'شرایط فروش'].map(link => (
-                <li key={link}>
-                  <a href="#" className="hover:text-white transition-colors duration-200 cursor-pointer">
-                    {link}
-                  </a>
-                </li>
-              ))}
+              <li><Link href="/about" className="hover:text-white transition-colors duration-200 cursor-pointer">درباره دریا</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors duration-200 cursor-pointer">داستان مزارع</Link></li>
+              <li><Link href="/recipes" className="hover:text-white transition-colors duration-200 cursor-pointer">مجله دریا</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors duration-200 cursor-pointer">تماس با ما</Link></li>
+              <li><a href="#" className="hover:text-white transition-colors duration-200 cursor-pointer">حریم خصوصی</a></li>
+              <li><a href="#" className="hover:text-white transition-colors duration-200 cursor-pointer">شرایط فروش</a></li>
             </ul>
           </div>
 
