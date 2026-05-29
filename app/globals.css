@@ -3,16 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --ink: #1d251d;
-  --deep: #223024;
-  --olive: #6c775f;
-  --olive2: #87917a;
-  --cream: #f5f1e9;
-  --paper: #fbf8f1;
-  --sand: #e8e0d3;
-  --line: #d8d0c3;
-  --muted: #77776e;
-  --gold: #b59b67;
+  --ink: #1C160E;
+  --deep: #281E12;
+  --olive: #6B7C5A;
+  --olive2: #8A9B78;
+  --cream: #F2E8CC;
+  --paper: #F8F2E0;
+  --sand: #E2D5B8;
+  --line: #D0C5A8;
+  --muted: #7D7260;
+  --gold: #C49040;
+  --terra: #B8623A;
 
   /* Elevation shadows — warm tinted */
   --shadow-xs:  0 1px 3px rgba(29, 37, 29, 0.06);
@@ -47,6 +48,7 @@ body {
   background: var(--cream);
   -webkit-font-smoothing: antialiased;
 }
+
 
 .latin {
   font-family: var(--font-fraunces), Georgia, serif;
@@ -135,12 +137,12 @@ a:focus-visible {
 
 /* Shop-specific helpers */
 .nav-glass {
-  background: rgba(245, 241, 233, 0.72);
+  background: rgba(242, 232, 204, 0.72);
   backdrop-filter: blur(20px);
   transition: background 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
 }
 .nav-glass.scrolled {
-  background: rgba(245, 241, 233, 0.95);
+  background: rgba(242, 232, 204, 0.96);
   box-shadow: 0 10px 40px rgba(34, 48, 36, 0.07);
 }
 .hero-overlay {

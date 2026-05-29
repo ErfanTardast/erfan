@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { Instagram } from 'lucide-react';
+import Link from 'next/link';
 
 export function Footer() {
   const [email, setEmail] = useState('');

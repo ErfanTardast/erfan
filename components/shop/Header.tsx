@@ -83,9 +83,9 @@ export function Header() {
             </div>
           </div>
           <Link href="/shop" className="hover:text-olive transition-colors">کلکسیون‌ها</Link>
-          <a href="#" className="hover:text-olive transition-colors">داستان ما</a>
-          <a href="#" className="hover:text-olive transition-colors">دستور پخت</a>
-          <a href="#" className="hover:text-olive transition-colors">تماس با ما</a>
+          <Link href="/about" className="hover:text-olive transition-colors">داستان ما</Link>
+          <Link href="/recipes" className="hover:text-olive transition-colors">دستور پخت</Link>
+          <Link href="/contact" className="hover:text-olive transition-colors">تماس با ما</Link>
         </nav>
 
         <div className="flex items-center gap-4 md:gap-5">

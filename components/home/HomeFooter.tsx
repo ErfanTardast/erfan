@@ -29,10 +29,10 @@ export function HomeFooter() {
             <div>
               <p className="section-eyebrow text-cream/35 mb-5">دریا</p>
               <nav className="space-y-3 text-[13px]">
-                <a href="#" className="block hover:text-cream transition-colors duration-150">داستان ما</a>
-                <a href="#" className="block hover:text-cream transition-colors duration-150">دستور پخت</a>
-                <a href="#" className="block hover:text-cream transition-colors duration-150">مجله</a>
-                <a href="#" className="block hover:text-cream transition-colors duration-150">تماس با ما</a>
+                <Link href="/about" className="block hover:text-cream transition-colors duration-150">داستان ما</Link>
+                <Link href="/recipes" className="block hover:text-cream transition-colors duration-150">دستور پخت</Link>
+                <Link href="/recipes" className="block hover:text-cream transition-colors duration-150">مجله</Link>
+                <Link href="/contact" className="block hover:text-cream transition-colors duration-150">تماس با ما</Link>
               </nav>
             </div>
           </div>
