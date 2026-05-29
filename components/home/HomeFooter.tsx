@@ -65,8 +65,8 @@ export function HomeFooter() {
         <div className="border-t border-cream/10 pt-7 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-[10px] tracking-[0.14em] text-cream/28">© ۱۴۰۳ دریا رایس — همه حقوق محفوظ است</p>
           <div className="flex gap-5 text-[11px] text-cream/28">
-            <a href="#" className="hover:text-cream/60 transition-colors">حریم خصوصی</a>
-            <a href="#" className="hover:text-cream/60 transition-colors">قوانین و مقررات</a>
+            <Link href="/privacy" className="hover:text-cream/60 transition-colors">حریم خصوصی</Link>
+            <Link href="/terms" className="hover:text-cream/60 transition-colors">قوانین و مقررات</Link>
           </div>
         </div>
       </div>

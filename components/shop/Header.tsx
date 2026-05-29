@@ -52,20 +52,20 @@ export function Header() {
                 <div>
                   <p className="section-eyebrow text-muted mb-5">انواع برنج</p>
                   <div className="space-y-3.5 text-[14px]">
-                    <Link href="/shop" className="block hover:text-olive transition-colors">طارم هاشمی</Link>
-                    <Link href="/shop" className="block hover:text-olive transition-colors">شیرودی</Link>
-                    <Link href="/shop" className="block hover:text-olive transition-colors">دمسیاه</Link>
-                    <Link href="/shop" className="block hover:text-olive transition-colors">علی‌کاظمی</Link>
-                    <Link href="/shop" className="block hover:text-olive transition-colors">لنگرودی</Link>
+                    <Link href="/shop?type=tarom" className="block hover:text-olive transition-colors">طارم هاشمی</Link>
+                    <Link href="/shop?type=shirudi" className="block hover:text-olive transition-colors">شیرودی</Link>
+                    <Link href="/shop?type=domsiah" className="block hover:text-olive transition-colors">دمسیاه</Link>
+                    <Link href="/shop?type=alikazemi" className="block hover:text-olive transition-colors">علی‌کاظمی</Link>
+                    <Link href="/shop?type=langroudi" className="block hover:text-olive transition-colors">لنگرودی</Link>
                   </div>
                 </div>
                 <div>
                   <p className="section-eyebrow text-muted mb-5">کاربرد</p>
                   <div className="space-y-3.5 text-[14px]">
-                    <Link href="/shop" className="block hover:text-olive transition-colors">پلو مجلسی</Link>
+                    <Link href="/shop?premium=true" className="block hover:text-olive transition-colors">پلو مجلسی</Link>
                     <Link href="/shop" className="block hover:text-olive transition-colors">چلو روزانه</Link>
-                    <Link href="/shop" className="block hover:text-olive transition-colors">ارگانیک</Link>
-                    <Link href="/shop" className="block hover:text-olive transition-colors">بسته هدیه</Link>
+                    <Link href="/shop?organic=true" className="block hover:text-olive transition-colors">ارگانیک</Link>
+                    <Link href="/shop?collection=chef-choice" className="block hover:text-olive transition-colors">بسته هدیه</Link>
                   </div>
                 </div>
                 <div className="relative min-h-[200px] overflow-hidden">
@@ -92,14 +92,14 @@ export function Header() {
           <button onClick={() => setSearch(true)} className="p-1" aria-label="جستجو">
             <Search className="w-4 h-4" />
           </button>
-          <button className="hidden sm:block p-1 relative" aria-label="علاقه‌مندی‌ها">
+          <Link href="/wishlist" className="hidden sm:block p-1 relative" aria-label="علاقه‌مندی‌ها">
             <Heart className="w-4 h-4" />
             {wishIds.length > 0 && (
               <span className="absolute -top-1.5 -left-1.5 bg-deep text-white rounded-full w-[16px] h-[16px] text-[9px] flex items-center justify-center">
                 {toFa(wishIds.length)}
               </span>
             )}
-          </button>
+          </Link>
           <button onClick={openCart} className="relative p-1" aria-label="سبد خرید">
             <ShoppingBag className="w-4 h-4" />
             {cartCount > 0 && (
