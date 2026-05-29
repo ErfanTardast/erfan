@@ -1,36 +1,35 @@
 import dynamic from 'next/dynamic';
-import { Splash } from '@/components/landing/Splash';
-import { Hero } from '@/components/landing/Hero';
+import { Header } from '@/components/shop/Header';
+import { HomeHero } from '@/components/home/HomeHero';
+import { FeaturedProducts } from '@/components/landing/FeaturedProducts';
+import { CollectionsStrip } from '@/components/home/CollectionsStrip';
+import { HomeFootnote } from '@/components/home/HomeFootnote';
+import { HomeFooter } from '@/components/home/HomeFooter';
 
-// Below-fold sections — code-split to reduce initial bundle
-const Manifesto = dynamic(() => import('@/components/landing/Manifesto').then((m) => ({ default: m.Manifesto })));
-const ThreeActStory = dynamic(() => import('@/components/landing/ThreeActStory').then((m) => ({ default: m.ThreeActStory })));
-const HarvestStory = dynamic(() => import('@/components/landing/HarvestStory').then((m) => ({ default: m.HarvestStory })));
-const EditorialQuote = dynamic(() => import('@/components/landing/EditorialQuote').then((m) => ({ default: m.EditorialQuote })));
-const GrainShowcase = dynamic(() => import('@/components/landing/GrainShowcase').then((m) => ({ default: m.GrainShowcase })));
-const FeaturedProducts = dynamic(() => import('@/components/landing/FeaturedProducts').then((m) => ({ default: m.FeaturedProducts })));
-const ChefSection = dynamic(() => import('@/components/landing/ChefSection').then((m) => ({ default: m.ChefSection })));
-const MarqueeWall = dynamic(() => import('@/components/landing/MarqueeWall').then((m) => ({ default: m.MarqueeWall })));
-const CTAEnter = dynamic(() => import('@/components/landing/CTAEnter').then((m) => ({ default: m.CTAEnter })));
-const MiniFooter = dynamic(() => import('@/components/landing/MiniFooter').then((m) => ({ default: m.MiniFooter })));
-const CustomCursor = dynamic(() => import('@/components/ui/CustomCursor').then((m) => ({ default: m.CustomCursor })), { ssr: false });
+const CartDrawer = dynamic(() => import('@/components/shop/CartDrawer').then((m) => ({ default: m.CartDrawer })), { ssr: false });
+const QuickViewModal = dynamic(() => import('@/components/shop/QuickViewModal').then((m) => ({ default: m.QuickViewModal })), { ssr: false });
+const SearchOverlay = dynamic(() => import('@/components/shop/SearchOverlay').then((m) => ({ default: m.SearchOverlay })), { ssr: false });
+const Toast = dynamic(() => import('@/components/shop/Toast').then((m) => ({ default: m.Toast })), { ssr: false });
+const MobileMenuDrawer = dynamic(() => import('@/components/shop/MobileMenuDrawer').then((m) => ({ default: m.MobileMenuDrawer })), { ssr: false });
 
-export default function LandingPage() {
+export default function HomePage() {
   return (
-    <main className="landing-cursor-host bg-ink">
-      <CustomCursor />
-      <Splash />
-      <Hero />
-      <Manifesto />
-      <ThreeActStory />
-      <HarvestStory />
-      <EditorialQuote />
-      <GrainShowcase />
-      <FeaturedProducts />
-      <ChefSection />
-      <MarqueeWall />
-      <CTAEnter />
-      <MiniFooter />
-    </main>
+    <>
+      <Header />
+      <main className="bg-cream">
+        <HomeHero />
+        <FeaturedProducts />
+        <CollectionsStrip />
+        <HomeFootnote />
+      </main>
+      <HomeFooter />
+
+      {/* Portals / Overlays */}
+      <CartDrawer />
+      <QuickViewModal />
+      <SearchOverlay />
+      <MobileMenuDrawer />
+      <Toast />
+    </>
   );
 }

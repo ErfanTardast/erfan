@@ -27,44 +27,26 @@ export function FeaturedProducts() {
   const products = PICKS.map((id) => PRODUCTS.find((p) => p.id === id)).filter((p): p is Product => Boolean(p));
 
   return (
-    <section className="bg-cream py-24 md:py-36 overflow-hidden">
+    <section className="bg-cream py-14 md:py-20 overflow-hidden">
       <div className="max-w-[1500px] mx-auto px-5 md:px-10 lg:px-16">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
           <div>
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="section-eyebrow text-olive mb-3"
-            >
-              — سفارش مستقیم —
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: EASE }}
-              className="title-lg !text-[clamp(32px,5.5vw,72px)] !leading-[1.08] max-w-[560px]"
-            >
+            <p className="section-eyebrow text-olive mb-3">— سفارش مستقیم —</p>
+            <h2 className="title-lg !text-[clamp(32px,5.5vw,72px)] !leading-[1.08] max-w-[560px]">
               پیشنهادهای ویژه همین لحظه
-            </motion.h2>
+            </h2>
           </div>
           <PageTransitionTrigger>
             {(navigate) => (
-              <motion.button
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.6 }}
+              <button
                 onClick={() => navigate('/shop')}
                 className="group flex items-center gap-2 text-[13px] tracking-[0.12em] text-olive hover:text-ink transition-colors shrink-0"
               >
                 <span>مشاهده همه محصولات</span>
                 <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-              </motion.button>
+              </button>
             )}
           </PageTransitionTrigger>
         </div>
@@ -86,20 +68,14 @@ export function FeaturedProducts() {
         </div>
 
         {/* Trust strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.7 }}
-          className="mt-12 pt-8 border-t border-ink/10 flex flex-wrap gap-8 justify-center text-[11px] tracking-[0.2em] text-muted"
-        >
+        <div className="mt-12 pt-8 border-t border-ink/10 flex flex-wrap gap-8 justify-center text-[11px] tracking-[0.2em] text-muted">
           {['ارسال رایگان از ۳۰۰ هزار تومان', 'تضمین اصالت محصول', 'بسته‌بندی حرفه‌ای', 'پشتیبانی ۷ روزه'].map((t) => (
             <span key={t} className="flex items-center gap-2">
               <span className="w-1 h-1 rounded-full bg-olive inline-block" />
               {t}
             </span>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -129,7 +105,7 @@ function FeaturedCard({
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.75, delay: index * 0.1, ease: EASE }}
+      transition={{ duration: 0.55, delay: index * 0.08, ease: EASE }}
       className="group"
     >
       {/* Image */}
