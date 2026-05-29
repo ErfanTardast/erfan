@@ -20,10 +20,7 @@ type CartState = {
 export const useCart = create<CartState>()(
   persist(
     (set) => ({
-      items: [
-        { id: '1', qty: 1 },
-        { id: '3', qty: 1 },
-      ],
+      items: [],
       isOpen: false,
       add: (id) =>
         set((s) => {

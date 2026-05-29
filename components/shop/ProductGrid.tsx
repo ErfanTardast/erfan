@@ -56,12 +56,17 @@ export function ProductGrid() {
       <ActiveFilters />
 
       {visible.length === 0 ? (
-        <div className="border border-line py-20 text-center">
-          <p className="text-[15px] mb-2">محصولی با این فیلترها پیدا نشد</p>
-          <p className="small-copy text-muted mb-6">فیلترها را تغییر دهید یا پاک کنید</p>
+        <div className="border border-line py-24 text-center bg-[#faf6ef]">
+          <div className="w-14 h-14 rounded-full bg-[#ede8df] flex items-center justify-center mx-auto mb-6">
+            <span className="text-[22px] text-[#b0a898]">×</span>
+          </div>
+          <p className="text-[16px] font-medium mb-2">محصولی پیدا نشد</p>
+          <p className="small-copy text-muted mb-8 max-w-[260px] mx-auto leading-relaxed">
+            فیلترهای انتخابی با هیچ محصولی مطابقت ندارد. فیلترها را تغییر دهید یا پاک کنید.
+          </p>
           <button
             onClick={filters.clear}
-            className="border border-deep px-6 py-2.5 text-[12px] hover:bg-deep hover:text-white transition-all"
+            className="border border-deep px-7 py-3 text-[12px] tracking-wider hover:bg-deep hover:text-white transition-all"
           >
             پاک کردن فیلترها
           </button>

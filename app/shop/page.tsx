@@ -15,13 +15,14 @@ import { Toast } from '@/components/shop/Toast';
 import { MobileMenuDrawer } from '@/components/shop/MobileMenuDrawer';
 import { MobileFilterDrawer } from '@/components/shop/MobileFilterDrawer';
 import { MobileFilterBarWrapper } from '@/components/shop/MobileFilterBarWrapper';
+import { StickyMobileBar } from '@/components/shop/StickyMobileBar';
 
 export default function ShopPage() {
   return (
     <>
       <AnnouncementBar />
       <Header />
-      <main>
+      <main className="pb-16 lg:pb-0">
         <ShopHero />
         <TrustBar />
         <section className="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-10 md:py-16">
@@ -36,6 +37,7 @@ export default function ShopPage() {
         <Newsletter />
       </main>
       <Footer />
+      <StickyMobileBar />
 
       {/* Portals / Overlays */}
       <CartDrawer />

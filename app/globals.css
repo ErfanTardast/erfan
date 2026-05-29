@@ -13,6 +13,25 @@
   --line: #d8d0c3;
   --muted: #77776e;
   --gold: #b59b67;
+
+  /* Elevation shadows — warm tinted */
+  --shadow-xs:  0 1px 3px rgba(29, 37, 29, 0.06);
+  --shadow-sm:  0 4px 14px rgba(29, 37, 29, 0.07);
+  --shadow-md:  0 12px 40px rgba(29, 37, 29, 0.09);
+  --shadow-lg:  0 24px 70px rgba(29, 37, 29, 0.12);
+  --shadow-xl:  0 40px 100px rgba(29, 37, 29, 0.15);
+
+  /* Spacing scale */
+  --section-y-sm:  4rem;
+  --section-y-md:  6rem;
+  --section-y-lg:  9rem;
+  --section-y-xl:  12rem;
+
+  /* Transitions */
+  --t-fast:  150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-base:  300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-slow:  550ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  --t-cinematic: 850ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 * {
@@ -36,8 +55,7 @@ body {
 /* Editorial type scales */
 .section-eyebrow {
   font-size: 10px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
+  letter-spacing: 0.18em;
 }
 .small-copy {
   font-size: 12px;
@@ -49,14 +67,14 @@ body {
 }
 .title-xl {
   font-size: 58px;
-  line-height: 1.16;
-  letter-spacing: -0.06em;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   font-weight: 300;
 }
 .title-lg {
   font-size: 44px;
-  line-height: 1.2;
-  letter-spacing: -0.05em;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
   font-weight: 300;
 }
 .title-md {
@@ -119,7 +137,7 @@ a:focus-visible {
 .nav-glass {
   background: rgba(245, 241, 233, 0.72);
   backdrop-filter: blur(20px);
-  transition: 0.3s ease;
+  transition: background 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
 }
 .nav-glass.scrolled {
   background: rgba(245, 241, 233, 0.95);
@@ -142,10 +160,73 @@ a:focus-visible {
   );
 }
 .card-shadow {
-  box-shadow: 0 12px 40px rgba(33, 42, 32, 0.08);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow var(--t-slow);
+}
+.card-shadow:hover {
+  box-shadow: var(--shadow-lg);
 }
 .soft-shadow {
-  box-shadow: 0 24px 70px rgba(33, 42, 32, 0.11);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Warm vignette — subtle inner shadow for depth on dark sections */
+.warm-vignette::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, transparent 40%, rgba(29, 37, 29, 0.35) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Section divider — refined hairline with fade */
+.section-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent);
+  border: none;
+  margin: 0;
+}
+
+/* Button states */
+.btn-primary {
+  background: var(--ink);
+  color: var(--cream);
+  border: 1px solid var(--ink);
+  padding: 14px 32px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  transition: background var(--t-base), color var(--t-base), border-color var(--t-base);
+}
+.btn-primary:hover {
+  background: var(--deep);
+  border-color: var(--deep);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  padding: 13px 32px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  transition: background var(--t-base), border-color var(--t-base);
+}
+.btn-ghost:hover {
+  background: var(--sand);
+  border-color: var(--ink);
+}
+.btn-ghost-ink {
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(245, 241, 233, 0.3);
+  padding: 13px 32px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  transition: background var(--t-base), border-color var(--t-base);
+}
+.btn-ghost-ink:hover {
+  background: rgba(245, 241, 233, 0.06);
+  border-color: var(--cream);
 }
 
 /* Marquee */
@@ -199,4 +280,49 @@ a:focus-visible {
   .marquee-track {
     animation: none;
   }
+}
+
+/* Grain texture overlay — use as pseudo on section elements */
+.grain-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.35;
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+/* Elevated card */
+.card-hover {
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 60px rgba(33, 42, 32, 0.12);
+}
+
+/* Shimmer skeleton */
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #ede8df 25%, #f5f1e9 50%, #ede8df 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+}
+
+/* Progress bar */
+.progress-bar {
+  transition: width 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Line clamp */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

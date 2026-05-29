@@ -40,7 +40,7 @@ export function Manifesto() {
   const inView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section className="bg-[#0f160f] text-cream py-32 md:py-44 overflow-hidden">
+    <section className="bg-[#0f160f] text-cream py-32 md:py-44 overflow-hidden relative grain-overlay">
       <div className="max-w-[1300px] mx-auto px-5 md:px-10 lg:px-16">
         <motion.p
           initial={{ opacity: 0, y: 14 }}
@@ -71,12 +71,12 @@ export function Manifesto() {
 
         <div className="mt-24 md:mt-32 grid grid-cols-2 md:grid-cols-4 gap-y-10">
           {STATS.map((s) => (
-            <div key={s.label} className="text-center border-r border-cream/15 last:border-r-0 first:border-r px-4">
-              <p className="latin text-[44px] md:text-[64px] leading-none font-medium tracking-tighter text-cream">
+            <div key={s.label} className="text-center border-l border-cream/15 first:border-l-0 px-4">
+              <p className="text-[44px] md:text-[64px] leading-none font-medium tracking-tighter text-cream">
                 <Counter to={s.value} />
                 <span className="text-[20px] md:text-[28px] text-olive2 mr-1">{s.suffix}</span>
               </p>
-              <p className="text-[11px] tracking-[0.24em] text-cream/60 mt-3 uppercase">{s.label}</p>
+              <p className="text-[11px] tracking-[0.18em] text-cream/60 mt-3">{s.label}</p>
             </div>
           ))}
         </div>

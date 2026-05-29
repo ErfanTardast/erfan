@@ -18,7 +18,7 @@ const ACTS: Act[] = [
     fa: 'از زمین',
     en: 'EARTH',
     copy: 'مزارع سبز رشت، آمل و فومن — جایی که هر کشاورز، نسل پدرش را در ادب کشت برنج زنده می‌کند.',
-    image: 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1800&q=85',
+    image: 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1200&q=85',
   },
   {
     num: '02',
@@ -26,7 +26,7 @@ const ACTS: Act[] = [
     fa: 'تا دانه',
     en: 'GRAIN',
     copy: 'دانه‌هایی که زیر آفتاب طلایی شمال شکل گرفتند — کشیده، شفاف، عطردار. هر دانه، گواهی از مزرعه است.',
-    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1800&q=85',
+    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=85',
   },
   {
     num: '03',
@@ -34,7 +34,7 @@ const ACTS: Act[] = [
     fa: 'تا سفره',
     en: 'TABLE',
     copy: 'پلویی که در دیگ‌های مسی دم می‌کشد، ته‌دیگی که طلایی می‌شود — و خاطره‌ای که سال‌ها در ذهن می‌ماند.',
-    image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=1800&q=85',
+    image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=1200&q=85',
   },
 ];
 
@@ -49,13 +49,14 @@ function ActScene({ act, idx }: { act: Act; idx: number }) {
   return (
     <section
       ref={ref}
-      className="relative h-[100svh] min-h-[640px] overflow-hidden flex items-center"
+      className="relative grain-overlay h-[100svh] min-h-[640px] overflow-hidden flex items-center"
       style={{ background: act.bg }}
     >
       <motion.div className="absolute inset-0" style={{ y: imgY, scale: imgScale }}>
         <img src={act.image} alt={act.fa} className="w-full h-full object-cover opacity-60" />
       </motion.div>
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/50" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent" />
 
       {/* Giant background word */}
       <motion.div
@@ -73,7 +74,7 @@ function ActScene({ act, idx }: { act: Act; idx: number }) {
       >
         <div className="flex items-end gap-6 mb-6">
           <span className="latin text-[64px] md:text-[120px] leading-none text-olive2 font-medium">{act.num}</span>
-          <span className="text-[11px] tracking-[0.3em] text-cream/60 mb-4">CHAPTER</span>
+          <span className="text-[11px] tracking-[0.2em] text-cream/60 mb-4">فصل</span>
         </div>
         <h2 className="title-xl !text-[clamp(48px,9vw,140px)] !leading-[0.95] !tracking-tight max-w-[720px]">
           {act.fa}

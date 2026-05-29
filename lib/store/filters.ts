@@ -41,16 +41,16 @@ const toggleSet = <T>(set: Set<T>, v: T): Set<T> => {
 };
 
 export const useFilters = create<FilterState>((set) => ({
-  types: new Set(['tarom']),
-  regions: new Set(['gilan']),
-  aromas: new Set(['mild']),
-  grains: new Set(['long']),
-  weights: new Set([5]),
+  types: new Set<RiceType>(),
+  regions: new Set<Region>(),
+  aromas: new Set<Aroma>(),
+  grains: new Set<GrainLength>(),
+  weights: new Set<2 | 3 | 5 | 10>(),
   priceMin: ALL_PRICE_MIN,
   priceMax: ALL_PRICE_MAX,
   organic: false,
-  premium: true,
-  inStockOnly: true,
+  premium: false,
+  inStockOnly: false,
   search: '',
   sort: 'featured',
   toggleType: (t) => set((s) => ({ types: toggleSet(s.types, t) })),

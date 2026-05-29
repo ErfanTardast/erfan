@@ -7,7 +7,7 @@ export function MiniFooter() {
       <div className="max-w-[1500px] mx-auto px-5 md:px-10 lg:px-16 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-center md:text-right">
           <p className="latin text-[24px] tracking-tighter text-cream">Darya</p>
-          <p className="text-[10px] tracking-[0.3em] text-olive2 mt-1">PERSIAN RICE · SINCE 1387</p>
+          <p className="text-[10px] tracking-[0.2em] text-olive2 mt-1">برنج ایرانی · از ۱۳۸۷</p>
         </div>
 
         <nav className="flex items-center gap-8 text-[12px] tracking-wider">
@@ -29,7 +29,7 @@ export function MiniFooter() {
           </a>
         </div>
       </div>
-      <p className="text-center text-[10px] tracking-[0.3em] text-cream/30 pb-6">© ۱۴۰۳ DARYA RICE</p>
+      <p className="text-center text-[10px] tracking-[0.2em] text-cream/30 pb-6">© ۱۴۰۳ دریا رایس — همه حقوق محفوظ است</p>
     </footer>
   );
 }
