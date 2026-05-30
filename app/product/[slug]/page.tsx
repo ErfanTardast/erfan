@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ChevronLeft, Heart, ShoppingBag, ShieldCheck, Truck, Star } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
-import { PRODUCTS, getProductBySlug, REGION_LABELS, AROMA_LABELS } from '@/lib/products';
+import { PRODUCTS, getProductBySlug, getGallery, getReviews, RICE_NUTRITION, REGION_LABELS, AROMA_LABELS } from '@/lib/products';
 import { fmtPrice, toFa } from '@/lib/format';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
@@ -26,6 +26,8 @@ export default function ProductPage() {
   const product = getProductBySlug(slug);
   const [qty, setQty] = useState(1);
   const [adding, setAdding] = useState(false);
+  const gallery = product ? getGallery(product) : [];
+  const [activeImg, setActiveImg] = useState(0);
 
   const add = useCart((s) => s.add);
   const openCart = useCart((s) => s.open);
@@ -93,8 +95,12 @@ export default function ProductPage() {
               transition={{ duration: 0.9, ease: EASE }}
             >
               <div className="aspect-[4/5] overflow-hidden bg-sand relative">
-                <img
-                  src={product.image}
+                <motion.img
+                  key={activeImg}
+                  initial={{ opacity: 0.4, scale: 1.02 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: EASE }}
+                  src={gallery[activeImg]}
                   alt={product.title}
                   className="w-full h-full object-cover"
                 />
@@ -113,6 +119,23 @@ export default function ProductPage() {
                   </div>
                 )}
               </div>
+              {/* Thumbnails */}
+              {gallery.length > 1 && (
+                <div className="flex gap-3 mt-3">
+                  {gallery.map((src, i) => (
+                    <button
+                      key={src}
+                      onClick={() => setActiveImg(i)}
+                      className={`w-[68px] h-[68px] overflow-hidden bg-sand shrink-0 border-2 transition-colors ${
+                        activeImg === i ? 'border-ink' : 'border-transparent hover:border-line'
+                      }`}
+                      aria-label={`تصویر ${toFa(i + 1)}`}
+                    >
+                      <img src={src} alt="" className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
               {/* Harvest + origin mini bar */}
               <div className="flex items-center gap-6 mt-5 pt-5 border-t border-line">
                 <div>
@@ -375,6 +398,70 @@ export default function ProductPage() {
             </motion.div>
           </section>
         )}
+
+        {/* Nutrition + Reviews */}
+        <section className="border-t border-sand bg-cream">
+          <div className="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-16 md:py-24 grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20">
+            {/* Nutrition */}
+            <div>
+              <p className="section-eyebrow text-olive mb-3">ارزش غذایی</p>
+              <h2 className="title-md mb-7">در هر ۱۰۰ گرم</h2>
+              <div className="divide-y divide-line border-y border-line">
+                {RICE_NUTRITION.map((n) => (
+                  <div key={n.label} className="flex justify-between py-3.5 text-[13px]">
+                    <span className="text-muted">{n.label}</span>
+                    <span className="text-ink font-medium">{n.value}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="small-copy text-muted mt-5 leading-relaxed">
+                مقادیر تقریبی برای برنج پخته‌شده است و بسته به روش پخت کمی متفاوت خواهد بود.
+              </p>
+            </div>
+
+            {/* Reviews */}
+            <div>
+              <div className="flex items-end justify-between mb-7">
+                <div>
+                  <p className="section-eyebrow text-olive mb-3">نظر مشتریان</p>
+                  <h2 className="title-md">{toFa(product.reviewCount)} دیدگاه ثبت‌شده</h2>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-gold fill-gold" />
+                  <span className="text-[22px] font-light">{toFa(product.rating.toFixed(1))}</span>
+                </div>
+              </div>
+              <div className="space-y-5">
+                {getReviews(product).map((r, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ delay: i * 0.06, duration: 0.6, ease: EASE }}
+                    className="border border-line bg-paper p-5"
+                  >
+                    <div className="flex items-center justify-between mb-2.5">
+                      <div className="flex items-center gap-2.5">
+                        <span className="w-8 h-8 rounded-full bg-ink text-cream text-[12px] flex items-center justify-center">
+                          {r.name.charAt(0)}
+                        </span>
+                        <span className="text-[13px] font-medium">{r.name}</span>
+                      </div>
+                      <span className="text-[11px] text-muted">{r.date}</span>
+                    </div>
+                    <div className="flex gap-0.5 mb-2.5">
+                      {Array.from({ length: 5 }, (_, s) => (
+                        <Star key={s} className={`w-3 h-3 ${s < r.rating ? 'text-gold fill-gold' : 'text-[#d9d3ca]'}`} />
+                      ))}
+                    </div>
+                    <p className="small-copy text-ink/80 leading-[1.9]">{r.text}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Related products */}
         {related.length > 0 && (
