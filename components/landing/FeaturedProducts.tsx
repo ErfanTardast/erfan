@@ -66,16 +66,6 @@ export function FeaturedProducts() {
             />
           ))}
         </div>
-
-        {/* Trust strip */}
-        <div className="mt-12 pt-8 border-t border-ink/10 flex flex-wrap gap-8 justify-center text-[11px] tracking-[0.2em] text-muted">
-          {['ارسال رایگان از ۳۰۰ هزار تومان', 'تضمین اصالت محصول', 'بسته‌بندی حرفه‌ای', 'پشتیبانی ۷ روزه'].map((t) => (
-            <span key={t} className="flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-olive inline-block" />
-              {t}
-            </span>
-          ))}
-        </div>
       </div>
     </section>
   );
