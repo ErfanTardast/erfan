@@ -287,6 +287,58 @@ export const PRODUCTS: Product[] = [
 export const getProductById = (id: string) => PRODUCTS.find((p) => p.id === id);
 export const getProductBySlug = (slug: string) => PRODUCTS.find((p) => p.slug === slug);
 
+// --- Image gallery -------------------------------------------------------
+// Contextual rice imagery (field, grains, cooked, served) shown alongside
+// each product's primary photo.
+const CONTEXT_IMAGES = [
+  'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=720&q=80', // مزرعه
+  'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&q=80', // دانه برنج
+  'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=720&q=80', // برنج پخته
+  'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=720&q=80', // سرو شده
+];
+
+const baseId = (url: string) => url.split('?')[0];
+
+export function getGallery(p: Product): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const url of [p.image, ...CONTEXT_IMAGES]) {
+    const id = baseId(url);
+    if (!seen.has(id)) { seen.add(id); out.push(url); }
+  }
+  return out.slice(0, 4);
+}
+
+// --- Nutrition (per 100g cooked, typical Iranian white rice) -------------
+export const RICE_NUTRITION: { label: string; value: string }[] = [
+  { label: 'انرژی', value: '۱۳۰ کیلوکالری' },
+  { label: 'کربوهیدرات', value: '۲۸ گرم' },
+  { label: 'پروتئین', value: '۲٫۷ گرم' },
+  { label: 'چربی', value: '۰٫۳ گرم' },
+  { label: 'فیبر', value: '۰٫۴ گرم' },
+  { label: 'بدون گلوتن', value: '✓' },
+];
+
+// --- Reviews -------------------------------------------------------------
+export type Review = { name: string; rating: number; date: string; text: string };
+
+const REVIEW_POOL: Review[] = [
+  { name: 'مریم احمدی', rating: 5, date: '۲ هفته پیش', text: 'عطرش فوق‌العاده است، دقیقاً مثل برنج شمال خودمان. حتماً دوباره سفارش می‌دهم.' },
+  { name: 'رضا کریمی', rating: 5, date: '۱ ماه پیش', text: 'کیفیت واقعاً عالی بود و دانه‌ها بعد از پخت کاملاً جدا و قدکشیده شدند. بسته‌بندی هم بی‌نقص.' },
+  { name: 'سحر موسوی', rating: 4, date: '۳ هفته پیش', text: 'برنج خیلی خوبیه، ته‌دیگش معرکه می‌شه. فقط کاش ارسالش کمی سریع‌تر بود.' },
+  { name: 'علی رضایی', rating: 5, date: '۵ روز پیش', text: 'بعد از سال‌ها بالاخره یک برنج اصیل پیدا کردم. ممنون از دریا، کیفیت ثابت و قابل اعتماد.' },
+  { name: 'نگار حسینی', rating: 5, date: '۱ هفته پیش', text: 'برای مهمانی سفارش دادم و همه از طعم و عطرش تعریف کردند. ارزش خریدش را دارد.' },
+  { name: 'محمد قاسمی', rating: 4, date: '۲ ماه پیش', text: 'پخت آسانی دارد و خیلی خوش‌عطر است. مناسب مصرف روزانه خانواده.' },
+];
+
+export function getReviews(p: Product): Review[] {
+  const seed = parseInt(p.id, 10) || 1;
+  const n = Math.min(REVIEW_POOL.length, Math.max(2, (p.reviewCount % 4) + 2));
+  const out: Review[] = [];
+  for (let i = 0; i < n; i++) out.push(REVIEW_POOL[(seed + i) % REVIEW_POOL.length]);
+  return out;
+}
+
 export const RICE_TYPE_LABELS: Record<RiceType, string> = {
   tarom: 'طارم هاشمی',
   shirudi: 'شیرودی',
