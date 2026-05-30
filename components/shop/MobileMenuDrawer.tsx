@@ -1,12 +1,14 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { X, User } from 'lucide-react';
 import Link from 'next/link';
 import { useUI } from '@/lib/store/ui';
+import { useAccount } from '@/lib/store/account';
 
 export function MobileMenuDrawer() {
   const open = useUI((s) => s.mobileMenuOpen);
   const setOpen = useUI((s) => s.setMobileMenu);
+  const user = useAccount((s) => s.user);
 
   return (
     <AnimatePresence>
@@ -41,6 +43,10 @@ export function MobileMenuDrawer() {
               <Link href="/about" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">داستان ما</Link>
               <Link href="/recipes" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">دستور پخت</Link>
               <Link href="/contact" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">تماس با ما</Link>
+              <Link href={user ? '/account' : '/login'} onClick={() => setOpen(false)} className="flex items-center gap-3 w-full text-right hover:text-olive transition-colors">
+                <User className="w-5 h-5" />
+                {user ? 'حساب کاربری' : 'ورود / ثبت‌نام'}
+              </Link>
             </nav>
             <div className="absolute bottom-6 right-7 left-7 border-t border-line pt-5 small-copy text-[#76766d] leading-loose">
               ارسال رایگان برای سفارش‌های بالای ۵۰۰،۰۰۰ تومان<br />

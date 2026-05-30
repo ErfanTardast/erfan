@@ -35,7 +35,9 @@ export function Footer() {
                 <Instagram className="w-3.5 h-3.5" />
               </a>
               <a
-                href="#"
+                href="https://t.me/daryarice"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-9 h-9 border border-[#3a4a3a] flex items-center justify-center hover:border-[#6a8a6a] hover:text-[#9ba595] transition-all duration-300 text-[11px] font-medium"
                 aria-label="تلگرام"
               >
