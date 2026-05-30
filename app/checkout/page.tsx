@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, Check, ShoppingBag, MapPin, CreditCard, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/lib/store/cart';
+import { useAccount } from '@/lib/store/account';
 import { PRODUCTS, getProductById } from '@/lib/products';
 import { fmtPrice, toFa } from '@/lib/format';
 import { Header } from '@/components/shop/Header';
@@ -64,6 +65,24 @@ export default function CheckoutPage() {
   const items = useCart((s) => s.items);
   const clear = useCart((s) => s.clear);
   const close = useCart((s) => s.close);
+  const user = useAccount((s) => s.user);
+  const savedAddresses = useAccount((s) => s.addresses);
+  const addOrder = useAccount((s) => s.addOrder);
+
+  // Prefill contact + address from the signed-in account
+  useEffect(() => {
+    if (!user) return;
+    setName((v) => v || user.name);
+    setPhone((v) => v || user.phone);
+    setEmail((v) => v || user.email);
+    const a = savedAddresses[0];
+    if (a) {
+      setProvince((v) => v || a.province);
+      setCity((v) => v || a.city);
+      setAddress((v) => v || a.line);
+      setPostal((v) => v || a.postal);
+    }
+  }, [user, savedAddresses]);
 
   const lines = items
     .map(i => ({ ...i, p: getProductById(i.id) }))
@@ -77,6 +96,17 @@ export default function CheckoutPage() {
   const prevStep = () => setStep(s => Math.max(1, s - 1) as Step);
 
   const handleConfirm = () => {
+    addOrder({
+      num: orderNum,
+      date: new Date().toISOString(),
+      items: lines.map((l) => ({ id: l.p.id, title: l.p.title, weight: l.p.weight, qty: l.qty, price: l.p.price })),
+      subtotal,
+      shipping,
+      total,
+      payMethod: payMethod === 'card' ? 'پرداخت آنلاین' : payMethod === 'cod' ? 'پرداخت در محل' : 'کارت به کارت',
+      status: 'processing',
+      address: [province, city, address].filter(Boolean).join('، '),
+    });
     clear();
     close();
     setStep(4);
@@ -316,9 +346,17 @@ export default function CheckoutPage() {
                       {email ? `پیامک تأیید به ${phone} و ایمیل به ${email} ارسال خواهد شد.` : `پیامک تأیید به ${phone} ارسال خواهد شد.`}
                     </p>
                     <div className="flex flex-col gap-3">
+                      {user && (
+                        <Link
+                          href="/account"
+                          className="w-full border border-ink bg-ink text-white py-3.5 text-[13px] tracking-wider hover:bg-deep transition-all block text-center"
+                        >
+                          مشاهده سفارش‌ها
+                        </Link>
+                      )}
                       <Link
                         href="/shop"
-                        className="w-full border border-ink bg-ink text-white py-3.5 text-[13px] tracking-wider hover:bg-deep transition-all block text-center"
+                        className={`w-full py-3.5 text-[13px] tracking-wider transition-all block text-center ${user ? 'border border-line text-muted hover:border-ink hover:text-ink' : 'border border-ink bg-ink text-white hover:bg-deep'}`}
                       >
                         ادامه خرید
                       </Link>

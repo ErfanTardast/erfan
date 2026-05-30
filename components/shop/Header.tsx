@@ -1,10 +1,11 @@
 'use client';
-import { Menu, Search, Heart, ShoppingBag, ChevronDown } from 'lucide-react';
+import { Menu, Search, Heart, ShoppingBag, ChevronDown, User } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
 import { useUI } from '@/lib/store/ui';
+import { useAccount } from '@/lib/store/account';
 import { toFa } from '@/lib/format';
 
 export function Header() {
@@ -14,6 +15,7 @@ export function Header() {
   const openCart = useCart((s) => s.open);
   const setSearch = useUI((s) => s.setSearch);
   const setMobileMenu = useUI((s) => s.setMobileMenu);
+  const user = useAccount((s) => s.user);
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 18);
@@ -98,6 +100,16 @@ export function Header() {
               <span className="absolute -top-1.5 -left-1.5 bg-deep text-white rounded-full w-[16px] h-[16px] text-[9px] flex items-center justify-center">
                 {toFa(wishIds.length)}
               </span>
+            )}
+          </Link>
+          <Link
+            href={user ? '/account' : '/login'}
+            className="p-1 relative"
+            aria-label={user ? 'حساب کاربری' : 'ورود'}
+          >
+            <User className="w-4 h-4" />
+            {user && (
+              <span className="absolute -top-1.5 -left-1.5 bg-olive rounded-full w-[8px] h-[8px]" />
             )}
           </Link>
           <button onClick={openCart} className="relative p-1" aria-label="سبد خرید">

@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { PageTransitionTrigger } from '@/components/ui/PageTransition';
 import { EASE } from '@/lib/motion';
 
@@ -52,10 +53,10 @@ export function EditorialBanner() {
                 </button>
               )}
             </PageTransitionTrigger>
-            <a href="#" className="text-white/70 hover:text-white text-[12px] tracking-wider transition-colors flex items-center gap-2">
+            <Link href="/about" className="text-white/70 hover:text-white text-[12px] tracking-wider transition-colors flex items-center gap-2">
               <span>داستان مزارع</span>
               <span>←</span>
-            </a>
+            </Link>
           </div>
         </motion.div>
 
