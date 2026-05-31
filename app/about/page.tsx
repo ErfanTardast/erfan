@@ -32,14 +32,14 @@ export default function AboutPage() {
       <Header />
       <main className="bg-[var(--cream)]">
         {/* Hero */}
-        <section className="relative h-[58vh] min-h-[420px] overflow-hidden">
+        <section className="relative h-[58vh] min-h-[420px] overflow-hidden grain-overlay">
           <img
             src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1600&q=80"
             alt="مزارع برنج شمال ایران"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(28,22,14,0.7), rgba(44,30,18,0.55))' }} />
-          <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
+          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
             <p className="text-[var(--cream)]/60 text-[11px] tracking-[0.3em] mb-5">— داستان ما —</p>
             <h1 className="text-[var(--cream)] font-light leading-tight" style={{ fontSize: 'clamp(36px,6vw,72px)' }}>
               از خاک شمال ایران

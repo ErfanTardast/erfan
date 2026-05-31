@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 
 export function LandingHero() {
   return (
-    <section className="relative h-[100svh] min-h-[600px] overflow-hidden">
+    <section className="relative h-[100svh] min-h-[600px] overflow-hidden grain-overlay">
       {/* Background image */}
       <img
         src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1600&q=80"
@@ -18,7 +18,7 @@ export function LandingHero() {
       <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(28,22,14,0.72) 0%, rgba(44,30,18,0.58) 100%)' }} />
 
       {/* Top minimal nav */}
-      <div className="absolute top-0 inset-x-0 flex items-center justify-between px-6 md:px-12 py-6">
+      <div className="absolute top-0 inset-x-0 z-10 flex items-center justify-between px-6 md:px-12 py-6">
         <span className="latin text-[var(--cream)] text-[18px] tracking-[0.18em] font-medium">DARYA</span>
         <Link
           href="/shop"
@@ -29,7 +29,7 @@ export function LandingHero() {
       </div>
 
       {/* Center content */}
-      <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -80,7 +80,7 @@ export function LandingHero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.5 }}
         transition={{ delay: 1, duration: 0.6 }}
-        className="absolute bottom-8 inset-x-0 flex justify-center"
+        className="absolute bottom-8 inset-x-0 z-10 flex justify-center"
       >
         <div className="flex flex-col items-center gap-2">
           <span className="text-[var(--cream)] text-[9px] tracking-[0.3em]">پایین بکشید</span>
