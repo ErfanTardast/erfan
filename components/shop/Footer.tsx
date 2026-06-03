@@ -19,8 +19,12 @@ export function Footer() {
         <div className="grid md:grid-cols-2 lg:grid-cols-[1.6fr_0.8fr_0.8fr_1.4fr] gap-12 lg:gap-10">
           {/* Brand column */}
           <div>
-            <p className="latin text-[32px] tracking-tighter font-medium leading-none mb-5">Darya</p>
-            <p className="text-[13px] text-[#6d7a67] mb-2 tracking-[0.08em]">دریا رایس</p>
+            <div className="flex items-center gap-4 mb-4">
+              <p className="latin text-[32px] tracking-tighter font-medium leading-none">Darya</p>
+              <span className="text-[26px] font-semibold leading-none text-[#9ba595]">دریا</span>
+            </div>
+            <span className="block h-px w-12 bg-[var(--terra)] mb-4" />
+            <p className="text-[13px] text-[#6d7a67] mb-2 tracking-[0.08em]">برنج‌خانه‌ی شمال · از ۱۳۸۷</p>
             <p className="small-copy text-[#9ba595] mt-4 max-w-[300px] leading-[2]">
               از مزارع سرسبز شمال ایران، با عشق به سفره شما می‌آوریم. هر دانه، روایتی از خاک و آفتاب و دست‌های کشاورز.
             </p>

@@ -50,6 +50,13 @@ export function Newsletter() {
         <div className="grid lg:grid-cols-[1fr_1fr] gap-16 items-center">
           {/* Left: editorial copy */}
           <div>
+            <motion.span
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.9, ease: EASE }}
+              className="block h-px w-16 bg-[var(--terra)] mb-6 origin-right"
+            />
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -68,6 +75,15 @@ export function Newsletter() {
             >
               داستان‌هایی از مزرعه تا سفره
             </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.15, duration: 0.7 }}
+              className="latin italic text-cream/45 text-[18px] md:text-[22px] mt-3"
+            >
+              Field Notes
+            </motion.p>
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
