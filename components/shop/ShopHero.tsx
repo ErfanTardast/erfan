@@ -57,10 +57,12 @@ export function ShopHero() {
             <span className="text-[9px] tracking-[0.16em] text-white/60">برداشت تازه</span>
           </div>
 
+          <span className="block h-px w-16 bg-[var(--terra)] mb-6" />
           <p className="section-eyebrow text-white/70 mb-5">برنج‌های ممتاز ایرانی</p>
           <h1 className="title-xl max-w-[760px]">
             مجموعه کامل<br />برنج‌های اصیل
           </h1>
+          <p className="latin italic text-white/55 text-[18px] md:text-[22px] mt-3">The Reserve Collection</p>
           <p className="body-copy text-white/80 max-w-[520px] mt-6 leading-loose">
             از مزارع سبز شمال ایران تا سفره شما — هر دانه با دقت انتخاب شده، با عشق بسته‌بندی شده است.
           </p>

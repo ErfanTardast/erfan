@@ -89,27 +89,27 @@ export function LandingHero() {
         <motion.span variants={line} className="block h-px w-16 md:w-20 bg-[var(--terra)] mb-7 origin-center" />
 
         {/* eyebrow */}
-        <motion.p variants={rise} className="text-[var(--cream)]/70 text-[10px] md:text-[11px] tracking-[0.42em] mb-5 md:mb-7">
+        <motion.p variants={rise} className="text-[var(--cream)]/70 text-[10px] md:text-[11px] tracking-[0.22em] md:tracking-[0.32em] mb-5 md:mb-7 px-4">
           برنج اصیل شمال ایران · از ۱۳۸۷
         </motion.p>
 
-        {/* Monumental Persian wordmark */}
-        <motion.h1
-          variants={rise}
-          className="text-[var(--cream)] font-semibold leading-[0.92] tracking-tight"
-          style={{ fontSize: 'clamp(92px, 21vw, 280px)' }}
-        >
-          دریا
-        </motion.h1>
-
-        {/* Latin echo */}
-        <motion.p
-          variants={rise}
-          className="latin italic text-[var(--cream)]/55 leading-none mt-2 mb-8"
-          style={{ fontSize: 'clamp(20px, 3vw, 34px)' }}
-        >
-          Darya
-        </motion.p>
+        {/* Balanced bilingual lockup — دریا (Vazirmatn) + Darya (Fraunces), equal size.
+            Stacks on mobile, side-by-side with a hairline divider on desktop. */}
+        <motion.div variants={rise} className="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-9 mb-8 md:mb-9">
+          <h1
+            className="text-[var(--cream)] font-semibold leading-[0.9] tracking-tight"
+            style={{ fontSize: 'clamp(58px, 13vw, 124px)' }}
+          >
+            دریا
+          </h1>
+          <span className="hidden md:block w-px self-stretch bg-[var(--cream)]/30 my-1.5" aria-hidden />
+          <span
+            className="latin text-[var(--cream)]/85 leading-[0.9]"
+            style={{ fontSize: 'clamp(58px, 13vw, 124px)' }}
+          >
+            Darya
+          </span>
+        </motion.div>
 
         {/* tagline */}
         <motion.p variants={rise} className="text-[var(--cream)]/70 text-[13px] md:text-[15px] leading-loose max-w-[360px] mb-9 md:mb-11">

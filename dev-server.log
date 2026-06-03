@@ -7,3 +7,23 @@
 
  ✓ Starting...
  ✓ Ready in 1823ms
+ ○ Compiling / ...
+ ✓ Compiled / in 2s (1321 modules)
+ GET / 200 in 2207ms
+ GET / 200 in 15ms
+ GET / 200 in 35ms
+ ○ Compiling /shop ...
+ ✓ Compiled /shop in 708ms (1438 modules)
+ ✓ Compiled in 474ms (1438 modules)
+ GET / 200 in 107ms
+ GET / 200 in 58ms
+ ✓ Compiled in 571ms (1438 modules)
+ GET /shop 200 in 120ms
+ GET / 200 in 52ms
+ GET / 200 in 26ms
+ GET / 200 in 22ms
+ ✓ Compiled in 571ms (1438 modules)
+ GET /shop 200 in 111ms
+ GET /shop 200 in 51ms
+ ✓ Compiled in 449ms (1438 modules)
+ GET / 200 in 101ms
