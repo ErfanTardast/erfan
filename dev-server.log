@@ -53,3 +53,25 @@
  GET /checkout 200 in 635ms
  GET / 200 in 79ms
  GET /checkout 200 in 36ms
+ GET /shop 200 in 99ms
+ ✓ Compiled in 573ms (1449 modules)
+ ✓ Compiled in 402ms (1449 modules)
+ ✓ Compiled in 223ms (1449 modules)
+ ✓ Compiled in 133ms (724 modules)
+ ✓ Compiled in 137ms (724 modules)
+ ✓ Compiled in 111ms (724 modules)
+ ✓ Compiled in 102ms (724 modules)
+ ✓ Compiled in 126ms (724 modules)
+ ✓ Compiled in 123ms (724 modules)
+ ✓ Compiled in 112ms (724 modules)
+ ✓ Compiled in 127ms (724 modules)
+ ✓ Compiled in 125ms (724 modules)
+ ✓ Compiled in 121ms (724 modules)
+ ✓ Compiled in 102ms (724 modules)
+ ✓ Compiled /login in 400ms (1443 modules)
+ GET /login 200 in 524ms
+ ✓ Compiled /wishlist in 250ms (1451 modules)
+ GET /wishlist 200 in 324ms
+ ✓ Compiled /account in 416ms (1464 modules)
+ GET /account 200 in 465ms
+ GET /shop 200 in 104ms

@@ -112,6 +112,7 @@ export function QuickViewModal() {
                   {p.badge.label}
                 </span>
               )}
+              <span className="block h-px w-10 bg-[var(--terra)] mb-4" />
               <p className="section-eyebrow text-olive mb-3">{p.kicker}</p>
               <h2 className="title-md leading-tight">{p.title}</h2>
 
@@ -159,7 +160,7 @@ export function QuickViewModal() {
                 <button
                   onClick={handleAdd}
                   disabled={!p.inStock}
-                  className="flex-1 bg-ink text-white py-4 text-[13px] tracking-wider hover:bg-deep transition-colors active:scale-[0.99] disabled:opacity-50"
+                  className="flex-1 bg-ink text-white py-4 text-[13px] tracking-wider hover:bg-[var(--terra)] transition-colors active:scale-[0.99] disabled:opacity-50"
                 >
                   {p.inStock ? 'افزودن به سبد خرید' : 'ناموجود'}
                 </button>

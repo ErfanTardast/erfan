@@ -69,10 +69,12 @@ export default function LoginPage() {
             <div className="w-12 h-12 rounded-full bg-[var(--ink)] text-[var(--cream)] flex items-center justify-center mx-auto mb-5">
               <UserIcon className="w-5 h-5" />
             </div>
-            <h1 className="title-md mb-2">حساب کاربری دریا</h1>
+            <h1 className="title-md mb-3">حساب کاربری دریا</h1>
+            <span className="block h-px w-10 bg-[var(--terra)] mx-auto mb-3" />
             <p className="text-[var(--muted)] text-[13px]">
               {mode === 'login' ? 'به حساب خود وارد شوید' : 'حساب جدید بسازید'}
             </p>
+            <p className="latin italic text-[13px] text-[var(--muted)]/70 mt-1">Darya Account</p>
           </div>
 
           <div className="flex gap-0 mb-8">
@@ -90,7 +92,7 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="w-full bg-[var(--ink)] text-[var(--cream)] py-4 text-[13px] tracking-[0.1em] hover:bg-[var(--deep)] transition-colors flex items-center justify-center gap-2"
+              className="w-full bg-[var(--ink)] text-[var(--cream)] py-4 text-[13px] tracking-[0.1em] hover:bg-[var(--terra)] transition-colors flex items-center justify-center gap-2"
             >
               {mode === 'login' ? 'ورود به حساب' : 'ساخت حساب'}
               <ArrowLeft className="w-4 h-4" />

@@ -4,7 +4,7 @@ import { useWishlist } from '@/lib/store/wishlist';
 import { useCart } from '@/lib/store/cart';
 import { useUI } from '@/lib/store/ui';
 import { PRODUCTS } from '@/lib/products';
-import { fmtPriceShort } from '@/lib/format';
+import { fmtPriceShort, toFa } from '@/lib/format';
 import Link from 'next/link';
 import { Heart, ShoppingBag, ArrowLeft } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -28,11 +28,13 @@ export default function WishlistPage() {
         <div className="max-w-[1500px] mx-auto px-5 md:px-10 lg:px-12 py-12 md:py-16">
           <div className="flex items-baseline justify-between mb-10">
             <div>
+              <span className="block h-px w-12 bg-[var(--terra)] mb-5" />
               <p className="section-eyebrow text-[var(--olive)] mb-3">— لیست علاقه‌مندی‌ها —</p>
               <h1 className="title-lg">محصولات دلخواه</h1>
+              <p className="latin italic text-[16px] text-[var(--muted)] mt-2">Wishlist</p>
             </div>
             {products.length > 0 && (
-              <span className="text-[13px] text-[var(--muted)]">{products.length} محصول</span>
+              <span className="text-[13px] text-[var(--muted)] latin">{toFa(products.length)} محصول</span>
             )}
           </div>
 
@@ -77,7 +79,7 @@ export default function WishlistPage() {
                     <button
                       onClick={() => { add(product!.id); openCart(); showToast('به سبد اضافه شد', product!.title); }}
                       disabled={!product!.inStock}
-                      className="w-full py-3 text-[12px] tracking-[0.08em] bg-[var(--ink)] text-[var(--cream)] hover:bg-[var(--olive)] transition-colors flex items-center justify-center gap-2 disabled:opacity-40"
+                      className="w-full py-3 text-[12px] tracking-[0.08em] bg-[var(--ink)] text-[var(--cream)] hover:bg-[var(--terra)] transition-colors flex items-center justify-center gap-2 disabled:opacity-40"
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
                       {product!.inStock ? 'افزودن به سبد' : 'ناموجود'}

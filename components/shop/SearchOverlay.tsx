@@ -62,7 +62,11 @@ export function SearchOverlay() {
         >
           <div className="max-w-[960px] mx-auto px-5 py-8">
             <div className="flex justify-between items-center mb-16 md:mb-24">
-              <p className="section-eyebrow text-olive">جستجو</p>
+              <div className="flex items-center gap-3.5">
+                <span className="block h-px w-12 bg-[var(--terra)]" />
+                <p className="section-eyebrow text-olive">جستجو</p>
+                <span className="latin italic text-[14px] text-muted">Search</span>
+              </div>
               <button
                 onClick={() => setSearch(false)}
                 aria-label="بستن"

@@ -55,6 +55,12 @@ export default function AccountPage() {
       <main className="bg-[var(--cream)] min-h-screen">
         <div className="max-w-[1100px] mx-auto px-5 md:px-10 lg:px-12 py-12 md:py-16">
 
+          {/* Eyebrow */}
+          <div className="mb-6">
+            <span className="block h-px w-12 bg-[var(--terra)] mb-4" />
+            <p className="section-eyebrow text-[var(--olive)]">— حساب کاربری · Account —</p>
+          </div>
+
           {/* Header row */}
           <div className="flex items-start justify-between gap-4 mb-10 pb-8 border-b border-[var(--line)]">
             <div className="flex items-center gap-4">
