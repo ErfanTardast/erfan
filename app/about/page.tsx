@@ -34,7 +34,7 @@ export default function AboutPage() {
         {/* Hero */}
         <section className="relative h-[58vh] min-h-[420px] overflow-hidden grain-overlay">
           <img
-            src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1600&q=80"
+            src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80"
             alt="مزارع برنج شمال ایران"
             className="absolute inset-0 w-full h-full object-cover"
           />

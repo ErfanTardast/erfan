@@ -284,6 +284,16 @@ a:focus-visible {
   }
 }
 
+/* Ken-burns — slow cinematic zoom for hero imagery */
+@keyframes kenburns {
+  from { transform: scale(1.04); }
+  to { transform: scale(1.14); }
+}
+.kenburns {
+  animation: kenburns 24s ease-out forwards;
+  transform-origin: 50% 45%;
+}
+
 /* Grain texture overlay — use as pseudo on section elements */
 .grain-overlay::after {
   content: '';

@@ -74,7 +74,7 @@ export function ProductCard({ product }: { product: Product }) {
       onMouseLeave={() => setHovered(false)}
     >
       {/* Image container */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-sand card-shadow">
+      <div className="relative aspect-[4/5] overflow-hidden bg-sand card-shadow transition-transform duration-500 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:-translate-y-1">
         {/* Primary image */}
         <motion.img
           src={product.image}
@@ -164,8 +164,8 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="section-eyebrow text-olive mb-2">{product.kicker}</p>
         <div className="flex justify-between items-start gap-3">
           <Link href={`/product/${product.slug}`} className="hover:text-olive transition-colors duration-300 block product-title">{product.title}</Link>
-          <p className="text-[13px] whitespace-nowrap pt-0.5 text-muted">
-            {fmtPriceShort(product.price)} ت
+          <p className="text-[14px] font-medium whitespace-nowrap pt-0.5 text-ink">
+            {fmtPriceShort(product.price)} <span className="text-[11px] font-normal text-muted">ت</span>
           </p>
         </div>
         <p className="small-copy text-muted mt-1.5 line-clamp-2">{product.shortNote}</p>
