@@ -166,6 +166,7 @@ export default function ProductPage() {
               transition={{ delay: 0.15, duration: 0.9, ease: EASE }}
               className="lg:sticky lg:top-24"
             >
+              <span className="block h-px w-12 bg-[var(--terra)] mb-5" />
               <p className="section-eyebrow text-olive mb-3">{product.kicker}</p>
               <h1 className="title-lg !leading-tight">{product.title}</h1>
 
@@ -217,7 +218,7 @@ export default function ProductPage() {
                   <button
                     onClick={handleAdd}
                     disabled={!product.inStock || adding}
-                    className="flex-1 h-11 bg-ink text-cream text-[13px] tracking-[0.08em] hover:bg-deep transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                    className="flex-1 h-11 bg-ink text-cream text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     {!product.inStock ? 'ناموجود' : adding ? '…' : 'افزودن به سبد'}

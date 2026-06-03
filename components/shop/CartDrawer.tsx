@@ -1,6 +1,7 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, Trash2, ShoppingBag, Truck } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useCart } from '@/lib/store/cart';
 import { getProductById, PRODUCTS } from '@/lib/products';
@@ -104,12 +105,13 @@ export function CartDrawer() {
                   <p className="small-copy text-muted max-w-[220px] leading-relaxed">
                     از فروشگاه دریا محصول مورد علاقه‌تان را انتخاب کنید
                   </p>
-                  <button
+                  <Link
+                    href="/shop"
                     onClick={close}
-                    className="mt-7 bg-ink text-white px-8 py-3 text-[12px] tracking-wider hover:bg-deep transition-colors"
+                    className="mt-7 bg-ink text-white px-8 py-3 text-[12px] tracking-wider hover:bg-[var(--terra)] transition-colors"
                   >
                     رفتن به فروشگاه
-                  </button>
+                  </Link>
                 </div>
               ) : (
                 <div className="p-5 space-y-4">
@@ -242,9 +244,13 @@ export function CartDrawer() {
                 <p className="small-copy text-[#77776f] mb-5">
                   مالیات و هزینه ارسال در مرحله پرداخت محاسبه می‌شود
                 </p>
-                <button className="w-full bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-deep transition-colors active:scale-[0.99]">
+                <Link
+                  href="/checkout"
+                  onClick={close}
+                  className="block w-full text-center bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors active:scale-[0.99]"
+                >
                   تکمیل خرید
-                </button>
+                </Link>
                 <button onClick={close} className="w-full mt-3 text-[12px] text-muted hover:text-ink transition-colors py-1">
                   ادامه خرید
                 </button>

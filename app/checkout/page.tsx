@@ -153,8 +153,10 @@ export default function CheckoutPage() {
 
         <div className="max-w-[1200px] mx-auto px-5 md:px-8 pb-24">
           <div className="mb-10">
+            <span className="block h-px w-12 bg-[var(--terra)] mb-5" />
             <p className="section-eyebrow text-olive mb-3">تکمیل سفارش</p>
             <h1 className="title-lg">تکمیل خرید</h1>
+            <p className="latin italic text-[16px] text-muted mt-2">Checkout</p>
           </div>
 
           {/* Step indicator */}
@@ -208,7 +210,7 @@ export default function CheckoutPage() {
                     <button
                       onClick={() => { if (name && phone) nextStep(); }}
                       disabled={!name || !phone}
-                      className="mt-8 w-full bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-deep transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="mt-8 w-full bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       ادامه — آدرس تحویل
                     </button>
@@ -243,7 +245,7 @@ export default function CheckoutPage() {
                       <button
                         onClick={() => { if (province && city && address) nextStep(); }}
                         disabled={!province || !city || !address}
-                        className="flex-1 bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-deep transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        className="flex-1 bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         ادامه — انتخاب پرداخت
                       </button>
@@ -309,7 +311,7 @@ export default function CheckoutPage() {
                       </button>
                       <button
                         onClick={handleConfirm}
-                        className="flex-1 bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-deep transition-colors"
+                        className="flex-1 bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors"
                       >
                         ثبت و پرداخت — {fmtPrice(total)}
                       </button>
@@ -349,14 +351,14 @@ export default function CheckoutPage() {
                       {user && (
                         <Link
                           href="/account"
-                          className="w-full border border-ink bg-ink text-white py-3.5 text-[13px] tracking-wider hover:bg-deep transition-all block text-center"
+                          className="w-full border border-ink bg-ink text-white py-3.5 text-[13px] tracking-wider hover:bg-[var(--terra)] transition-all block text-center"
                         >
                           مشاهده سفارش‌ها
                         </Link>
                       )}
                       <Link
                         href="/shop"
-                        className={`w-full py-3.5 text-[13px] tracking-wider transition-all block text-center ${user ? 'border border-line text-muted hover:border-ink hover:text-ink' : 'border border-ink bg-ink text-white hover:bg-deep'}`}
+                        className={`w-full py-3.5 text-[13px] tracking-wider transition-all block text-center ${user ? 'border border-line text-muted hover:border-ink hover:text-ink' : 'border border-ink bg-ink text-white hover:bg-[var(--terra)]'}`}
                       >
                         ادامه خرید
                       </Link>

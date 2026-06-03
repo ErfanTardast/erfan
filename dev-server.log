@@ -36,3 +36,20 @@
  GET / 200 in 97ms
  GET /shop 200 in 63ms
  GET /shop 200 in 65ms
+ ✓ Compiled in 173ms (713 modules)
+ ✓ Compiled in 116ms (713 modules)
+ ○ Compiling /product/[slug] ...
+ ✓ Compiled /product/[slug] in 581ms (1452 modules)
+ GET /product/tarom-hashemi-premium 200 in 937ms
+ ✓ Compiled in 424ms (1452 modules)
+ ✓ Compiled in 537ms (1452 modules)
+ ✓ Compiled in 336ms (1443 modules)
+ ✓ Compiled in 192ms (718 modules)
+ ✓ Compiled in 129ms (718 modules)
+ ✓ Compiled in 94ms (718 modules)
+ ✓ Compiled in 110ms (718 modules)
+ ○ Compiling /checkout ...
+ ✓ Compiled /checkout in 541ms (1443 modules)
+ GET /checkout 200 in 635ms
+ GET / 200 in 79ms
+ GET /checkout 200 in 36ms
