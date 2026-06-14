@@ -30,7 +30,7 @@ export function MobileMenuDrawer() {
           >
             <div className="flex items-center justify-between mb-12">
               <div>
-                <div className="latin text-[30px] tracking-tighter">Darya</div>
+                <div className="latin text-[30px] tracking-tighter">Keyvan</div>
                 <div className="text-[9px] tracking-[0.22em] mt-1 text-olive">PERSIAN RICE</div>
               </div>
               <button onClick={() => setOpen(false)} aria-label="بستن" className="p-1">

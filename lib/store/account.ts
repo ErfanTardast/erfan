@@ -137,7 +137,7 @@ export const useAccount = create<AccountState>()(
         }),
     }),
     {
-      name: 'darya-account',
+      name: 'keyvan-account',
       storage: createJSONStorage(() => localStorage),
     }
   )

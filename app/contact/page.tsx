@@ -5,7 +5,7 @@ import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
 
 const INFO = [
-  { icon: Mail, label: 'ایمیل', value: 'info@daryarice.ir', href: 'mailto:info@daryarice.ir' },
+  { icon: Mail, label: 'ایمیل', value: 'info@keyvanrice.ir', href: 'mailto:info@keyvanrice.ir' },
   { icon: Phone, label: 'تلفن', value: '۰۲۱-۱۲۳۴-۵۶۷۸', href: 'tel:+982112345678' },
   { icon: MapPin, label: 'آدرس', value: 'تهران، خیابان ولیعصر، پلاک ۱۲۳' },
   { icon: Clock, label: 'ساعات پاسخگویی', value: 'شنبه تا پنج‌شنبه، ۹ تا ۱۸' },
@@ -23,7 +23,7 @@ export default function ContactPage() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const body = `نام: ${name}%0Dایمیل: ${email}%0D%0D${message}`;
-    window.location.href = `mailto:info@daryarice.ir?subject=${encodeURIComponent(subject)}&body=${body}`;
+    window.location.href = `mailto:info@keyvanrice.ir?subject=${encodeURIComponent(subject)}&body=${body}`;
     setSent(true);
   };
 
@@ -66,10 +66,10 @@ export default function ContactPage() {
               <div className="mt-10 pt-8 border-t border-[var(--line)]">
                 <p className="text-[var(--muted)] text-[11px] tracking-[0.12em] mb-4">ما را دنبال کنید</p>
                 <div className="flex gap-3">
-                  <a href="https://instagram.com/daryarice" target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-[var(--line)] flex items-center justify-center hover:border-[var(--ink)] hover:text-[var(--olive)] transition-colors" aria-label="اینستاگرام">
+                  <a href="https://instagram.com/keyvanrice" target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-[var(--line)] flex items-center justify-center hover:border-[var(--ink)] hover:text-[var(--olive)] transition-colors" aria-label="اینستاگرام">
                     <Instagram className="w-4 h-4" />
                   </a>
-                  <a href="https://t.me/daryarice" target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-[var(--line)] flex items-center justify-center hover:border-[var(--ink)] hover:text-[var(--olive)] transition-colors text-[11px]" aria-label="تلگرام">
+                  <a href="https://t.me/keyvanrice" target="_blank" rel="noopener noreferrer" className="w-10 h-10 border border-[var(--line)] flex items-center justify-center hover:border-[var(--ink)] hover:text-[var(--olive)] transition-colors text-[11px]" aria-label="تلگرام">
                     تلگ
                   </a>
                 </div>
@@ -86,7 +86,7 @@ export default function ContactPage() {
                   <h2 className="text-[var(--ink)] text-[20px] font-medium mb-3">برنامه ایمیل شما باز شد</h2>
                   <p className="text-[var(--muted)] text-[13px] leading-loose max-w-[320px] mx-auto">
                     پیام شما آماده‌ی ارسال است. اگر باز نشد، می‌توانید مستقیماً به
-                    <span dir="ltr" className="mx-1">info@daryarice.ir</span>
+                    <span dir="ltr" className="mx-1">info@keyvanrice.ir</span>
                     ایمیل بزنید.
                   </p>
                   <button onClick={() => setSent(false)} className="mt-6 text-[12px] text-[var(--olive)] hover:text-[var(--ink)] transition-colors">

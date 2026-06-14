@@ -1,4 +1,4 @@
-# Darya Rice — Persian Rice E-commerce
+# Keyvan Rice — Persian Rice E-commerce
 
 A luxury Persian rice brand site built as a full-stack Next.js 14 application.
 

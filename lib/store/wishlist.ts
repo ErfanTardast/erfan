@@ -21,7 +21,7 @@ export const useWishlist = create<WishlistState>()(
       clear: () => set({ ids: [] }),
     }),
     {
-      name: 'darya-wishlist',
+      name: 'keyvan-wishlist',
       storage: createJSONStorage(() => localStorage),
     }
   )

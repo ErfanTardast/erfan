@@ -34,7 +34,7 @@ const ACTS: Act[] = [
     fa: 'تا سفره',
     en: 'TABLE',
     copy: 'پلویی که در دیگ‌های مسی دم می‌کشد، ته‌دیگی که طلایی می‌شود — و خاطره‌ای که سال‌ها در ذهن می‌ماند.',
-    image: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=1200&q=85',
+    image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=1200&q=85',
   },
 ];
 

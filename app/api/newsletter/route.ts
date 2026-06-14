@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     }
     // Stub: in production, plug into Resend / Mailchimp / Supabase here.
     console.log('[newsletter] subscribed:', parsed.data.email);
-    return NextResponse.json({ ok: true, message: 'به خانواده دریا خوش آمدید' });
+    return NextResponse.json({ ok: true, message: 'به خانواده کیوان خوش آمدید' });
   } catch {
     return NextResponse.json({ error: 'خطای داخلی' }, { status: 500 });
   }

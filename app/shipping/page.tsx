@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { Clock3, MapPin, PackageCheck, Truck } from 'lucide-react';
 
 export const metadata = {
-  title: 'ارسال و تحویل — Darya Rice',
-  description: 'زمان‌بندی ارسال، هزینه تحویل، بسته‌بندی و پیگیری سفارش‌های دریا رایس.',
+  title: 'ارسال و تحویل — Keyvan Rice',
+  description: 'زمان‌بندی ارسال، هزینه تحویل، بسته‌بندی و پیگیری سفارش‌های کیوان.',
 };
 
 const METHODS = [
@@ -53,7 +53,7 @@ export default function ShippingPage() {
               سفارش شما چطور به دستتان می‌رسد؟
             </h1>
             <p className="text-[var(--muted)] text-[15px] leading-loose mt-5 max-w-[620px]">
-              دریا رایس سفارش‌ها را با بسته‌بندی مقاوم، کنترل نهایی وزن و کیفیت، و مسیر ارسال مناسب شهر شما آماده می‌کند.
+              کیوان سفارش‌ها را با بسته‌بندی مقاوم، کنترل نهایی وزن و کیفیت، و مسیر ارسال مناسب شهر شما آماده می‌کند.
               ارسال سفارش‌های بالای ۵۰۰٬۰۰۰ تومان رایگان است.
             </p>
           </div>

@@ -32,7 +32,7 @@ export function PageTransitionTrigger({ children }: Props) {
             transition={{ duration: 0.65, ease: [0.7, 0, 0.3, 1] }}
             className="fixed inset-0 z-[100] bg-ink flex items-center justify-center"
           >
-            <span className="latin text-cream text-5xl tracking-tighter">Darya</span>
+            <span className="latin text-cream text-5xl tracking-tighter">Keyvan</span>
           </motion.div>
         )}
       </AnimatePresence>

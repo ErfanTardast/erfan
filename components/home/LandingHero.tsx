@@ -50,7 +50,7 @@ export function LandingHero() {
           transition={{ duration: 0.8, delay: 0.1 }}
           className="latin text-[var(--cream)] text-[15px] md:text-[17px] tracking-[0.34em]"
         >
-          DARYA
+          KEYVAN
         </motion.span>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }}>
           <Link
@@ -93,21 +93,21 @@ export function LandingHero() {
           برنج اصیل شمال ایران · از ۱۳۸۷
         </motion.p>
 
-        {/* Balanced bilingual lockup — دریا (Vazirmatn) + Darya (Fraunces), equal size.
+        {/* Balanced bilingual lockup — کیوان (Vazirmatn) + Keyvan (Fraunces), equal size.
             Stacks on mobile, side-by-side with a hairline divider on desktop. */}
         <motion.div variants={rise} className="flex flex-col md:flex-row items-center justify-center gap-1 md:gap-9 mb-8 md:mb-9">
           <h1
             className="text-[var(--cream)] font-semibold leading-[0.9] tracking-tight"
             style={{ fontSize: 'clamp(58px, 13vw, 124px)' }}
           >
-            دریا
+            کیوان
           </h1>
           <span className="hidden md:block w-px self-stretch bg-[var(--cream)]/30 my-1.5" aria-hidden />
           <span
             className="latin text-[var(--cream)]/85 leading-[0.9]"
             style={{ fontSize: 'clamp(58px, 13vw, 124px)' }}
           >
-            Darya
+            Keyvan
           </span>
         </motion.div>
 

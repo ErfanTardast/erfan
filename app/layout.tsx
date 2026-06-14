@@ -18,12 +18,12 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'Darya Rice — برنج‌های ممتاز ایرانی',
+  title: 'Keyvan Rice — برنج‌های ممتاز ایرانی',
   description:
     'از مزارع سبز شمال ایران تا سفره شما — تجربه‌ای از طبیعت اصیل ایران در هر دانه برنج.',
-  keywords: ['برنج', 'طارم هاشمی', 'برنج ایرانی', 'دریا', 'persian rice'],
+  keywords: ['برنج', 'طارم هاشمی', 'برنج ایرانی', 'کیوان', 'persian rice'],
   openGraph: {
-    title: 'Darya Rice',
+    title: 'Keyvan Rice',
     description: 'برنج‌های اصیل ایرانی، از مزارع شمال تا سفره شما',
     locale: 'fa_IR',
     type: 'website',

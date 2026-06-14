@@ -20,8 +20,8 @@ export function Footer() {
           {/* Brand column */}
           <div>
             <div className="flex items-center gap-4 mb-4">
-              <p className="latin text-[32px] tracking-tighter font-medium leading-none">Darya</p>
-              <span className="text-[26px] font-semibold leading-none text-[#9ba595]">دریا</span>
+              <p className="latin text-[32px] tracking-tighter font-medium leading-none">Keyvan</p>
+              <span className="text-[26px] font-semibold leading-none text-[#9ba595]">کیوان</span>
             </div>
             <span className="block h-px w-12 bg-[var(--terra)] mb-4" />
             <p className="text-[13px] text-[#6d7a67] mb-2 tracking-[0.08em]">برنج‌خانه‌ی شمال · از ۱۳۸۷</p>
@@ -39,7 +39,7 @@ export function Footer() {
                 <Instagram className="w-3.5 h-3.5" />
               </a>
               <a
-                href="https://t.me/daryarice"
+                href="https://t.me/keyvanrice"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 border border-[#3a4a3a] flex items-center justify-center hover:border-[#6a8a6a] hover:text-[#9ba595] transition-all duration-300 text-[11px] font-medium"
@@ -75,9 +75,9 @@ export function Footer() {
           <div>
             <p className="section-eyebrow text-[#596355] mb-6">اطلاعات</p>
             <ul className="space-y-3 text-[13px] text-[#bdc5b7]">
-              <li><Link href="/about" className="hover:text-white transition-colors duration-200 cursor-pointer">درباره دریا</Link></li>
+              <li><Link href="/about" className="hover:text-white transition-colors duration-200 cursor-pointer">درباره کیوان</Link></li>
               <li><Link href="/about" className="hover:text-white transition-colors duration-200 cursor-pointer">داستان مزارع</Link></li>
-              <li><Link href="/recipes" className="hover:text-white transition-colors duration-200 cursor-pointer">مجله دریا</Link></li>
+              <li><Link href="/recipes" className="hover:text-white transition-colors duration-200 cursor-pointer">مجله کیوان</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors duration-200 cursor-pointer">تماس با ما</Link></li>
               <li><Link href="/shipping" className="hover:text-white transition-colors duration-200 cursor-pointer">ارسال و تحویل</Link></li>
               <li><Link href="/returns" className="hover:text-white transition-colors duration-200 cursor-pointer">بازگشت و ضمانت</Link></li>
@@ -89,12 +89,12 @@ export function Footer() {
 
           {/* Newsletter column */}
           <div>
-            <p className="section-eyebrow text-[#596355] mb-6">خبرنامه دریا</p>
+            <p className="section-eyebrow text-[#596355] mb-6">خبرنامه کیوان</p>
             <p className="small-copy text-[#8e9789] leading-relaxed mb-5">
               دستورپخت فصلی، داستان کشاورزان، و تخفیف‌های ویژه — مستقیم در ایمیل شما.
             </p>
             {done ? (
-              <p className="text-[13px] text-[#7a9a7a] tracking-wide">✓ به خانواده دریا خوش آمدید</p>
+              <p className="text-[13px] text-[#7a9a7a] tracking-wide">✓ به خانواده کیوان خوش آمدید</p>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-3">
                 <input
@@ -131,7 +131,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-[#243024] mt-14 pt-6 flex flex-col md:flex-row justify-between gap-3 text-[10px] text-[#4a5a48]">
-          <span>© ۱۴۰۳ دریا رایس — تمام حقوق محفوظ است</span>
+          <span>© ۱۴۰۳ کیوان — تمام حقوق محفوظ است</span>
           <div className="flex items-center gap-4">
             <span>ساخته شده با محبت در ایران</span>
             <span>·</span>

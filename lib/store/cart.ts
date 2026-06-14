@@ -45,7 +45,7 @@ export const useCart = create<CartState>()(
       toggle: () => set((s) => ({ isOpen: !s.isOpen })),
     }),
     {
-      name: 'darya-cart',
+      name: 'keyvan-cart',
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({ items: s.items }),
     }

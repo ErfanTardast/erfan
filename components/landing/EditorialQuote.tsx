@@ -23,7 +23,7 @@ export function EditorialQuote() {
           >
             <div className="aspect-[3/4] overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=600&q=85"
+                src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=85"
                 alt="سفره ایرانی"
                 className="w-full h-full object-cover"
               />
@@ -53,7 +53,7 @@ export function EditorialQuote() {
               transition={{ duration: 0.7 }}
               className="section-eyebrow text-olive mb-8"
             >
-              — فلسفه دریا —
+              — فلسفه کیوان —
             </motion.p>
 
             <motion.blockquote
@@ -80,7 +80,7 @@ export function EditorialQuote() {
                 </p>
               </div>
               <div>
-                <p className="text-[13px] font-medium mb-2.5">دریا و تعهد</p>
+                <p className="text-[13px] font-medium mb-2.5">کیوان و تعهد</p>
                 <p className="small-copy text-muted leading-[2.1]">
                   ما فقط با کشاورزانی کار می‌کنیم که نام مزرعه‌شان را روی هر کیسه می‌نویسیم. ردپایی که می‌توانید دنبالش کنید.
                 </p>

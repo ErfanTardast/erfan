@@ -1,6 +1,6 @@
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
-export const metadata = { title: 'حریم خصوصی — Darya Rice' };
+export const metadata = { title: 'حریم خصوصی — Keyvan Rice' };
 export default function PrivacyPage() {
   const sections = [
     { title: 'جمع‌آوری اطلاعات', body: 'ما فقط اطلاعاتی را که برای پردازش سفارش شما نیاز است جمع‌آوری می‌کنیم، از جمله نام، آدرس، و شماره تماس.' },

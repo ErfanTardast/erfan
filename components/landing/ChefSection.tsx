@@ -19,7 +19,7 @@ const PICKS = [
     id: '7',
     name: 'کشت اول بهاره',
     reason: 'فقط یک بار در سال. هر دانه‌اش لحظه‌ای از بهار شمال ایران است.',
-    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=480&q=85',
+    image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=480&q=85',
   },
 ];
 
@@ -59,7 +59,7 @@ export function ChefSection() {
           >
             <div className="w-14 h-14 rounded-full overflow-hidden bg-[#2a3a2a] shrink-0">
               <img
-                src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=120&q=80"
+                src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=120&q=80"
                 alt="سرآشپز"
                 className="w-full h-full object-cover"
               />

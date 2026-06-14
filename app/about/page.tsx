@@ -3,7 +3,7 @@ import { Footer } from '@/components/shop/Footer';
 import Link from 'next/link';
 import { Sprout, Hand, ShieldCheck, Heart } from 'lucide-react';
 
-export const metadata = { title: 'داستان ما — Darya Rice' };
+export const metadata = { title: 'داستان ما — Keyvan Rice' };
 
 const STATS = [
   { value: '۳۶', label: 'سال تجربه' },
@@ -21,9 +21,9 @@ const VALUES = [
 
 const TIMELINE = [
   { year: '۱۳۶۷', title: 'آغاز راه', text: 'پدربزرگ ما اولین کیسه‌های برنج طارم را از مزرعه‌ی خانوادگی در رشت به بازار برد.' },
-  { year: '۱۳۸۷', title: 'نام دریا', text: 'نسل دوم، برند دریا را بنیان گذاشت تا برنج اصیل شمال را به سراسر ایران برساند.' },
+  { year: '۱۳۸۷', title: 'نام کیوان', text: 'نسل دوم، برند کیوان را بنیان گذاشت تا برنج اصیل شمال را به سراسر ایران برساند.' },
   { year: '۱۳۹۸', title: 'کشت ارگانیک', text: 'اولین مزارع ارگانیک تأییدشده‌ی ما به بهره‌برداری رسید.' },
-  { year: '۱۴۰۳', title: 'فروشگاه آنلاین', text: 'امروز، با ارسال مستقیم به سراسر کشور، دریا را در خانه‌ی شما داریم.' },
+  { year: '۱۴۰۳', title: 'فروشگاه آنلاین', text: 'امروز، با ارسال مستقیم به سراسر کشور، کیوان را در خانه‌ی شما داریم.' },
 ];
 
 export default function AboutPage() {
@@ -53,7 +53,7 @@ export default function AboutPage() {
         {/* Intro */}
         <section className="max-w-[760px] mx-auto px-6 md:px-12 py-20 md:py-28 text-center">
           <p className="text-[var(--ink)] text-[18px] md:text-[22px] font-light leading-[2.1]">
-            دریا از سال ۱۳۶۷ با کشاورزان نسل‌های شمال ایران کار می‌کند تا بهترین دانه‌ها،
+            کیوان از سال ۱۳۶۷ با کشاورزان نسل‌های شمال ایران کار می‌کند تا بهترین دانه‌ها،
             بدون واسطه و بدون مصالحه روی کیفیت، به دست شما برسد. مزارع ما در گیلان، مازندران
             و گلستان قرار دارند — جایی که آب‌وهوای مطبوع و خاک حاصل‌خیز، بهترین برنج جهان را می‌پروراند.
           </p>
@@ -75,7 +75,7 @@ export default function AboutPage() {
         <section className="max-w-[1100px] mx-auto px-6 md:px-12 py-20 md:py-28">
           <p className="text-[var(--olive)] text-[10px] tracking-[0.24em] mb-3 text-center">— ارزش‌های ما —</p>
           <h2 className="text-[var(--ink)] font-light text-center mb-14" style={{ fontSize: 'clamp(28px,4vw,44px)' }}>
-            چه چیزی دریا را متفاوت می‌کند
+            چه چیزی کیوان را متفاوت می‌کند
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {VALUES.map((v) => (
@@ -93,7 +93,7 @@ export default function AboutPage() {
         {/* Timeline */}
         <section className="bg-[var(--paper)] border-y border-[var(--line)]">
           <div className="max-w-[820px] mx-auto px-6 md:px-12 py-20 md:py-28">
-            <p className="text-[var(--olive)] text-[10px] tracking-[0.24em] mb-3 text-center">— مسیر دریا —</p>
+            <p className="text-[var(--olive)] text-[10px] tracking-[0.24em] mb-3 text-center">— مسیر کیوان —</p>
             <h2 className="text-[var(--ink)] font-light text-center mb-14" style={{ fontSize: 'clamp(28px,4vw,44px)' }}>
               سه نسل، یک مسیر
             </h2>
@@ -120,7 +120,7 @@ export default function AboutPage() {
             طعم اصالت را تجربه کنید
           </h2>
           <p className="text-[var(--muted)] text-[15px] leading-loose mb-9 max-w-[480px] mx-auto">
-            هر دانه‌ی دریا، روایتی از خاک و آفتاب و دست‌های کشاورز است. به جمع خانواده‌ی ما بپیوندید.
+            هر دانه‌ی کیوان، روایتی از خاک و آفتاب و دست‌های کشاورز است. به جمع خانواده‌ی ما بپیوندید.
           </p>
           <Link href="/shop" className="inline-flex items-center gap-2 bg-[var(--ink)] text-[var(--cream)] text-[13px] tracking-[0.1em] px-9 py-4 hover:bg-[var(--deep)] transition-colors">
             مشاهده محصولات

@@ -31,7 +31,7 @@ export function HomeHero() {
             transition={{ duration: 0.65, ease: [0.2, 0.7, 0.2, 1] }}
             className="latin font-medium leading-[0.9] tracking-tighter text-[clamp(64px,13vw,180px)]"
           >
-            Darya
+            Keyvan
           </motion.h1>
         </div>
 

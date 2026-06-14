@@ -26,7 +26,7 @@ export const useHistory = create<HistoryState>()(
       clearHistory: () => set({ recentlyViewed: [], recentSearches: [] }),
     }),
     {
-      name: 'darya-history',
+      name: 'keyvan-history',
       storage: createJSONStorage(() => localStorage),
     }
   )

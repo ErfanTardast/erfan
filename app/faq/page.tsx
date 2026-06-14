@@ -3,8 +3,8 @@ import { Footer } from '@/components/shop/Footer';
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'پرسش‌های متداول — Darya Rice',
-  description: 'پاسخ پرسش‌های رایج درباره خرید، ارسال، نگهداری و پخت برنج‌های دریا رایس.',
+  title: 'پرسش‌های متداول — Keyvan Rice',
+  description: 'پاسخ پرسش‌های رایج درباره خرید، ارسال، نگهداری و پخت برنج‌های کیوان.',
 };
 
 const FAQ = [

@@ -5,7 +5,7 @@ export function LandingBrand() {
   return (
     <section className="bg-[var(--cream)] py-20 md:py-28">
       <div className="max-w-[900px] mx-auto px-6 md:px-12 text-center">
-        <p className="text-[var(--olive)] text-[10px] tracking-[0.24em] mb-6">— داستان دریا —</p>
+        <p className="text-[var(--olive)] text-[10px] tracking-[0.24em] mb-6">— داستان کیوان —</p>
 
         <h2
           className="text-[var(--ink)] font-light leading-relaxed mb-6"

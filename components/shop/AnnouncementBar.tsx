@@ -10,7 +10,7 @@ export function AnnouncementBar() {
       <span>ارسال رایگان برای سفارش‌های بالای ۵۰۰،۰۰۰ تومان</span>
       <span className="mx-3 inline-block w-1 h-1 rounded-full bg-gold align-middle" />
       <span>
-        کد تخفیف ۱۵٪: <strong className="text-cream tracking-wider">DARYA15</strong>
+        کد تخفیف ۱۵٪: <strong className="text-cream tracking-wider">KEYVAN15</strong>
       </span>
       <span className="mx-3 inline-block w-1 h-1 rounded-full bg-gold align-middle" />
       <span>تضمین اصالت محصول</span>

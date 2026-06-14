@@ -9,7 +9,7 @@ export function EditorialBanner() {
     <div className="sm:col-span-2 xl:col-span-3 my-2">
       <div className="relative min-h-[520px] overflow-hidden grain-overlay">
         <motion.img
-          src="https://images.unsplash.com/photo-1468078809804-4c7b3e60a478?auto=format&fit=crop&w=1700&q=80"
+          src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1700&q=80"
           alt="مزارع برنج"
           className="absolute inset-0 w-full h-full object-cover"
           initial={{ scale: 1.08 }}
@@ -39,7 +39,7 @@ export function EditorialBanner() {
             از زمین تا سفره،<br />یک مسیر عاشقانه
           </h2>
           <p className="body-copy text-white/80 max-w-[460px] mt-6 leading-[2.1]">
-            هر کیسه برنج دریا، سفری است از مزارع سبز رشت تا آشپزخانه شما. کشاورزانی که نسل‌ها با دست‌های خود، بهترین دانه‌ها را برای ما می‌کارند.
+            هر کیسه برنج کیوان، سفری است از مزارع سبز رشت تا آشپزخانه شما. کشاورزانی که نسل‌ها با دست‌های خود، بهترین دانه‌ها را برای ما می‌کارند.
           </p>
 
           <div className="flex items-center gap-5 mt-8">

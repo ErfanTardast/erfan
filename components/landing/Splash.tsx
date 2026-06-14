@@ -6,8 +6,8 @@ export function Splash() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (sessionStorage.getItem('darya_splash')) return;
-    sessionStorage.setItem('darya_splash', '1');
+    if (sessionStorage.getItem('keyvan_splash')) return;
+    sessionStorage.setItem('keyvan_splash', '1');
     setShow(true);
     const t = setTimeout(() => setShow(false), 1500);
     return () => clearTimeout(t);

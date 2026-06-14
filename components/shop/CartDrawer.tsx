@@ -103,7 +103,7 @@ export function CartDrawer() {
                   </div>
                   <p className="text-[15px] font-medium text-ink mb-2">سبد خرید خالی است</p>
                   <p className="small-copy text-muted max-w-[220px] leading-relaxed">
-                    از فروشگاه دریا محصول مورد علاقه‌تان را انتخاب کنید
+                    از فروشگاه کیوان محصول مورد علاقه‌تان را انتخاب کنید
                   </p>
                   <Link
                     href="/shop"

@@ -20,7 +20,7 @@ export function Newsletter() {
       const data = await res.json();
       if (res.ok) {
         setStatus('success');
-        setMsg(data.message ?? 'به خانواده دریا خوش آمدید');
+        setMsg(data.message ?? 'به خانواده کیوان خوش آمدید');
         setEmail('');
       } else {
         setStatus('error');
@@ -28,7 +28,7 @@ export function Newsletter() {
       }
     } catch {
       setStatus('success');
-      setMsg('به خانواده دریا خوش آمدید');
+      setMsg('به خانواده کیوان خوش آمدید');
       setEmail('');
     }
   };
@@ -38,7 +38,7 @@ export function Newsletter() {
       {/* Background texture image */}
       <div className="absolute inset-0 opacity-[0.12]">
         <img
-          src="https://images.unsplash.com/photo-1468078809804-4c7b3e60a478?auto=format&fit=crop&w=1800&q=60"
+          src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=60"
           alt=""
           aria-hidden
           className="w-full h-full object-cover"
@@ -64,7 +64,7 @@ export function Newsletter() {
               transition={{ duration: 0.7 }}
               className="section-eyebrow text-olive2 mb-5"
             >
-              — مجله دریا —
+              — مجله کیوان —
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 24 }}
@@ -137,7 +137,7 @@ export function Newsletter() {
                   </div>
                   <p className="text-[15px] font-light text-cream/90">{msg}</p>
                   <p className="small-copy text-cream/45 mt-2">
-                    به‌زودی اولین نامه دریا را دریافت می‌کنید.
+                    به‌زودی اولین نامه کیوان را دریافت می‌کنید.
                   </p>
                 </motion.div>
               ) : (
@@ -166,7 +166,7 @@ export function Newsletter() {
                     disabled={status === 'loading'}
                     className="w-full py-4 text-[12px] tracking-[0.12em] border border-cream/30 hover:border-cream hover:bg-cream/8 transition-all duration-300 disabled:opacity-50"
                   >
-                    {status === 'loading' ? '…' : 'عضویت در مجله دریا'}
+                    {status === 'loading' ? '…' : 'عضویت در مجله کیوان'}
                   </button>
                   {status === 'error' && (
                     <p className="small-copy text-red-400 text-center">{msg}</p>

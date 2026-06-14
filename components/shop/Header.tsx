@@ -39,7 +39,7 @@ export function Header() {
             <Menu className="w-5 h-5" />
           </button>
           <Link href="/" className="block">
-            <div className={`latin leading-none tracking-tighter text-ink transition-all duration-300 ${scrolled ? 'text-[26px]' : 'text-[30px]'}`}>Darya</div>
+            <div className={`latin leading-none tracking-tighter text-ink transition-all duration-300 ${scrolled ? 'text-[26px]' : 'text-[30px]'}`}>Keyvan</div>
             <div className={`text-[9px] tracking-[0.18em] text-olive transition-all duration-300 ${scrolled ? 'opacity-0 mt-0 h-0 overflow-hidden' : 'opacity-100 mt-[3px]'}`}>PERSIAN RICE</div>
           </Link>
         </div>

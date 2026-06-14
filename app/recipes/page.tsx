@@ -176,7 +176,7 @@ export default function RecipesPage() {
             راز پخت برنج ایرانی
           </h1>
           <p className="text-[var(--muted)] text-[14px] text-center max-w-[480px] mx-auto mb-14 leading-loose">
-            دستورهای خانگی برای بهره‌گیری از بهترین طعم و عطر برنج دریا.
+            دستورهای خانگی برای بهره‌گیری از بهترین طعم و عطر برنج کیوان.
           </p>
 
           <div className="space-y-6">

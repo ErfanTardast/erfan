@@ -9,7 +9,7 @@ export function MarqueeWall() {
           speed="slow"
           items={[
             <span key="1" className="latin font-medium text-[clamp(56px,11vw,180px)] leading-none tracking-tighter">
-              DARYA RICE
+              KEYVAN RICE
             </span>,
             <span key="2" className="text-[clamp(40px,8vw,140px)] leading-none font-light text-olive2">
               برنج اصیل ایرانی

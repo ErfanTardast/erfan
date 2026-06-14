@@ -23,7 +23,7 @@ const STEPS = [
 const PAYMENT_METHODS = [
   { id: 'card', label: 'پرداخت آنلاین', sub: 'درگاه پرداخت زرین‌پال' },
   { id: 'cod', label: 'پرداخت در محل', sub: 'هنگام تحویل مرسوله' },
-  { id: 'transfer', label: 'کارت به کارت', sub: 'واریز به حساب دریا رایس' },
+  { id: 'transfer', label: 'کارت به کارت', sub: 'واریز به حساب کیوان' },
 ];
 
 function Field({

@@ -36,7 +36,7 @@ export function Hero() {
         transition={{ delay: 0.3, duration: 0.7 }}
         className="absolute top-0 inset-x-0 z-10 flex justify-between items-center px-5 md:px-10 lg:px-16 py-5"
       >
-        <span className="latin text-cream/70 text-[13px] tracking-[0.24em]">DARYA</span>
+        <span className="latin text-cream/70 text-[13px] tracking-[0.24em]">KEYVAN</span>
         <PageTransitionTrigger>
           {(navigate) => (
             <button
@@ -69,7 +69,7 @@ export function Hero() {
             transition={{ delay: 0.2, duration: 1, ease: [0.2, 0.7, 0.2, 1] }}
             className="latin font-medium text-[clamp(72px,16vw,260px)] leading-[0.85] tracking-tighter"
           >
-            Darya
+            Keyvan
           </motion.h1>
         </div>
         <motion.div

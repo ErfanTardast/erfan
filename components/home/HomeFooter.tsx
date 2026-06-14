@@ -8,7 +8,7 @@ export function HomeFooter() {
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
           <div>
-            <p className="latin text-[30px] tracking-tighter text-cream mb-1.5">Darya</p>
+            <p className="latin text-[30px] tracking-tighter text-cream mb-1.5">Keyvan</p>
             <p className="text-[10px] tracking-[0.2em] text-olive mb-5">برنج ایرانی · از ۱۳۸۷</p>
             <p className="small-copy text-cream/40 leading-loose max-w-[230px]">
               از مزارع سبز شمال ایران تا سفره شما، هر دانه با عشق انتخاب شده است.
@@ -27,7 +27,7 @@ export function HomeFooter() {
               </nav>
             </div>
             <div>
-              <p className="section-eyebrow text-cream/35 mb-5">دریا</p>
+              <p className="section-eyebrow text-cream/35 mb-5">کیوان</p>
               <nav className="space-y-3 text-[13px]">
                 <Link href="/about" className="block hover:text-cream transition-colors duration-150">داستان ما</Link>
                 <Link href="/recipes" className="block hover:text-cream transition-colors duration-150">دستور پخت</Link>
@@ -63,7 +63,7 @@ export function HomeFooter() {
         </div>
 
         <div className="border-t border-cream/10 pt-7 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[10px] tracking-[0.14em] text-cream/28">© ۱۴۰۳ دریا رایس — همه حقوق محفوظ است</p>
+          <p className="text-[10px] tracking-[0.14em] text-cream/28">© ۱۴۰۳ کیوان — همه حقوق محفوظ است</p>
           <div className="flex gap-5 text-[11px] text-cream/28">
             <Link href="/privacy" className="hover:text-cream/60 transition-colors">حریم خصوصی</Link>
             <Link href="/terms" className="hover:text-cream/60 transition-colors">قوانین و مقررات</Link>
