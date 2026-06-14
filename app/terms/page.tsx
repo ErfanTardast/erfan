@@ -1,4 +1,5 @@
 import { Header } from '@/components/shop/Header';
+import { Footer } from '@/components/shop/Footer';
 export const metadata = { title: 'شرایط فروش — Darya Rice' };
 export default function TermsPage() {
   const sections = [
@@ -25,6 +26,7 @@ export default function TermsPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

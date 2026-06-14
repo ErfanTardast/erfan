@@ -26,7 +26,7 @@ export function MobileMenuDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed inset-y-0 right-0 z-50 w-[84%] max-w-[360px] bg-paper p-7 border-l border-line"
+            className="fixed inset-y-0 right-0 z-50 w-[84%] max-w-[360px] bg-paper p-7 border-l border-line overflow-y-auto flex flex-col"
           >
             <div className="flex items-center justify-between mb-12">
               <div>
@@ -37,18 +37,20 @@ export function MobileMenuDrawer() {
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <nav className="space-y-6 text-[24px] font-light">
+            <nav className="space-y-4 text-[22px] font-light">
               <Link href="/shop" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">فروشگاه</Link>
               <Link href="/shop" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">کلکسیون‌ها</Link>
               <Link href="/about" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">داستان ما</Link>
               <Link href="/recipes" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">دستور پخت</Link>
               <Link href="/contact" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">تماس با ما</Link>
+              <Link href="/shipping" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">ارسال و تحویل</Link>
+              <Link href="/faq" onClick={() => setOpen(false)} className="block w-full text-right hover:text-olive transition-colors">راهنمای خرید</Link>
               <Link href={user ? '/account' : '/login'} onClick={() => setOpen(false)} className="flex items-center gap-3 w-full text-right hover:text-olive transition-colors">
                 <User className="w-5 h-5" />
                 {user ? 'حساب کاربری' : 'ورود / ثبت‌نام'}
               </Link>
             </nav>
-            <div className="absolute bottom-6 right-7 left-7 border-t border-line pt-5 small-copy text-[#76766d] leading-loose">
+            <div className="mt-auto pt-8 border-t border-line small-copy text-[#76766d] leading-loose">
               ارسال رایگان برای سفارش‌های بالای ۵۰۰،۰۰۰ تومان<br />
               پشتیبانی: ۰۲۱-۱۲۳۴۵۶۷۸
             </div>

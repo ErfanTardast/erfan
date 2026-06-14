@@ -54,11 +54,18 @@ export function Footer() {
           <div>
             <p className="section-eyebrow text-[#596355] mb-6">فروشگاه</p>
             <ul className="space-y-3 text-[13px] text-[#bdc5b7]">
-              {['همه محصولات', 'طارم هاشمی', 'دمسیاه شمالی', 'محصولات ارگانیک', 'بسته‌بندی هدیه', 'فروش ویژه'].map(link => (
-                <li key={link}>
-                  <a href="/shop" className="hover:text-white transition-colors duration-200 cursor-pointer">
-                    {link}
-                  </a>
+              {[
+                { label: 'همه محصولات', href: '/shop' },
+                { label: 'طارم هاشمی', href: '/shop?type=tarom' },
+                { label: 'دمسیاه شمالی', href: '/shop?type=domsiah' },
+                { label: 'محصولات ارگانیک', href: '/shop?organic=true' },
+                { label: 'بسته‌بندی هدیه', href: '/shop?collection=chef-choice' },
+                { label: 'فروش ویژه', href: '/shop?premium=true' },
+              ].map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="hover:text-white transition-colors duration-200 cursor-pointer">
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -72,6 +79,9 @@ export function Footer() {
               <li><Link href="/about" className="hover:text-white transition-colors duration-200 cursor-pointer">داستان مزارع</Link></li>
               <li><Link href="/recipes" className="hover:text-white transition-colors duration-200 cursor-pointer">مجله دریا</Link></li>
               <li><Link href="/contact" className="hover:text-white transition-colors duration-200 cursor-pointer">تماس با ما</Link></li>
+              <li><Link href="/shipping" className="hover:text-white transition-colors duration-200 cursor-pointer">ارسال و تحویل</Link></li>
+              <li><Link href="/returns" className="hover:text-white transition-colors duration-200 cursor-pointer">بازگشت و ضمانت</Link></li>
+              <li><Link href="/faq" className="hover:text-white transition-colors duration-200 cursor-pointer">پرسش‌های متداول</Link></li>
               <li><Link href="/privacy" className="hover:text-white transition-colors duration-200 cursor-pointer">حریم خصوصی</Link></li>
               <li><Link href="/terms" className="hover:text-white transition-colors duration-200 cursor-pointer">شرایط فروش</Link></li>
             </ul>

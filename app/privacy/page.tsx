@@ -1,4 +1,5 @@
 import { Header } from '@/components/shop/Header';
+import { Footer } from '@/components/shop/Footer';
 export const metadata = { title: 'حریم خصوصی — Darya Rice' };
 export default function PrivacyPage() {
   const sections = [
@@ -25,6 +26,7 @@ export default function PrivacyPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
