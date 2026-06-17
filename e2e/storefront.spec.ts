@@ -38,3 +38,13 @@ for (const route of ['/shipping', '/returns', '/faq']) {
     await expect(page.locator('main')).toBeVisible();
   });
 }
+
+for (const route of ['/category/tarom', '/brand/keyvan-premium', '/use-case/guest-table']) {
+  test(`${route} catalog landing page loads`, async ({ page }) => {
+    await page.goto(route);
+
+    await expect(page.locator('body')).not.toContainText('Server Error');
+    await expect(page.locator('article').first()).toBeVisible();
+    await expect(page.locator('body')).not.toContainText(oldBrandPattern);
+  });
+}

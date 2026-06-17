@@ -12,6 +12,7 @@ import { useWishlist } from '@/lib/store/wishlist';
 import { useUI } from '@/lib/store/ui';
 import { useHistory } from '@/lib/store/history';
 import { EASE } from '@/lib/motion';
+import { breadcrumbJsonLd, productJsonLd } from '@/lib/catalog/structured-data';
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
 
@@ -74,8 +75,21 @@ export default function ProductPage() {
     (p) => p.id !== product.id && (p.type === product.type || p.region === product.region)
   ).slice(0, 3);
 
+  const jsonLd = [
+    productJsonLd(product),
+    breadcrumbJsonLd([
+      { name: 'Keyvan', path: '/' },
+      { name: 'Shop', path: '/shop' },
+      { name: product.title, path: `/product/${product.slug}` },
+    ]),
+  ];
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+      />
       <Header />
       <main className="bg-cream min-h-screen">
         {/* Breadcrumb */}

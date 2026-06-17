@@ -1,54 +1,19 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { PRODUCTS, type Product } from '@/lib/products';
+import { PRODUCTS } from '@/lib/products';
+import { selectProducts } from '@/lib/catalog/selectors';
 import { useFilters } from '@/lib/store/filters';
 import { ProductCard } from './ProductCard';
 import { EditorialBanner } from './EditorialBanner';
 import { Toolbar } from './Toolbar';
 import { ActiveFilters } from './ActiveFilters';
 
-function applyFilters(list: Product[], f: ReturnType<typeof useFilters.getState>): Product[] {
-  return list.filter((p) => {
-    if (f.types.size > 0 && !f.types.has(p.type)) return false;
-    if (f.regions.size > 0 && !f.regions.has(p.region)) return false;
-    if (f.aromas.size > 0 && !f.aromas.has(p.aroma)) return false;
-    if (f.grains.size > 0 && !f.grains.has(p.grain)) return false;
-    if (f.weights.size > 0 && !f.weights.has(p.weightKg)) return false;
-    if (p.price < f.priceMin || p.price > f.priceMax) return false;
-    if (f.organic && !p.organic) return false;
-    if (f.premium && !p.premium) return false;
-    if (f.inStockOnly && !p.inStock) return false;
-    if (f.search.trim()) {
-      const q = f.search.trim().toLowerCase();
-      const hay = (p.title + ' ' + p.kicker + ' ' + p.shortNote).toLowerCase();
-      if (!hay.includes(q)) return false;
-    }
-    return true;
-  });
-}
-
-function applySort(list: Product[], sort: ReturnType<typeof useFilters.getState>['sort']): Product[] {
-  const copy = [...list];
-  switch (sort) {
-    case 'price-asc':
-      return copy.sort((a, b) => a.price - b.price);
-    case 'price-desc':
-      return copy.sort((a, b) => b.price - a.price);
-    case 'rating':
-      return copy.sort((a, b) => b.rating - a.rating);
-    case 'newest':
-      return copy.sort((a, b) => Number(b.isNew || 0) - Number(a.isNew || 0));
-    default:
-      return copy.sort((a, b) => Number(b.isFeatured || 0) - Number(a.isFeatured || 0));
-  }
-}
-
 export function ProductGrid() {
   const filters = useFilters();
   const [gridCols, setGridCols] = useState<2 | 3>(3);
 
-  const visible = useMemo(() => applySort(applyFilters(PRODUCTS, filters), filters.sort), [filters]);
+  const visible = useMemo(() => selectProducts(filters, filters.sort), [filters]);
 
   return (
     <section>

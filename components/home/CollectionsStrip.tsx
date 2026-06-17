@@ -1,12 +1,5 @@
 import Link from 'next/link';
-import { PRODUCTS } from '@/lib/products';
-
-const COLLECTIONS = [
-  { id: 'chef-choice',      label: 'انتخاب سرآشپز',  en: "Chef's Choice" },
-  { id: 'rare-harvest',     label: 'برداشت نادر',     en: 'Rare Harvest' },
-  { id: 'limited-seasonal', label: 'فصلی محدود',      en: 'Limited Seasonal' },
-  { id: 'aged-reserve',     label: 'ذخیره اعلا',      en: 'Aged Reserve' },
-] as const;
+import { CATALOG_COLLECTIONS, countProductsByPredicate } from '@/lib/catalog';
 
 export function CollectionsStrip() {
   return (
@@ -17,19 +10,21 @@ export function CollectionsStrip() {
             <span className="w-5 h-px bg-[var(--terra)] inline-block" />
             دسته‌بندی‌ها
           </p>
-          {COLLECTIONS.map((col) => {
-            const count = PRODUCTS.filter((p) => p.collection === col.id).length;
+          {CATALOG_COLLECTIONS.map((collection) => {
+            const count = countProductsByPredicate(collection.match);
             return (
               <Link
-                key={col.id}
-                href={`/shop?collection=${col.id}`}
+                key={collection.slug}
+                href={collection.shopHref}
                 className="group inline-flex flex-col items-start px-4 py-1.5 border border-ink/15 hover:border-[var(--terra)]/50 hover:bg-cream transition-colors duration-200"
               >
                 <span className="flex items-center gap-1.5 text-[12px] tracking-[0.04em] text-ink leading-tight">
-                  {col.label}
+                  {collection.label}
                   {count > 0 && <span className="text-[10px] text-muted">({count})</span>}
                 </span>
-                <span className="latin text-[8px] tracking-[0.14em] text-muted group-hover:text-[var(--terra)] transition-colors">{col.en}</span>
+                <span className="latin text-[8px] tracking-[0.14em] text-muted group-hover:text-[var(--terra)] transition-colors">
+                  {collection.englishLabel}
+                </span>
               </Link>
             );
           })}
