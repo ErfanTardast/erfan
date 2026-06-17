@@ -70,6 +70,7 @@ export function CartDrawer() {
           />
           <motion.aside
             key="dr"
+            data-testid="cart-drawer"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -247,6 +248,7 @@ export function CartDrawer() {
                 <Link
                   href="/checkout"
                   onClick={close}
+                  data-testid="cart-checkout-link"
                   className="block w-full text-center bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors active:scale-[0.99]"
                 >
                   تکمیل خرید

@@ -1,6 +1,7 @@
 'use client';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { ChevronLeft, Heart, ShoppingBag, ShieldCheck, Truck, Star } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -13,6 +14,9 @@ import { useHistory } from '@/lib/store/history';
 import { EASE } from '@/lib/motion';
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
+
+const CartDrawer = dynamic(() => import('@/components/shop/CartDrawer').then(m => ({ default: m.CartDrawer })), { ssr: false });
+const Toast = dynamic(() => import('@/components/shop/Toast').then(m => ({ default: m.Toast })), { ssr: false });
 
 const COLLECTION_LABELS: Record<string, string> = {
   'chef-choice': 'انتخاب سرآشپز',
@@ -217,6 +221,7 @@ export default function ProductPage() {
                   </div>
                   <button
                     onClick={handleAdd}
+                    data-testid="pdp-add-to-cart"
                     disabled={!product.inStock || adding}
                     className="flex-1 h-11 bg-ink text-cream text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                   >
@@ -515,6 +520,8 @@ export default function ProductPage() {
         )}
       </main>
       <Footer />
+      <CartDrawer />
+      <Toast />
     </>
   );
 }
