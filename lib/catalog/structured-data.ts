@@ -6,6 +6,16 @@ export function absoluteUrl(path: string) {
   return `${siteUrl}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
+export function organizationJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Keyvan Rice',
+    alternateName: 'کیوان',
+    url: absoluteUrl('/'),
+  };
+}
+
 export function productJsonLd(product: Product) {
   return {
     '@context': 'https://schema.org',

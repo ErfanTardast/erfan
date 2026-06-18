@@ -1,6 +1,7 @@
 'use client';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { cartSchema } from '@/schemas/cart';
 
 export type CartItem = { id: string; qty: number };
 
@@ -48,6 +49,15 @@ export const useCart = create<CartState>()(
       name: 'keyvan-cart',
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({ items: s.items }),
+      merge: (persisted, current) => {
+        const parsed = cartSchema.safeParse((persisted as Partial<CartState> | undefined)?.items ?? []);
+        return {
+          ...current,
+          ...(persisted as Partial<CartState>),
+          items: parsed.success ? parsed.data : [],
+          isOpen: false,
+        };
+      },
     }
   )
 );

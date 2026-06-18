@@ -10,7 +10,9 @@ const nextConfig = {
   basePath: repoBase || undefined,
   assetPrefix: repoBase || undefined,
   images: {
-    unoptimized: isStatic,
+    // The storefront is statically exported and remote image hosts are not
+    // reliably reachable from the local Next.js optimizer in this environment.
+    unoptimized: true,
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
     ],

@@ -1,5 +1,6 @@
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const guideItems = ['طارم برای مهمانی', 'شیرودی برای مصرف روزانه', 'دمسیاه برای عطر قوی'];
 
@@ -32,11 +33,12 @@ export function EditorialBanner() {
             </div>
           </div>
           <div className="relative min-h-[260px]">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=82"
               alt="برنج سفید پخته برای راهنمای خرید کیوان"
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
+              fill
+              sizes="(min-width: 768px) 45vw, 100vw"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-l from-ink/55 to-transparent" />
           </div>

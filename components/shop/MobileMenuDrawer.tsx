@@ -2,7 +2,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, Heart, Leaf, ShoppingBag, User, X } from 'lucide-react';
 import Link from 'next/link';
-import { useUI } from '@/lib/store/ui';
+import { useMobileMenuStore } from '@/stores/mobile-menu-store';
 import { useAccount } from '@/lib/store/account';
 
 const primaryLinks = [
@@ -22,8 +22,8 @@ const supportLinks = [
 ];
 
 export function MobileMenuDrawer() {
-  const open = useUI((s) => s.mobileMenuOpen);
-  const setOpen = useUI((s) => s.setMobileMenu);
+  const open = useMobileMenuStore((s) => s.isOpen);
+  const setOpen = useMobileMenuStore((s) => s.setOpen);
   const user = useAccount((s) => s.user);
 
   const close = () => setOpen(false);

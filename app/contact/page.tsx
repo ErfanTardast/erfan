@@ -1,8 +1,12 @@
 'use client';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 import { Mail, Phone, MapPin, Clock, Instagram, Send, Check } from 'lucide-react';
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
+import { contactFormSchema, type ContactFormInput } from '@/schemas/forms';
 
 const INFO = [
   { icon: Mail, label: 'ایمیل', value: 'info@keyvanrice.ir', href: 'mailto:info@keyvanrice.ir' },
@@ -14,17 +18,22 @@ const INFO = [
 const SUBJECTS = ['سوال درباره محصول', 'پیگیری سفارش', 'همکاری و عمده‌فروشی', 'سایر موارد'];
 
 export default function ContactPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [subject, setSubject] = useState(SUBJECTS[0]);
-  const [message, setMessage] = useState('');
   const [sent, setSent] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormInput>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: { name: '', email: '', subject: SUBJECTS[0], message: '' },
+  });
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const body = `نام: ${name}%0Dایمیل: ${email}%0D%0D${message}`;
-    window.location.href = `mailto:info@keyvanrice.ir?subject=${encodeURIComponent(subject)}&body=${body}`;
+  const submit = (values: ContactFormInput) => {
+    const body = encodeURIComponent(`نام: ${values.name}\nایمیل: ${values.email}\n\n${values.message}`);
+    window.location.href = `mailto:info@keyvanrice.ir?subject=${encodeURIComponent(values.subject)}&body=${body}`;
     setSent(true);
+    toast.success('پیام آماده ارسال است');
   };
 
   const cls = 'w-full border border-[var(--line)] bg-transparent px-4 py-3.5 text-[13px] outline-none focus:border-[var(--ink)] transition-colors placeholder-[var(--muted)]/50';
@@ -89,31 +98,34 @@ export default function ContactPage() {
                     <span dir="ltr" className="mx-1">info@keyvanrice.ir</span>
                     ایمیل بزنید.
                   </p>
-                  <button onClick={() => setSent(false)} className="mt-6 text-[12px] text-[var(--olive)] hover:text-[var(--ink)] transition-colors">
+                  <button onClick={() => { setSent(false); reset(); }} className="mt-6 text-[12px] text-[var(--olive)] hover:text-[var(--ink)] transition-colors">
                     ارسال پیام دیگر
                   </button>
                 </div>
               ) : (
-                <form onSubmit={submit} className="space-y-5">
+                <form onSubmit={handleSubmit(submit)} className="space-y-5" noValidate>
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
                       <label className="block text-[10px] tracking-[0.18em] text-[var(--muted)] mb-2">نام شما</label>
-                      <input className={cls} value={name} onChange={(e) => setName(e.target.value)} required placeholder="نام و نام خانوادگی" />
+                      <input className={cls} {...register('name')} placeholder="نام و نام خانوادگی" />
+                      {errors.name && <p className="mt-1.5 text-[11px] text-[var(--terra)]">{errors.name.message}</p>}
                     </div>
                     <div>
                       <label className="block text-[10px] tracking-[0.18em] text-[var(--muted)] mb-2">ایمیل</label>
-                      <input type="email" className={cls} value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@example.com" />
+                      <input type="email" className={cls} {...register('email')} placeholder="you@example.com" />
+                      {errors.email && <p className="mt-1.5 text-[11px] text-[var(--terra)]">{errors.email.message}</p>}
                     </div>
                   </div>
                   <div>
                     <label className="block text-[10px] tracking-[0.18em] text-[var(--muted)] mb-2">موضوع</label>
-                    <select className={cls} value={subject} onChange={(e) => setSubject(e.target.value)}>
+                    <select className={cls} {...register('subject')}>
                       {SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="block text-[10px] tracking-[0.18em] text-[var(--muted)] mb-2">پیام</label>
-                    <textarea className={`${cls} resize-none`} rows={5} value={message} onChange={(e) => setMessage(e.target.value)} required placeholder="پیام خود را بنویسید…" />
+                    <textarea className={`${cls} resize-none`} rows={5} {...register('message')} placeholder="پیام خود را بنویسید…" />
+                    {errors.message && <p className="mt-1.5 text-[11px] text-[var(--terra)]">{errors.message.message}</p>}
                   </div>
                   <button type="submit" className="w-full bg-[var(--ink)] text-[var(--cream)] py-4 text-[13px] tracking-[0.1em] hover:bg-[var(--deep)] transition-colors flex items-center justify-center gap-2">
                     <Send className="w-4 h-4" />

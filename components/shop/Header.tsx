@@ -1,10 +1,12 @@
 'use client';
 import { Menu, Search, Heart, ShoppingBag, ChevronDown, User, Leaf } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
-import { useUI } from '@/lib/store/ui';
+import { useSearchStore } from '@/stores/search-store';
+import { useMobileMenuStore } from '@/stores/mobile-menu-store';
 import { useAccount } from '@/lib/store/account';
 import { toFa } from '@/lib/format';
 
@@ -27,8 +29,8 @@ export function Header() {
   const cartItems = useCart((s) => s.items);
   const wishIds = useWishlist((s) => s.ids);
   const openCart = useCart((s) => s.open);
-  const setSearch = useUI((s) => s.setSearch);
-  const setMobileMenu = useUI((s) => s.setMobileMenu);
+  const openSearch = useSearchStore((s) => s.open);
+  const openMobileMenu = useMobileMenuStore((s) => s.open);
   const user = useAccount((s) => s.user);
 
   useEffect(() => {
@@ -45,7 +47,7 @@ export function Header() {
       <div className="site-shell flex items-center justify-between gap-5 transition-all duration-300" style={{ minHeight: scrolled ? 64 : 76 }}>
         <div className="flex items-center gap-3">
           <button
-            onClick={() => setMobileMenu(true)}
+            onClick={openMobileMenu}
             className="lg:hidden w-11 h-11 inline-flex items-center justify-center border border-line bg-paper"
             aria-label="باز کردن منو"
           >
@@ -92,10 +94,12 @@ export function Header() {
                   </div>
                 </div>
                 <Link href="/shop?premium=true" className="relative min-h-[210px] overflow-hidden bg-ink text-rice group/card">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=520&q=80"
                     alt="دانه‌های برنج کیوان"
-                    className="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-500 group-hover/card:scale-[1.04]"
+                    fill
+                    sizes="312px"
+                    className="object-cover opacity-80 transition-transform duration-500 group-hover/card:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent" />
                   <div className="absolute bottom-4 right-4 left-4">
@@ -119,7 +123,7 @@ export function Header() {
           >
             خرید برنج
           </Link>
-          <button onClick={() => setSearch(true)} className="hidden w-11 h-11 items-center justify-center sm:inline-flex" aria-label="جستجو">
+          <button onClick={openSearch} className="hidden w-11 h-11 items-center justify-center sm:inline-flex" aria-label="جستجو">
             <Search className="w-[18px] h-[18px]" />
           </button>
           <Link href="/wishlist" className="hidden sm:inline-flex w-11 h-11 items-center justify-center relative" aria-label="علاقه‌مندی‌ها">

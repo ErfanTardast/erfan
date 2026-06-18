@@ -2,32 +2,36 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { Search, X, Clock, TrendingUp } from 'lucide-react';
-import { useUI } from '@/lib/store/ui';
+import Image from 'next/image';
+import { useSearchStore } from '@/stores/search-store';
+import { useQuickViewStore } from '@/stores/quick-view-store';
 import { useHistory } from '@/lib/store/history';
 import { PRODUCTS } from '@/lib/products';
 import { fmtPrice } from '@/lib/format';
 import { EASE } from '@/lib/motion';
+import { useDebounce } from '@/hooks/useDebounce';
 
 const TRENDING = ['طارم هاشمی', 'برنج ارگانیک', 'بسته هدیه', 'دمسیاه', 'کشت اول'];
 
 export function SearchOverlay() {
-  const open = useUI((s) => s.searchOpen);
-  const setSearch = useUI((s) => s.setSearch);
-  const setQuickView = useUI((s) => s.setQuickView);
+  const open = useSearchStore((s) => s.isOpen);
+  const setSearch = useSearchStore((s) => s.setOpen);
+  const openQuickView = useQuickViewStore((s) => s.open);
   const addRecentSearch = useHistory((s) => s.addRecentSearch);
   const recentSearches = useHistory((s) => s.recentSearches);
   const inputRef = useRef<HTMLInputElement>(null);
   const [q, setQ] = useState('');
   const [focused, setFocused] = useState(-1);
+  const deferredQuery = useDebounce(q, 180);
 
   useEffect(() => {
     if (open) setTimeout(() => inputRef.current?.focus(), 150);
     else { setQ(''); setFocused(-1); }
   }, [open]);
 
-  const results = q.trim()
+  const results = deferredQuery.trim()
     ? PRODUCTS.filter((p) =>
-        (p.title + p.kicker + p.shortNote).toLowerCase().includes(q.trim().toLowerCase())
+        (p.title + p.kicker + p.shortNote).toLowerCase().includes(deferredQuery.trim().toLowerCase())
       ).slice(0, 6)
     : [];
 
@@ -39,14 +43,14 @@ export function SearchOverlay() {
       const target = results[Math.max(0, focused)];
       addRecentSearch(q.trim());
       setSearch(false);
-      setQuickView(target);
+      openQuickView(target);
     }
   };
 
   const selectResult = (p: (typeof PRODUCTS)[0]) => {
     addRecentSearch(q.trim() || p.title);
     setSearch(false);
-    setQuickView(p);
+    openQuickView(p);
   };
 
   return (
@@ -162,7 +166,9 @@ export function SearchOverlay() {
                           focused === i ? 'bg-sand' : 'hover:bg-paper'
                         }`}
                       >
-                        <img src={p.image} alt={p.title} className="w-14 h-16 object-cover shrink-0" />
+                        <span className="relative w-14 h-16 shrink-0 overflow-hidden bg-sand">
+                          <Image src={p.image} alt={p.title} fill sizes="56px" className="object-cover" />
+                        </span>
                         <div className="flex-1 min-w-0">
                           <p className="text-[14px] font-medium">{p.title}</p>
                           <p className="small-copy text-muted mt-0.5 truncate">{p.shortNote}</p>

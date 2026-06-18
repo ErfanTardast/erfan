@@ -2,17 +2,17 @@
 import { ArrowLeft, ShoppingBag, Star } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { PRODUCTS, type Product } from '@/lib/products';
 import { fmtPriceShort, toFa } from '@/lib/format';
 import { useCart } from '@/lib/store/cart';
-import { useUI } from '@/lib/store/ui';
+import { toast } from 'sonner';
 
 const PICKS = ['1', '3', '5', '2'];
 
 export function FeaturedProducts() {
   const add = useCart((s) => s.add);
   const openCart = useCart((s) => s.open);
-  const showToast = useUI((s) => s.showToast);
   const products = PICKS.map((id) => PRODUCTS.find((p) => p.id === id)).filter((p): p is Product => Boolean(p));
 
   return (
@@ -37,7 +37,7 @@ export function FeaturedProducts() {
               onAdd={() => {
                 add(product.id);
                 openCart();
-                showToast('به سبد اضافه شد', product.title);
+                toast.success('به سبد اضافه شد', { description: product.title });
               }}
             />
           ))}
@@ -61,11 +61,12 @@ function FeaturedCard({ product, onAdd }: { product: Product; onAdd: () => void 
     <article className="group harvest-card bg-rice flex flex-col">
       <Link href={`/product/${product.slug}`} className="block">
         <div className="relative aspect-[4/4.6] overflow-hidden bg-sand">
-          <img
+          <Image
             src={product.image}
             alt={product.title}
-            loading="lazy"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            fill
+            sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
           {product.badge && (
             <span className="absolute top-3 right-3 bg-paper/95 text-ink border border-line px-3 py-1.5 text-[11px]">

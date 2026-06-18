@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle2, Wheat, Truck } from 'lucide-react';
 import { EASE } from '@/lib/motion';
@@ -57,22 +58,26 @@ export function LandingHero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.08, duration: 0.7, ease: EASE }}
+          transition={{ delay: 0.05, duration: 0.5, ease: EASE }}
           className="relative min-h-[480px] md:min-h-[620px]"
         >
           <div className="absolute inset-y-0 left-0 w-[58%] overflow-hidden border border-line bg-sand">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1634376413866-d89f8b489a05?auto=format&fit=crop&w=1100&q=82"
               alt="مزارع برنج فومن گیلان"
-              fetchPriority="high"
-              className="w-full h-full object-cover"
+              fill
+              priority
+              sizes="(min-width: 1024px) 30vw, 58vw"
+              className="object-cover"
             />
           </div>
           <div className="absolute top-[12%] right-0 w-[58%] aspect-[4/5] overflow-hidden border border-line bg-paper shadow-[0_24px_90px_rgba(23,33,26,0.18)]">
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=900&q=82"
               alt="دانه‌های برنج کیوان"
-              className="w-full h-full object-cover"
+              fill
+              sizes="(min-width: 1024px) 30vw, 58vw"
+              className="object-cover"
             />
           </div>
           <div className="absolute bottom-6 right-6 left-6 md:left-auto md:w-[360px] harvest-card p-5">

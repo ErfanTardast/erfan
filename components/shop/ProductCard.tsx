@@ -3,11 +3,13 @@ import { Heart, ScanEye, ShoppingBag, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { type Product } from '@/lib/products';
 import { fmtPriceShort, toFa } from '@/lib/format';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
-import { useUI } from '@/lib/store/ui';
+import { useQuickViewStore } from '@/stores/quick-view-store';
+import { toast } from 'sonner';
 import { useHistory } from '@/lib/store/history';
 import { EASE } from '@/lib/motion';
 
@@ -23,8 +25,7 @@ export function ProductCard({ product }: { product: Product }) {
   const openCartDrawer = useCart((s) => s.open);
   const wished = useWishlist((s) => s.ids.includes(product.id));
   const toggleWish = useWishlist((s) => s.toggle);
-  const showToast = useUI((s) => s.showToast);
-  const openQuickView = useUI((s) => s.setQuickView);
+  const openQuickView = useQuickViewStore((s) => s.open);
   const addRecentlyViewed = useHistory((s) => s.addRecentlyViewed);
   const [adding, setAdding] = useState(false);
 
@@ -32,7 +33,7 @@ export function ProductCard({ product }: { product: Product }) {
     setAdding(true);
     add(product.id);
     openCartDrawer();
-    showToast('به سبد اضافه شد', product.title);
+    toast.success('به سبد اضافه شد', { description: product.title });
     setTimeout(() => setAdding(false), 450);
   };
 
@@ -53,12 +54,13 @@ export function ProductCard({ product }: { product: Product }) {
       className="group harvest-card bg-rice overflow-hidden"
     >
       <div className="relative">
-        <Link href={`/product/${product.slug}`} className="block aspect-[4/5] overflow-hidden bg-sand">
-          <img
+        <Link href={`/product/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-sand">
+          <Image
             src={product.image}
             alt={product.title}
-            loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.045]"
+            fill
+            sizes="(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.045]"
           />
         </Link>
 
@@ -77,7 +79,12 @@ export function ProductCard({ product }: { product: Product }) {
 
         <div className="absolute top-3 left-3 flex flex-col gap-2">
           <button
-            onClick={() => toggleWish(product.id)}
+            onClick={() => {
+              toggleWish(product.id);
+              toast.success(wished ? 'از علاقه‌مندی‌ها حذف شد' : 'به علاقه‌مندی‌ها اضافه شد', {
+                description: product.title,
+              });
+            }}
             aria-label="افزودن به علاقه‌مندی"
             className={`w-11 h-11 flex items-center justify-center border backdrop-blur-sm transition-colors ${
               wished ? 'bg-ink text-rice border-ink' : 'bg-paper/90 text-ink border-line hover:border-ink'

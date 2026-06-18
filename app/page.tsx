@@ -9,7 +9,6 @@ import { Footer } from '@/components/shop/Footer';
 
 const CartDrawer = dynamic(() => import('@/components/shop/CartDrawer').then(m => ({ default: m.CartDrawer })), { ssr: false });
 const QuickViewModal = dynamic(() => import('@/components/shop/QuickViewModal').then(m => ({ default: m.QuickViewModal })), { ssr: false });
-const Toast = dynamic(() => import('@/components/shop/Toast').then(m => ({ default: m.Toast })), { ssr: false });
 
 export default function HomePage() {
   return (
@@ -26,7 +25,6 @@ export default function HomePage() {
       {/* Overlays */}
       <CartDrawer />
       <QuickViewModal />
-      <Toast />
     </>
   );
 }

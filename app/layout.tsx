@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Vazirmatn, Fraunces } from 'next/font/google';
+import { Toaster } from 'sonner';
 import './globals.css';
-import { LenisProvider } from '@/components/ui/LenisProvider';
+import { organizationJsonLd } from '@/lib/catalog/structured-data';
 
 const vazir = Vazirmatn({
   subsets: ['arabic', 'latin'],
@@ -18,7 +19,11 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: 'Keyvan Rice — برنج‌های ممتاز ایرانی',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://keyvanrice.ir'),
+  title: {
+    default: 'Keyvan Rice — برنج‌های ممتاز ایرانی',
+    template: '%s | Keyvan Rice',
+  },
   description:
     'از مزارع سبز شمال ایران تا سفره شما — تجربه‌ای از طبیعت اصیل ایران در هر دانه برنج.',
   keywords: ['برنج', 'طارم هاشمی', 'برنج ایرانی', 'کیوان', 'persian rice'],
@@ -27,6 +32,20 @@ export const metadata: Metadata = {
     description: 'برنج‌های اصیل ایرانی، از مزارع شمال تا سفره شما',
     locale: 'fa_IR',
     type: 'website',
+    images: [
+      {
+        url: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=85',
+        width: 1200,
+        height: 630,
+        alt: 'برنج ایرانی کیوان',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Keyvan Rice',
+    description: 'برنج‌های اصیل ایرانی، از مزارع شمال تا سفره شما',
+    images: ['https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=85'],
   },
 };
 
@@ -37,10 +56,22 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const organization = organizationJsonLd();
+
   return (
     <html lang="fa" dir="rtl" className={`${vazir.variable} ${fraunces.variable}`}>
       <body className="overflow-x-hidden">
-        <LenisProvider>{children}</LenisProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organization).replace(/</g, '\\u003c') }}
+        />
+        {children}
+        <Toaster
+          position="bottom-right"
+          richColors
+          closeButton
+          toastOptions={{ duration: 3200 }}
+        />
       </body>
     </html>
   );

@@ -5,19 +5,20 @@ import dynamic from 'next/dynamic';
 import { ChevronLeft, Heart, Minus, Plus, ShoppingBag, ShieldCheck, Truck, Star } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { PRODUCTS, getProductBySlug, getGallery, getReviews, RICE_NUTRITION, REGION_LABELS, AROMA_LABELS } from '@/lib/products';
 import { fmtPrice, toFa } from '@/lib/format';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
-import { useUI } from '@/lib/store/ui';
+import { toast } from 'sonner';
 import { useHistory } from '@/lib/store/history';
 import { EASE } from '@/lib/motion';
 import { breadcrumbJsonLd, productJsonLd } from '@/lib/catalog/structured-data';
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
+import { ProductGallery } from '@/components/product/ProductGallery';
 
 const CartDrawer = dynamic(() => import('@/components/shop/CartDrawer').then(m => ({ default: m.CartDrawer })), { ssr: false });
-const Toast = dynamic(() => import('@/components/shop/Toast').then(m => ({ default: m.Toast })), { ssr: false });
 
 const COLLECTION_LABELS: Record<string, string> = {
   'chef-choice': 'انتخاب سرآشپز',
@@ -33,13 +34,11 @@ export default function ProductPage() {
   const [qty, setQty] = useState(1);
   const [adding, setAdding] = useState(false);
   const gallery = product ? getGallery(product) : [];
-  const [activeImg, setActiveImg] = useState(0);
 
   const add = useCart((s) => s.add);
   const openCart = useCart((s) => s.open);
   const wished = useWishlist((s) => s.ids.includes(product?.id ?? ''));
   const toggleWish = useWishlist((s) => s.toggle);
-  const showToast = useUI((s) => s.showToast);
   const addRecentlyViewed = useHistory((s) => s.addRecentlyViewed);
 
   useEffect(() => {
@@ -68,7 +67,7 @@ export default function ProductPage() {
     setAdding(true);
     for (let i = 0; i < qty; i++) add(product.id);
     openCart();
-    showToast('به سبد اضافه شد', product.title);
+    toast.success('به سبد اضافه شد', { description: product.title });
     addRecentlyViewed(product.id);
     setTimeout(() => setAdding(false), 600);
   };
@@ -117,48 +116,14 @@ export default function ProductPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: EASE }}
             >
-              <div className="aspect-[4/5] overflow-hidden bg-sand relative">
-                <motion.img
-                  key={activeImg}
-                  initial={{ opacity: 0.4, scale: 1.02 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, ease: EASE }}
-                  src={gallery[activeImg]}
-                  alt={product.title}
-                  className="w-full h-full object-cover"
+              <div className="relative">
+                <ProductGallery
+                  images={gallery}
+                  title={product.title}
+                  badge={product.collection ? COLLECTION_LABELS[product.collection] : undefined}
+                  isNew={product.isNew}
                 />
-                {product.collection && (
-                  <div className="absolute top-4 right-4">
-                    <span className="text-[9px] tracking-[0.16em] bg-ink/80 text-cream px-2.5 py-1.5 backdrop-blur-sm">
-                      {COLLECTION_LABELS[product.collection]}
-                    </span>
-                  </div>
-                )}
-                {product.isNew && (
-                  <div className="absolute top-4 left-4">
-                    <span className="text-[9px] tracking-[0.16em] bg-gold text-white px-2.5 py-1.5">
-                      جدید
-                    </span>
-                  </div>
-                )}
               </div>
-              {/* Thumbnails */}
-              {gallery.length > 1 && (
-                <div className="flex gap-3 mt-3">
-                  {gallery.map((src, i) => (
-                    <button
-                      key={src}
-                      onClick={() => setActiveImg(i)}
-                      className={`w-[68px] h-[68px] overflow-hidden bg-sand shrink-0 border-2 transition-colors ${
-                        activeImg === i ? 'border-ink' : 'border-transparent hover:border-line'
-                      }`}
-                      aria-label={`تصویر ${toFa(i + 1)}`}
-                    >
-                      <img src={src} alt="" className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
               {/* Harvest + origin mini bar */}
               <div className="flex items-center gap-6 mt-5 pt-5 border-t border-line">
                 <div>
@@ -327,11 +292,13 @@ export default function ProductPage() {
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 1, ease: EASE }}
               >
-                <div className="aspect-[4/3] overflow-hidden bg-sand">
-                  <img
+                <div className="relative aspect-[4/3] overflow-hidden bg-sand">
+                  <Image
                     src={product.image}
                     alt={product.title}
-                    className="w-full h-full object-cover scale-[1.02]"
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover scale-[1.02]"
                   />
                 </div>
               </motion.div>
@@ -517,13 +484,13 @@ export default function ProductPage() {
                     className="group"
                   >
                     <Link href={`/product/${p.slug}`} className="block">
-                      <div className="aspect-[4/3] overflow-hidden bg-sand mb-4">
-                        <motion.img
+                      <div className="relative aspect-[4/3] overflow-hidden bg-sand mb-4">
+                        <Image
                           src={p.image}
                           alt={p.title}
-                          className="w-full h-full object-cover"
-                          whileHover={{ scale: 1.04 }}
-                          transition={{ duration: 0.7, ease: EASE }}
+                          fill
+                          sizes="(min-width: 768px) 31vw, 100vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                         />
                       </div>
                       <p className="section-eyebrow text-olive mb-1">{p.kicker}</p>
@@ -541,7 +508,6 @@ export default function ProductPage() {
       </main>
       <Footer />
       <CartDrawer />
-      <Toast />
     </>
   );
 }

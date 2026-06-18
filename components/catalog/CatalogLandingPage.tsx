@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
@@ -56,12 +57,13 @@ export function CatalogLandingPage({
             {products.map((product) => (
               <article key={product.id} className="group harvest-card bg-paper overflow-hidden">
                 <Link href={`/product/${product.slug}`} className="block">
-                  <div className="aspect-[4/5] overflow-hidden bg-sand">
-                    <img
+                  <div className="relative aspect-[4/5] overflow-hidden bg-sand">
+                    <Image
                       src={product.image}
                       alt={product.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      fill
+                      sizes="(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 100vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                     />
                   </div>
                   <div className="p-4">

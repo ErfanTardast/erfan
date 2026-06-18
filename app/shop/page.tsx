@@ -11,7 +11,6 @@ import { Footer } from '@/components/shop/Footer';
 import { CartDrawer } from '@/components/shop/CartDrawer';
 import { QuickViewModal } from '@/components/shop/QuickViewModal';
 import { SearchOverlay } from '@/components/shop/SearchOverlay';
-import { Toast } from '@/components/shop/Toast';
 import { MobileMenuDrawer } from '@/components/shop/MobileMenuDrawer';
 import { MobileFilterDrawer } from '@/components/shop/MobileFilterDrawer';
 import { MobileFilterBarWrapper } from '@/components/shop/MobileFilterBarWrapper';
@@ -45,7 +44,6 @@ export default function ShopPage() {
       <SearchOverlay />
       <MobileMenuDrawer />
       <MobileFilterDrawer />
-      <Toast />
     </>
   );
 }

@@ -37,7 +37,7 @@ export type Product = {
   cookingTip?: string;
 };
 
-export const PRODUCTS: Product[] = [
+const rawProducts: Product[] = [
   {
     id: '1',
     slug: 'tarom-hashemi-premium',
@@ -284,6 +284,8 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
+export const PRODUCTS: Product[] = productSchema.array().parse(rawProducts);
+
 export const getProductById = (id: string) => PRODUCTS.find((p) => p.id === id);
 export const getProductBySlug = (slug: string) => PRODUCTS.find((p) => p.slug === slug);
 
@@ -364,3 +366,4 @@ export const GRAIN_LABELS: Record<GrainLength, string> = {
   medium: 'دانه متوسط',
   short: 'دانه کوتاه',
 };
+import { productSchema } from '@/schemas/product';

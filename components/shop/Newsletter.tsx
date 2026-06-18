@@ -1,14 +1,25 @@
 'use client';
 import { CheckCircle2, Mail } from 'lucide-react';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+import { newsletterFormSchema, type NewsletterFormInput } from '@/schemas/forms';
 
 export function Newsletter() {
-  const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [msg, setMsg] = useState('');
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<NewsletterFormInput>({
+    resolver: zodResolver(newsletterFormSchema),
+    defaultValues: { email: '' },
+  });
 
-  const submit = async (event: React.FormEvent) => {
-    event.preventDefault();
+  const submit = async ({ email }: NewsletterFormInput) => {
     setStatus('loading');
     try {
       const res = await fetch('/api/newsletter', {
@@ -24,11 +35,13 @@ export function Newsletter() {
       }
       setStatus('success');
       setMsg(data.message ?? 'عضویت شما ثبت شد.');
-      setEmail('');
+      reset();
+      toast.success('عضویت در نامه کیوان ثبت شد');
     } catch {
       setStatus('success');
       setMsg('عضویت شما ثبت شد.');
-      setEmail('');
+      reset();
+      toast.success('عضویت در نامه کیوان ثبت شد');
     }
   };
 
@@ -52,7 +65,7 @@ export function Newsletter() {
                 <p className="small-copy mt-2 text-muted">به‌زودی اولین نامه کیوان را دریافت می‌کنید.</p>
               </div>
             ) : (
-              <form onSubmit={submit} className="space-y-4">
+              <form onSubmit={handleSubmit(submit)} className="space-y-4" noValidate>
                 <div>
                   <label htmlFor="nl-email" className="mb-2 block text-[13px] font-medium">
                     آدرس ایمیل
@@ -63,13 +76,13 @@ export function Newsletter() {
                       id="nl-email"
                       type="email"
                       required
-                      value={email}
-                      onChange={(event) => setEmail(event.target.value)}
+                      {...register('email')}
                       placeholder="your@email.com"
                       dir="ltr"
                       className="latin h-12 flex-1 bg-transparent text-[14px] outline-none placeholder:text-muted/55"
                     />
                   </div>
+                  {errors.email && <p className="mt-1.5 text-[11px] text-clay">{errors.email.message}</p>}
                 </div>
                 <button
                   type="submit"

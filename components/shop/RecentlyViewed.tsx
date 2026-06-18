@@ -1,19 +1,20 @@
 'use client';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { PRODUCTS } from '@/lib/products';
 import type { Product } from '@/lib/products';
 import { fmtPrice } from '@/lib/format';
-import { useUI } from '@/lib/store/ui';
+import { useQuickViewStore } from '@/stores/quick-view-store';
+import { toast } from 'sonner';
 import { useHistory } from '@/lib/store/history';
 import { useCart } from '@/lib/store/cart';
 import { EASE, stagger, fadeUp } from '@/lib/motion';
 
 export function RecentlyViewed() {
   const recentlyViewed = useHistory((s) => s.recentlyViewed);
-  const setQuickView = useUI((s) => s.setQuickView);
+  const openQuickView = useQuickViewStore((s) => s.open);
   const add = useCart((s) => s.add);
   const openCart = useCart((s) => s.open);
-  const showToast = useUI((s) => s.showToast);
 
   const list = recentlyViewed
     .map((id) => PRODUCTS.find((p) => p.id === id))
@@ -42,15 +43,15 @@ export function RecentlyViewed() {
             key={p.id}
             variants={fadeUp}
             className="harvest-card group cursor-pointer overflow-hidden"
-            onClick={() => setQuickView(p)}
+            onClick={() => openQuickView(p)}
           >
-            <div className="aspect-[4/3] overflow-hidden bg-sand">
-              <motion.img
+            <div className="relative aspect-[4/3] overflow-hidden bg-sand">
+              <Image
                 src={p.image}
                 alt={p.title}
-                className="w-full h-full object-cover"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.65, ease: EASE }}
+                fill
+                sizes="(min-width: 768px) 23vw, (min-width: 640px) 45vw, 100vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
               />
             </div>
             <div className="p-4">
@@ -64,7 +65,7 @@ export function RecentlyViewed() {
                   e.stopPropagation();
                   add(p.id);
                   openCart();
-                  showToast('به سبد اضافه شد', p.title);
+                  toast.success('به سبد اضافه شد', { description: p.title });
                 }}
                 className="min-h-11 border border-line px-3 text-[12px] transition-all hover:border-ink hover:bg-ink hover:text-white"
               >

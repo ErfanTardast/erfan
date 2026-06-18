@@ -7,6 +7,10 @@ import { Header } from '@/components/shop/Header';
 import { useAccount, type Address } from '@/lib/store/account';
 import { useWishlist } from '@/lib/store/wishlist';
 import { fmtPrice, toFa } from '@/lib/format';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+import { addressSchema, type AddressInput } from '@/schemas/customer';
 
 const STATUS_FA: Record<string, string> = {
   processing: 'در حال پردازش',
@@ -195,26 +199,36 @@ export default function AccountPage() {
 }
 
 function AddressForm({ onAdd, onCancel }: { onAdd: (a: Omit<Address, 'id'>) => void; onCancel: () => void }) {
-  const [f, setF] = useState({ title: 'خانه', recipient: '', phone: '', province: '', city: '', line: '', postal: '' });
-  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement>) => setF({ ...f, [k]: e.target.value });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AddressInput>({
+    resolver: zodResolver(addressSchema),
+    defaultValues: { title: 'خانه', recipient: '', phone: '', province: '', city: '', line: '', postal: '' },
+  });
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!f.recipient || !f.province || !f.city || !f.line) return;
-    onAdd(f);
+  const submit = (values: AddressInput) => {
+    onAdd(values);
+    toast.success('آدرس ذخیره شد');
   };
 
   const cls = 'w-full border border-[var(--line)] bg-[var(--cream)] px-3.5 py-3 text-[13px] outline-none focus:border-[var(--ink)] transition-colors';
 
   return (
-    <form onSubmit={submit} className="bg-[var(--paper)] border border-[var(--line)] p-5 mb-4 grid sm:grid-cols-2 gap-3">
-      <input className={cls} placeholder="عنوان (خانه/کار)" value={f.title} onChange={set('title')} />
-      <input className={cls} placeholder="نام گیرنده" value={f.recipient} onChange={set('recipient')} required />
-      <input className={cls} placeholder="شماره تماس" value={f.phone} onChange={set('phone')} />
-      <input className={cls} placeholder="استان" value={f.province} onChange={set('province')} required />
-      <input className={cls} placeholder="شهر" value={f.city} onChange={set('city')} required />
-      <input className={cls} placeholder="کد پستی" value={f.postal} onChange={set('postal')} />
-      <input className={`${cls} sm:col-span-2`} placeholder="آدرس کامل" value={f.line} onChange={set('line')} required />
+    <form onSubmit={handleSubmit(submit)} className="bg-[var(--paper)] border border-[var(--line)] p-5 mb-4 grid sm:grid-cols-2 gap-3" noValidate>
+      <input className={cls} placeholder="عنوان (خانه/کار)" {...register('title')} />
+      <input className={cls} placeholder="نام گیرنده" {...register('recipient')} />
+      <input className={cls} placeholder="شماره تماس" {...register('phone')} />
+      <input className={cls} placeholder="استان" {...register('province')} />
+      <input className={cls} placeholder="شهر" {...register('city')} />
+      <input className={cls} placeholder="کد پستی" {...register('postal')} />
+      <input className={`${cls} sm:col-span-2`} placeholder="آدرس کامل" {...register('line')} />
+      {Object.keys(errors).length > 0 && (
+        <p className="sm:col-span-2 text-[11px] text-[var(--terra)]">
+          {Object.values(errors)[0]?.message}
+        </p>
+      )}
       <div className="sm:col-span-2 flex gap-3">
         <button type="submit" className="bg-[var(--ink)] text-[var(--cream)] px-6 py-3 text-[12px] tracking-[0.1em] hover:bg-[var(--deep)] transition-colors">ذخیره آدرس</button>
         <button type="button" onClick={onCancel} className="border border-[var(--line)] px-6 py-3 text-[12px] text-[var(--muted)] hover:border-[var(--ink)] transition-colors">انصراف</button>

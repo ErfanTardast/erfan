@@ -3,7 +3,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, Heart, Minus, Plus, ShieldCheck, Star, Truck, X } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
-import { useUI } from '@/lib/store/ui';
+import Image from 'next/image';
+import { useQuickViewStore } from '@/stores/quick-view-store';
+import { toast } from 'sonner';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
 import { fmtPrice, toFa } from '@/lib/format';
@@ -15,9 +17,9 @@ const GALLERY_EXTRA = [
 ];
 
 export function QuickViewModal() {
-  const p = useUI((s) => s.quickViewProduct);
-  const setQuickView = useUI((s) => s.setQuickView);
-  const showToast = useUI((s) => s.showToast);
+  const p = useQuickViewStore((s) => s.product);
+  const openQuickView = useQuickViewStore((s) => s.open);
+  const closeQuickView = useQuickViewStore((s) => s.close);
   const add = useCart((s) => s.add);
   const openCart = useCart((s) => s.open);
   const wishHas = useWishlist((s) => (p ? s.ids.includes(p.id) : false));
@@ -33,8 +35,8 @@ export function QuickViewModal() {
     if (!p) return;
     for (let i = 0; i < qty; i++) add(p.id);
     openCart();
-    showToast('به سبد اضافه شد', p.title);
-    setQuickView(null);
+    toast.success('به سبد اضافه شد', { description: p.title });
+    closeQuickView();
     setQty(1);
     setActiveImg(0);
   };
@@ -48,7 +50,7 @@ export function QuickViewModal() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          onClick={() => setQuickView(null)}
+          onClick={closeQuickView}
           className="fixed inset-0 z-50 flex items-center justify-center bg-ink/65 p-4 backdrop-blur-sm md:p-8"
         >
           <motion.div
@@ -62,7 +64,7 @@ export function QuickViewModal() {
           >
             {/* Close */}
             <button
-              onClick={() => setQuickView(null)}
+              onClick={closeQuickView}
               aria-label="بستن"
               className="absolute left-4 top-4 z-10 flex h-11 w-11 items-center justify-center border border-line bg-paper/92 shadow-sm backdrop-blur-sm transition-colors hover:bg-rice"
             >
@@ -72,18 +74,14 @@ export function QuickViewModal() {
             {/* Gallery */}
             <div className="bg-sand flex flex-col">
               <div className="relative aspect-square overflow-hidden">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={activeImg}
+                <Image
+                    key={images[activeImg]}
                     src={images[activeImg]}
                     alt={p.title}
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.4, ease: EASE }}
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="(min-width: 768px) 52vw, 100vw"
+                    className="object-cover"
                   />
-                </AnimatePresence>
               </div>
               {/* Thumbnails */}
               <div className="flex gap-2 bg-paper p-3">
@@ -91,11 +89,11 @@ export function QuickViewModal() {
                   <button
                     key={i}
                     onClick={() => setActiveImg(i)}
-                    className={`h-16 w-14 shrink-0 overflow-hidden transition-all duration-200 ${
+                    className={`relative h-16 w-14 shrink-0 overflow-hidden transition-all duration-200 ${
                       activeImg === i ? 'ring-2 ring-cypress ring-offset-1' : 'opacity-65 hover:opacity-95'
                     }`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <Image src={img} alt="" fill sizes="56px" className="object-cover" />
                   </button>
                 ))}
               </div>
@@ -165,7 +163,12 @@ export function QuickViewModal() {
                   {p.inStock ? 'افزودن به سبد خرید' : 'ناموجود'}
                 </button>
                 <button
-                  onClick={() => toggleWish(p.id)}
+                  onClick={() => {
+                    toggleWish(p.id);
+                    toast.success(wishHas ? 'از علاقه‌مندی‌ها حذف شد' : 'به علاقه‌مندی‌ها اضافه شد', {
+                      description: p.title,
+                    });
+                  }}
                   aria-label="علاقه‌مندی"
                   className={`flex w-12 items-center justify-center border transition-all ${
                     wishHas ? 'bg-ink text-white border-ink' : 'border-line hover:border-olive'
@@ -187,7 +190,7 @@ export function QuickViewModal() {
                 </div>
                 <Link
                   href={`/product/${p.slug}`}
-                  onClick={() => setQuickView(null)}
+                  onClick={closeQuickView}
                   className="mt-1 block border-t border-line pt-4 text-center text-[12px] text-muted transition-colors hover:text-ink"
                 >
                   مشاهده صفحه کامل محصول

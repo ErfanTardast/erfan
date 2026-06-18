@@ -2,6 +2,10 @@
 import { useState } from 'react';
 import { Instagram, Send } from 'lucide-react';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
+import { newsletterFormSchema, type NewsletterFormInput } from '@/schemas/forms';
 
 const shopLinks = [
   { label: 'همه محصولات', href: '/shop' },
@@ -15,18 +19,28 @@ const helpLinks = [
   { label: 'ارسال و تحویل', href: '/shipping' },
   { label: 'بازگشت و ضمانت', href: '/returns' },
   { label: 'پرسش‌های متداول', href: '/faq' },
+  { label: 'خرید عمده', href: '/wholesale' },
   { label: 'تماس با ما', href: '/contact' },
   { label: 'حریم خصوصی', href: '/privacy' },
   { label: 'شرایط فروش', href: '/terms' },
 ];
 
 export function Footer() {
-  const [email, setEmail] = useState('');
   const [done, setDone] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<NewsletterFormInput>({
+    resolver: zodResolver(newsletterFormSchema),
+    defaultValues: { email: '' },
+  });
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const submitNewsletter = (_values: NewsletterFormInput) => {
     setDone(true);
+    reset();
+    toast.success('عضویت در خبرنامه ثبت شد');
   };
 
   return (
@@ -97,20 +111,20 @@ export function Footer() {
             {done ? (
               <p className="text-[13px] text-cypress">عضویت شما ثبت شد.</p>
             ) : (
-              <form onSubmit={handleSubmit} className="flex gap-2">
+              <form onSubmit={handleSubmit(submitNewsletter)} className="flex gap-2" noValidate>
                 <label className="sr-only" htmlFor="footer-email">ایمیل</label>
                 <input
                   id="footer-email"
                   type="email"
                   required
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
+                  {...register('email')}
                   placeholder="ایمیل شما"
                   className="min-h-11 flex-1 border border-line bg-rice px-3 text-[13px] outline-none focus:border-ink"
                 />
                 <button type="submit" className="cta-ink px-4 text-[12px]">
                   ثبت
                 </button>
+                {errors.email && <span className="sr-only">{errors.email.message}</span>}
               </form>
             )}
           </div>

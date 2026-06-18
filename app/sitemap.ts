@@ -15,6 +15,7 @@ const staticRoutes = [
   '/faq',
   '/privacy',
   '/terms',
+  '/wholesale',
 ];
 
 const catalogRoutes = [

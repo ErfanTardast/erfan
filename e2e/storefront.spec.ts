@@ -37,7 +37,7 @@ test('product page can add to cart and navigate checkout', async ({ page }) => {
   await expect(page).toHaveURL(/\/checkout$/);
 });
 
-for (const route of ['/shipping', '/returns', '/faq']) {
+for (const route of ['/shipping', '/returns', '/faq', '/wholesale']) {
   test(`${route} support page loads`, async ({ page }) => {
     await gotoStorefront(page, route);
 

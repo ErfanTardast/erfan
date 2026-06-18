@@ -3,12 +3,13 @@ import { Search, ShoppingBag, SlidersHorizontal } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCart } from '@/lib/store/cart';
 import { useUI } from '@/lib/store/ui';
+import { useSearchStore } from '@/stores/search-store';
 import { toFa } from '@/lib/format';
 
 export function StickyMobileBar() {
   const cartItems = useCart((s) => s.items);
   const openCart = useCart((s) => s.open);
-  const setSearch = useUI((s) => s.setSearch);
+  const openSearch = useSearchStore((s) => s.open);
   const setMobileFilter = useUI((s) => s.setMobileFilter);
 
   const cartCount = cartItems.reduce((n, i) => n + i.qty, 0);
@@ -22,7 +23,7 @@ export function StickyMobileBar() {
     >
       <div className="flex h-[64px] items-center px-2">
         <button
-          onClick={() => setSearch(true)}
+          onClick={openSearch}
           className="flex min-h-12 flex-1 flex-col items-center justify-center gap-1 text-muted transition-colors hover:text-ink"
           aria-label="جستجو"
         >

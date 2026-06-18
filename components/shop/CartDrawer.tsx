@@ -2,11 +2,12 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { Minus, Plus, ShoppingBag, Trash2, Truck, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useCart } from '@/lib/store/cart';
 import { getProductById, PRODUCTS, type Product } from '@/lib/products';
 import { fmtPrice, toFa, fmtPriceShort } from '@/lib/format';
-import { useUI } from '@/lib/store/ui';
+import { toast } from 'sonner';
 import { EASE } from '@/lib/motion';
 
 const FREE_SHIPPING = 500000;
@@ -42,8 +43,6 @@ function ShippingBar({ total }: { total: number }) {
 
 export function CartDrawer() {
   const { items, isOpen, close, inc, dec, remove } = useCart();
-  const showToast = useUI((s) => s.showToast);
-  void showToast;
   const [giftWrap, setGiftWrap] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
 
@@ -129,7 +128,7 @@ export function CartDrawer() {
                         className="flex gap-3 border-b border-line pb-4"
                       >
                         <div className="relative w-20 h-24 shrink-0 overflow-hidden bg-sand">
-                          <img src={l.p.image} className="w-full h-full object-cover" alt={l.p.title} />
+                          <Image src={l.p.image} fill sizes="80px" className="object-cover" alt={l.p.title} />
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="text-[13px] font-medium leading-snug">{l.p.title}</p>
@@ -268,10 +267,11 @@ export function CartDrawer() {
 function RecoItem({ product }: { product: import('@/lib/products').Product }) {
   const add = useCart((s) => s.add);
   const openCart = useCart((s) => s.open);
-  const showToast = useUI((s) => s.showToast);
   return (
     <div className="flex items-center gap-3 border border-line bg-paper p-2.5">
-      <img src={product.image} alt={product.title} className="w-12 h-14 object-cover shrink-0" />
+      <span className="relative w-12 h-14 overflow-hidden bg-sand shrink-0">
+        <Image src={product.image} alt={product.title} fill sizes="48px" className="object-cover" />
+      </span>
       <div className="flex-1 min-w-0">
         <p className="text-[12px] font-medium truncate">{product.title}</p>
         <p className="text-[11px] text-muted mt-0.5">{fmtPriceShort(product.price)} ت</p>
@@ -280,7 +280,7 @@ function RecoItem({ product }: { product: import('@/lib/products').Product }) {
         onClick={() => {
           add(product.id);
           openCart();
-          showToast('به سبد اضافه شد', product.title);
+          toast.success('به سبد اضافه شد', { description: product.title });
         }}
         className="h-9 shrink-0 border border-ink px-3 text-[11px] transition-colors hover:bg-ink hover:text-rice"
       >

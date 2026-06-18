@@ -1,8 +1,8 @@
 'use client';
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { fadeUp } from '@/lib/motion';
+import { useIntersectionReveal } from '@/hooks/useIntersectionReveal';
 
 type Props = {
   children: React.ReactNode;
@@ -21,8 +21,7 @@ export function AnimateIn({
   amount = 0.2,
   once = true,
 }: Props) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once, amount });
+  const { ref, inView } = useIntersectionReveal({ threshold: amount, triggerOnce: once });
 
   return (
     <motion.div

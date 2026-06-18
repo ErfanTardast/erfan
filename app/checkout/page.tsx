@@ -3,13 +3,18 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, Check, ShoppingBag, MapPin, CreditCard, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useForm, type UseFormRegisterReturn } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 import { useCart } from '@/lib/store/cart';
 import { useAccount } from '@/lib/store/account';
-import { PRODUCTS, getProductById } from '@/lib/products';
+import { getProductById } from '@/lib/products';
 import { fmtPrice, toFa } from '@/lib/format';
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
 import { EASE } from '@/lib/motion';
+import { checkoutFormSchema, type CheckoutFormInput } from '@/schemas/forms';
 
 type Step = 1 | 2 | 3 | 4;
 
@@ -27,10 +32,10 @@ const PAYMENT_METHODS = [
 ];
 
 function Field({
-  label, id, type = 'text', placeholder, value, onChange, required = true,
+  label, id, type = 'text', placeholder, registration, error, required = true,
 }: {
   label: string; id: string; type?: string; placeholder?: string;
-  value: string; onChange: (v: string) => void; required?: boolean;
+  registration: UseFormRegisterReturn; error?: string; required?: boolean;
 }) {
   return (
     <div>
@@ -40,27 +45,43 @@ function Field({
       <input
         id={id}
         type={type}
-        value={value}
-        onChange={e => onChange(e.target.value)}
+        {...registration}
         placeholder={placeholder}
-        required={required}
+        aria-invalid={Boolean(error)}
         className="w-full border border-line bg-transparent px-4 py-3.5 text-[13px] outline-none focus:border-ink transition-colors placeholder-muted/60"
       />
+      {error && <p className="mt-1.5 text-[11px] text-[var(--terra)]">{error}</p>}
     </div>
   );
 }
 
 export default function CheckoutPage() {
   const [step, setStep] = useState<Step>(1);
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [province, setProvince] = useState('');
-  const [city, setCity] = useState('');
-  const [address, setAddress] = useState('');
-  const [postal, setPostal] = useState('');
-  const [payMethod, setPayMethod] = useState('card');
   const [orderNum] = useState(() => toFa(Math.floor(100000 + Math.random() * 900000)));
+  const {
+    register,
+    watch,
+    setValue,
+    getValues,
+    trigger,
+    formState: { errors },
+  } = useForm<CheckoutFormInput>({
+    resolver: zodResolver(checkoutFormSchema),
+    mode: 'onTouched',
+    defaultValues: {
+      name: '',
+      phone: '',
+      email: '',
+      province: '',
+      city: '',
+      address: '',
+      postal: '',
+      payMethod: 'card',
+    },
+  });
+  const payMethod = watch('payMethod');
+  const email = watch('email');
+  const phone = watch('phone');
 
   const items = useCart((s) => s.items);
   const clear = useCart((s) => s.clear);
@@ -72,17 +93,17 @@ export default function CheckoutPage() {
   // Prefill contact + address from the signed-in account
   useEffect(() => {
     if (!user) return;
-    setName((v) => v || user.name);
-    setPhone((v) => v || user.phone);
-    setEmail((v) => v || user.email);
+    if (!getValues('name')) setValue('name', user.name);
+    if (!getValues('phone')) setValue('phone', user.phone);
+    if (!getValues('email')) setValue('email', user.email);
     const a = savedAddresses[0];
     if (a) {
-      setProvince((v) => v || a.province);
-      setCity((v) => v || a.city);
-      setAddress((v) => v || a.line);
-      setPostal((v) => v || a.postal);
+      if (!getValues('province')) setValue('province', a.province);
+      if (!getValues('city')) setValue('city', a.city);
+      if (!getValues('address')) setValue('address', a.line);
+      if (!getValues('postal')) setValue('postal', a.postal);
     }
-  }, [user, savedAddresses]);
+  }, [getValues, savedAddresses, setValue, user]);
 
   const lines = items
     .map(i => ({ ...i, p: getProductById(i.id) }))
@@ -92,10 +113,10 @@ export default function CheckoutPage() {
   const shipping = subtotal >= 500000 ? 0 : 45000;
   const total = subtotal + shipping;
 
-  const nextStep = () => setStep(s => Math.min(4, s + 1) as Step);
   const prevStep = () => setStep(s => Math.max(1, s - 1) as Step);
 
   const handleConfirm = () => {
+    const values = getValues();
     addOrder({
       num: orderNum,
       date: new Date().toISOString(),
@@ -103,13 +124,14 @@ export default function CheckoutPage() {
       subtotal,
       shipping,
       total,
-      payMethod: payMethod === 'card' ? 'پرداخت آنلاین' : payMethod === 'cod' ? 'پرداخت در محل' : 'کارت به کارت',
+      payMethod: values.payMethod === 'card' ? 'پرداخت آنلاین' : values.payMethod === 'cod' ? 'پرداخت در محل' : 'کارت به کارت',
       status: 'processing',
-      address: [province, city, address].filter(Boolean).join('، '),
+      address: [values.province, values.city, values.address].filter(Boolean).join('، '),
     });
     clear();
     close();
     setStep(4);
+    toast.success('سفارش با موفقیت ثبت شد', { description: `شماره سفارش ${orderNum}` });
   };
 
   if (items.length === 0 && step !== 4) {
@@ -203,13 +225,14 @@ export default function CheckoutPage() {
                   >
                     <h2 className="text-[18px] font-medium mb-7">اطلاعات تماس</h2>
                     <div className="space-y-5">
-                      <Field label="نام و نام‌خانوادگی" id="name" placeholder="رضا محمدی" value={name} onChange={setName} />
-                      <Field label="شماره موبایل" id="phone" type="tel" placeholder="۰۹۱۲۳۴۵۶۷۸۹" value={phone} onChange={setPhone} />
-                      <Field label="آدرس ایمیل" id="email" type="email" placeholder="email@example.com" value={email} onChange={setEmail} required={false} />
+                      <Field label="نام و نام‌خانوادگی" id="name" placeholder="رضا محمدی" registration={register('name')} error={errors.name?.message} />
+                      <Field label="شماره موبایل" id="phone" type="tel" placeholder="09123456789" registration={register('phone')} error={errors.phone?.message} />
+                      <Field label="آدرس ایمیل" id="email" type="email" placeholder="email@example.com" registration={register('email')} error={errors.email?.message} required={false} />
                     </div>
                     <button
-                      onClick={() => { if (name && phone) nextStep(); }}
-                      disabled={!name || !phone}
+                      onClick={async () => {
+                        if (await trigger(['name', 'phone', 'email'])) setStep(2);
+                      }}
                       className="mt-8 w-full bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       ادامه — آدرس تحویل
@@ -229,11 +252,11 @@ export default function CheckoutPage() {
                     <h2 className="text-[18px] font-medium mb-7">آدرس تحویل</h2>
                     <div className="space-y-5">
                       <div className="grid grid-cols-2 gap-4">
-                        <Field label="استان" id="province" placeholder="گیلان" value={province} onChange={setProvince} />
-                        <Field label="شهر" id="city" placeholder="رشت" value={city} onChange={setCity} />
+                        <Field label="استان" id="province" placeholder="گیلان" registration={register('province')} error={errors.province?.message} />
+                        <Field label="شهر" id="city" placeholder="رشت" registration={register('city')} error={errors.city?.message} />
                       </div>
-                      <Field label="آدرس دقیق" id="address" placeholder="خیابان، کوچه، پلاک، طبقه، واحد" value={address} onChange={setAddress} />
-                      <Field label="کد پستی" id="postal" placeholder="۱۲۳۴۵۶۷۸۹۰" value={postal} onChange={setPostal} required={false} />
+                      <Field label="آدرس دقیق" id="address" placeholder="خیابان، کوچه، پلاک، طبقه، واحد" registration={register('address')} error={errors.address?.message} />
+                      <Field label="کد پستی" id="postal" placeholder="1234567890" registration={register('postal')} error={errors.postal?.message} required={false} />
                     </div>
                     <div className="flex gap-3 mt-8">
                       <button
@@ -243,8 +266,9 @@ export default function CheckoutPage() {
                         بازگشت
                       </button>
                       <button
-                        onClick={() => { if (province && city && address) nextStep(); }}
-                        disabled={!province || !city || !address}
+                        onClick={async () => {
+                          if (await trigger(['province', 'city', 'address', 'postal'])) setStep(3);
+                        }}
                         className="flex-1 bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                       >
                         ادامه — انتخاب پرداخت
@@ -267,7 +291,7 @@ export default function CheckoutPage() {
                       {PAYMENT_METHODS.map(m => (
                         <button
                           key={m.id}
-                          onClick={() => setPayMethod(m.id)}
+                          onClick={() => setValue('payMethod', m.id as CheckoutFormInput['payMethod'], { shouldValidate: true })}
                           className={`w-full text-right flex items-center gap-4 p-5 border transition-all ${
                             payMethod === m.id ? 'border-ink bg-paper' : 'border-line hover:border-ink/40'
                           }`}
@@ -386,8 +410,8 @@ export default function CheckoutPage() {
                 <div className="space-y-5">
                   {lines.map(l => (
                     <div key={l.id} className="flex gap-4 items-start">
-                      <div className="w-16 h-16 bg-sand overflow-hidden shrink-0">
-                        <img src={l.p.image} alt={l.p.title} className="w-full h-full object-cover" />
+                      <div className="relative w-16 h-16 bg-sand overflow-hidden shrink-0">
+                        <Image src={l.p.image} alt={l.p.title} fill sizes="64px" className="object-cover" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-[13px] font-medium leading-snug">{l.p.title}</p>
