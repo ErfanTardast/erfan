@@ -1,6 +1,7 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { SearchX } from 'lucide-react';
 import { PRODUCTS } from '@/lib/products';
 import { selectProducts } from '@/lib/catalog/selectors';
 import { useFilters } from '@/lib/store/filters';
@@ -21,9 +22,9 @@ export function ProductGrid() {
       <ActiveFilters />
 
       {visible.length === 0 ? (
-        <div className="border border-line py-24 text-center bg-[#faf6ef]">
-          <div className="w-14 h-14 rounded-full bg-[#ede8df] flex items-center justify-center mx-auto mb-6">
-            <span className="text-[22px] text-[#b0a898]">×</span>
+        <div className="harvest-card field-pattern py-20 text-center">
+          <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center bg-paper text-cypress">
+            <SearchX className="h-6 w-6" />
           </div>
           <p className="text-[16px] font-medium mb-2">محصولی پیدا نشد</p>
           <p className="small-copy text-muted mb-8 max-w-[260px] mx-auto leading-relaxed">
@@ -31,7 +32,7 @@ export function ProductGrid() {
           </p>
           <button
             onClick={filters.clear}
-            className="border border-deep px-7 py-3 text-[12px] tracking-wider hover:bg-deep hover:text-white transition-all"
+            className="cta-ink inline-flex h-11 items-center justify-center px-7 text-[12px]"
           >
             پاک کردن فیلترها
           </button>

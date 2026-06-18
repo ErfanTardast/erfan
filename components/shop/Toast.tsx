@@ -25,9 +25,11 @@ export function Toast() {
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: '120%', opacity: 0 }}
           transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-          className="fixed bottom-6 right-6 z-[70] bg-ink text-white px-4 py-3.5 flex items-center gap-3 min-w-[300px] max-w-[380px] shadow-2xl"
+          role="status"
+          aria-live="polite"
+          className="fixed bottom-20 right-4 z-[70] flex w-[calc(100vw-2rem)] max-w-[380px] items-center gap-3 bg-ink px-4 py-3.5 text-white shadow-2xl sm:bottom-6 sm:right-6 sm:w-auto sm:min-w-[300px]"
         >
-          <div className="w-9 h-9 rounded-full bg-deep flex items-center justify-center shrink-0">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-cypress">
             <Check className="w-4 h-4" />
           </div>
           <div className="flex-1 text-[13px] leading-tight">
@@ -36,7 +38,7 @@ export function Toast() {
           </div>
           <button
             onClick={openCart}
-            className="bg-white text-ink px-3 py-2 text-[11px] hover:bg-paper transition-colors shrink-0"
+            className="h-10 shrink-0 bg-rice px-3 text-[11px] text-ink transition-colors hover:bg-sand"
           >
             مشاهده
           </button>

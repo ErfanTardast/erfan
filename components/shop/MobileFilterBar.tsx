@@ -21,17 +21,17 @@ export function MobileFilterBar({ activeCount }: { activeCount: number }) {
 
   return (
     <>
-      <div className="lg:hidden sticky top-[74px] z-30 bg-cream/95 backdrop-blur border-y border-line -mx-5 px-5 py-3 mb-7 flex justify-between items-center">
-        <button onClick={() => setMobileFilter(true)} className="flex items-center gap-2 text-[13px]">
+      <div className="sticky top-[74px] z-30 -mx-5 mb-7 flex items-center justify-between border-y border-line bg-rice/95 px-5 py-3 backdrop-blur lg:hidden">
+        <button onClick={() => setMobileFilter(true)} className="flex min-h-11 items-center gap-2 text-[13px]">
           <SlidersHorizontal className="w-4 h-4" />
           <span>فیلترها</span>
           {activeCount > 0 && (
-            <span className="w-4 h-4 rounded-full bg-deep text-white text-[9px] flex items-center justify-center">
+            <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-ink px-1 text-[10px] text-rice">
               {toFa(activeCount)}
             </span>
           )}
         </button>
-        <button onClick={() => setSortOpen(true)} className="flex items-center gap-2 text-[13px]">
+        <button onClick={() => setSortOpen(true)} className="flex min-h-11 items-center gap-2 text-[13px]">
           <span>{SORT_LABELS[sort]}</span>
           <ChevronDown className="w-4 h-4" />
         </button>
@@ -45,14 +45,14 @@ export function MobileFilterBar({ activeCount }: { activeCount: number }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSortOpen(false)}
-              className="fixed inset-0 z-[59] bg-black/30"
+              className="fixed inset-0 z-[59] bg-ink/45"
             />
             <motion.div
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
-              transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
-              className="fixed inset-x-0 bottom-0 z-[60] bg-paper border-t border-line p-6"
+              transition={{ duration: 0.28, ease: [0.2, 0.7, 0.2, 1] }}
+              className="fixed inset-x-0 bottom-0 z-[60] border-t border-line bg-paper p-6 shadow-[0_-22px_70px_rgba(23,33,26,0.18)]"
             >
               <h3 className="text-[18px] font-medium mb-4">مرتب‌سازی</h3>
               <div className="space-y-1">
@@ -63,7 +63,7 @@ export function MobileFilterBar({ activeCount }: { activeCount: number }) {
                       setSort(k);
                       setSortOpen(false);
                     }}
-                    className={`block w-full text-right py-3 text-[14px] ${sort === k ? 'text-olive font-medium' : ''}`}
+                    className={`block min-h-11 w-full text-right text-[14px] ${sort === k ? 'text-cypress font-medium' : 'text-muted'}`}
                   >
                     {SORT_LABELS[k]}
                   </button>

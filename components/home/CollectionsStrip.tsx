@@ -1,39 +1,38 @@
 import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 import { CATALOG_COLLECTIONS, countProductsByPredicate } from '@/lib/catalog';
 
 export function CollectionsStrip() {
   return (
-    <section className="bg-sand border-t border-ink/8 py-5">
-      <div className="max-w-[1500px] mx-auto px-5 md:px-10 lg:px-16">
-        <div className="flex items-center gap-3 flex-wrap">
-          <p className="flex items-center gap-2 text-[10px] tracking-[0.18em] text-muted shrink-0 ml-1">
-            <span className="w-5 h-px bg-[var(--terra)] inline-block" />
-            دسته‌بندی‌ها
-          </p>
-          {CATALOG_COLLECTIONS.map((collection) => {
-            const count = countProductsByPredicate(collection.match);
-            return (
-              <Link
-                key={collection.slug}
-                href={collection.shopHref}
-                className="group inline-flex flex-col items-start px-4 py-1.5 border border-ink/15 hover:border-[var(--terra)]/50 hover:bg-cream transition-colors duration-200"
-              >
-                <span className="flex items-center gap-1.5 text-[12px] tracking-[0.04em] text-ink leading-tight">
-                  {collection.label}
-                  {count > 0 && <span className="text-[10px] text-muted">({count})</span>}
-                </span>
-                <span className="latin text-[8px] tracking-[0.14em] text-muted group-hover:text-[var(--terra)] transition-colors">
-                  {collection.englishLabel}
-                </span>
-              </Link>
-            );
-          })}
-          <Link
-            href="/shop"
-            className="mr-auto text-[11px] tracking-[0.12em] text-olive hover:text-ink transition-colors duration-150"
-          >
-            همه محصولات ←
-          </Link>
+    <section className="bg-rice py-14 md:py-20 field-pattern">
+      <div className="site-shell">
+        <div className="grid lg:grid-cols-[320px_1fr] gap-8 lg:gap-12 items-start">
+          <div>
+            <p className="section-eyebrow text-cypress mb-3">کلکسیون‌ها</p>
+            <h2 className="title-md text-ink">انتخاب سریع بر اساس حال و هوای سفره</h2>
+            <Link href="/shop" className="mt-5 inline-flex items-center gap-2 text-[13px] text-cypress hover:text-ink transition-colors">
+              همه محصولات
+              <ArrowLeft className="w-4 h-4" />
+            </Link>
+          </div>
+
+          <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-3">
+            {CATALOG_COLLECTIONS.map((collection) => {
+              const count = countProductsByPredicate(collection.match);
+              return (
+                <Link
+                  key={collection.slug}
+                  href={collection.shopHref}
+                  className="harvest-card bg-paper p-5 min-h-[168px] flex flex-col hover:border-cypress transition-colors"
+                >
+                  <span className="text-[12px] text-muted latin">{collection.englishLabel}</span>
+                  <span className="text-[18px] font-semibold text-ink mt-2">{collection.label}</span>
+                  <span className="small-copy text-muted mt-3 leading-7">{collection.description}</span>
+                  <span className="mt-auto pt-4 text-[12px] text-cypress">{count} محصول</span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

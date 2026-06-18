@@ -1,6 +1,6 @@
 'use client';
-import { Heart, ScanEye, ShoppingBag } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Heart, ScanEye, ShoppingBag, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Link from 'next/link';
 import { type Product } from '@/lib/products';
@@ -12,23 +12,10 @@ import { useHistory } from '@/lib/store/history';
 import { EASE } from '@/lib/motion';
 
 const TONE_CLASSES: Record<NonNullable<Product['badge']>['tone'], string> = {
-  neutral: 'bg-white/90 backdrop-blur-sm text-ink',
-  olive: 'bg-olive text-white',
-  gold: 'bg-gold text-white',
-  ink: 'bg-ink text-white',
-};
-
-const HOVER_IMAGES: Record<string, string> = {
-  '1': 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=720&q=80',
-  '2': 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&q=80',
-  '3': 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=720&q=80',
-  '4': 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=720&q=80',
-  '5': 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=720&q=80',
-  '6': 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=720&q=80',
-  '7': 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&q=80',
-  '8': 'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=720&q=80',
-  '9': 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=720&q=80',
-  '10': 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=720&q=80',
+  neutral: 'bg-paper text-ink border-line',
+  olive: 'bg-cypress text-rice border-cypress',
+  gold: 'bg-saffron text-ink border-saffron',
+  ink: 'bg-ink text-rice border-ink',
 };
 
 export function ProductCard({ product }: { product: Product }) {
@@ -39,168 +26,105 @@ export function ProductCard({ product }: { product: Product }) {
   const showToast = useUI((s) => s.showToast);
   const openQuickView = useUI((s) => s.setQuickView);
   const addRecentlyViewed = useHistory((s) => s.addRecentlyViewed);
-  const [hovered, setHovered] = useState(false);
   const [adding, setAdding] = useState(false);
 
-  const hoverImage = HOVER_IMAGES[product.id];
-
-  const handleAdd = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleAdd = () => {
     setAdding(true);
     add(product.id);
     openCartDrawer();
     showToast('به سبد اضافه شد', product.title);
-    setTimeout(() => setAdding(false), 600);
+    setTimeout(() => setAdding(false), 450);
   };
 
-  const handleQuickView = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleQuickView = () => {
     addRecentlyViewed(product.id);
     openQuickView(product);
   };
 
   const filled = Math.round(product.rating);
-  const stars = Array.from({ length: 5 }, (_, i) => i < filled);
 
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.97 }}
-      transition={{ duration: 0.55, ease: EASE }}
-      className="group"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      exit={{ opacity: 0, scale: 0.98 }}
+      transition={{ duration: 0.35, ease: EASE }}
+      className="group harvest-card bg-rice overflow-hidden"
     >
-      {/* Image container */}
-      <div className="relative aspect-[4/5] overflow-hidden bg-sand card-shadow transition-transform duration-500 ease-[cubic-bezier(.2,.7,.2,1)] group-hover:-translate-y-1">
-        {/* Primary image */}
-        <motion.img
-          src={product.image}
-          alt={product.title}
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover"
-          animate={{ scale: hovered ? 1.06 : 1, opacity: hovered && hoverImage ? 0 : 1 }}
-          transition={{ duration: 0.85, ease: EASE }}
-        />
-        {/* Secondary image */}
-        {hoverImage && (
-          <motion.img
-            src={hoverImage}
-            alt=""
+      <div className="relative">
+        <Link href={`/product/${product.slug}`} className="block aspect-[4/5] overflow-hidden bg-sand">
+          <img
+            src={product.image}
+            alt={product.title}
             loading="lazy"
-            aria-hidden
-            className="absolute inset-0 w-full h-full object-cover"
-            animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1.04 : 1.08 }}
-            transition={{ duration: 0.7, ease: EASE }}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.045]"
           />
-        )}
+        </Link>
 
-        {/* Top badges */}
         <div className="absolute top-3 right-3 flex flex-col gap-2">
           {product.badge && (
-            <span className={`text-[10px] tracking-[0.1em] px-2.5 py-1.5 ${TONE_CLASSES[product.badge.tone]}`}>
+            <span className={`border px-2.5 py-1.5 text-[10px] ${TONE_CLASSES[product.badge.tone]}`}>
               {product.badge.label}
             </span>
           )}
           {product.isNew && (
-            <span className="bg-gold text-white text-[10px] tracking-[0.1em] px-2.5 py-1.5">
+            <span className="bg-saffron text-ink border border-saffron px-2.5 py-1.5 text-[10px]">
               جدید
             </span>
           )}
-          {!product.inStock && (
-            <span className="bg-ink/80 text-white text-[10px] px-2.5 py-1.5">
-              ناموجود
-            </span>
-          )}
         </div>
 
-        {/* Wishlist */}
-        <button
-          onClick={(e) => { e.stopPropagation(); toggleWish(product.id); }}
-          aria-label="علاقه‌مندی"
-          className={`absolute top-3 left-3 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 backdrop-blur-sm ${
-            wished ? 'bg-ink text-white scale-110' : 'bg-white/85 text-ink hover:bg-white hover:scale-105'
-          }`}
-        >
-          <Heart className="w-4 h-4" fill={wished ? 'currentColor' : 'none'} />
-        </button>
-
-        {/* Hover actions */}
-        <AnimatePresence>
-          {hovered && (
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-              transition={{ duration: 0.25, ease: EASE }}
-              className="absolute right-3 left-3 bottom-3 flex gap-2"
-            >
-              <motion.button
-                onClick={handleAdd}
-                disabled={!product.inStock || adding}
-                animate={adding ? { scale: [1, 0.96, 1.02, 1] } : {}}
-                transition={{ duration: 0.35 }}
-                className="flex-1 py-3.5 text-[12px] tracking-[0.06em] bg-ink text-white hover:bg-deep transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                <ShoppingBag className="w-3.5 h-3.5" />
-                {adding ? '...' : 'افزودن به سبد'}
-              </motion.button>
-              <button
-                onClick={handleQuickView}
-                aria-label="نمای سریع"
-                className="bg-white/95 w-11 flex items-center justify-center hover:bg-paper transition-colors shrink-0 backdrop-blur-sm"
-              >
-                <ScanEye className="w-4 h-4" />
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <div className="absolute top-3 left-3 flex flex-col gap-2">
+          <button
+            onClick={() => toggleWish(product.id)}
+            aria-label="افزودن به علاقه‌مندی"
+            className={`w-11 h-11 flex items-center justify-center border backdrop-blur-sm transition-colors ${
+              wished ? 'bg-ink text-rice border-ink' : 'bg-paper/90 text-ink border-line hover:border-ink'
+            }`}
+          >
+            <Heart className="w-4 h-4" fill={wished ? 'currentColor' : 'none'} />
+          </button>
+          <button
+            onClick={handleQuickView}
+            aria-label="نمای سریع محصول"
+            className="w-11 h-11 flex items-center justify-center border border-line bg-paper/90 text-ink backdrop-blur-sm hover:border-ink transition-colors"
+          >
+            <ScanEye className="w-4 h-4" />
+          </button>
+        </div>
       </div>
 
-      {/* Product info */}
-      <div className="pt-4 pb-1">
-        <p className="section-eyebrow text-olive mb-2">{product.kicker}</p>
-        <div className="flex justify-between items-start gap-3">
-          <Link href={`/product/${product.slug}`} className="hover:text-olive transition-colors duration-300 block product-title">{product.title}</Link>
-          <p className="text-[14px] font-medium whitespace-nowrap pt-0.5 text-ink">
+      <div className="p-4">
+        <p className="text-[12px] text-cypress mb-2">{product.kicker}</p>
+        <div className="flex items-start justify-between gap-3">
+          <Link href={`/product/${product.slug}`} className="product-title text-ink hover:text-cypress transition-colors">
+            {product.title}
+          </Link>
+          <p className="text-[14px] font-semibold whitespace-nowrap pt-0.5 text-ink">
             {fmtPriceShort(product.price)} <span className="text-[11px] font-normal text-muted">ت</span>
           </p>
         </div>
-        <p className="small-copy text-muted mt-1.5 line-clamp-2">{product.shortNote}</p>
-        <div className="flex items-center gap-1.5 mt-2.5">
-          <div className="flex gap-0.5">
-            {stars.map((f, i) => (
-              <span key={i} className={`text-[12px] ${f ? 'text-gold' : 'text-[#d9d3ca]'}`}>★</span>
-            ))}
+        <p className="small-copy text-muted mt-2 line-clamp-2">{product.shortNote}</p>
+
+        <div className="flex items-center justify-between gap-3 mt-4">
+          <div className="flex items-center gap-1.5 text-[11px] text-muted">
+            <span className="flex gap-0.5 text-saffron">
+              {Array.from({ length: 5 }, (_, index) => (
+                <Star key={index} className={`w-3.5 h-3.5 ${index < filled ? 'fill-current' : ''}`} />
+              ))}
+            </span>
+            <span>({toFa(product.reviewCount)})</span>
           </div>
-          <span className="text-[11px] text-muted">({toFa(product.reviewCount)})</span>
+          <button
+            onClick={handleAdd}
+            disabled={!product.inStock || adding}
+            className="cta-ink inline-flex items-center justify-center gap-2 px-4 py-2.5 text-[12px] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ShoppingBag className="w-4 h-4" />
+            {adding ? '...' : product.inStock ? 'افزودن' : 'ناموجود'}
+          </button>
         </div>
-        {product.collection && (
-          <div className="mt-2.5">
-            {product.collection === 'chef-choice' && (
-              <span className="text-[8px] tracking-[0.14em] border border-olive/40 text-olive px-2 py-0.5">
-                انتخاب سرآشپز
-              </span>
-            )}
-            {product.collection === 'rare-harvest' && (
-              <span className="text-[8px] tracking-[0.14em] border border-ink/30 text-muted px-2 py-0.5">
-                برداشت نادر
-              </span>
-            )}
-            {product.collection === 'limited-seasonal' && (
-              <span className="text-[8px] tracking-[0.14em] border border-gold/40 text-gold/80 px-2 py-0.5">
-                فصلی محدود
-              </span>
-            )}
-            {product.collection === 'aged-reserve' && (
-              <span className="text-[8px] tracking-[0.14em] border border-muted/40 text-muted px-2 py-0.5">
-                ذخیره اعلا
-              </span>
-            )}
-          </div>
-        )}
       </div>
     </motion.article>
   );

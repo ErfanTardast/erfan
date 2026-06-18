@@ -31,7 +31,7 @@ function Accordion({
     <div className="border-b border-line">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full py-5 flex items-center justify-between text-right"
+        className="flex min-h-12 w-full items-center justify-between text-right"
       >
         <span className="text-[13px] font-medium">{title}</span>
         <Plus
@@ -51,8 +51,8 @@ function Accordion({
 
 function Check({ checked, onChange, label }: { checked: boolean; onChange: () => void; label: string }) {
   return (
-    <label className="flex items-center gap-2.5 cursor-pointer hover:text-ink transition-colors py-1">
-      <input type="checkbox" checked={checked} onChange={onChange} className="accent-deep w-3.5 h-3.5" />
+    <label className="flex min-h-10 cursor-pointer items-center gap-2.5 py-1 transition-colors hover:text-ink">
+      <input type="checkbox" checked={checked} onChange={onChange} className="h-4 w-4 accent-cypress" />
       <span>{label}</span>
     </label>
   );
@@ -64,18 +64,25 @@ export function FilterSidebar() {
   return (
     <aside className="hidden lg:block">
       <div className="sticky top-[98px]">
+        <div className="harvest-card mb-4 p-5">
+          <p className="section-eyebrow text-cypress mb-2">راهنمای انتخاب</p>
+          <p className="text-[13px] leading-7 text-muted">
+            با نوع برنج، منطقه کشت و وزن بسته، سریع‌تر به محصول مناسب برسید.
+          </p>
+        </div>
+
         <div className="flex items-center justify-between border-b border-line pb-4">
           <h2 className="text-[17px] font-medium">فیلترها</h2>
           <button
             onClick={f.clear}
-            className="text-[11px] underline text-olive hover:text-ink transition-colors"
+            className="min-h-9 text-[12px] text-cypress underline transition-colors hover:text-ink"
           >
             پاک کردن همه
           </button>
         </div>
 
         <Accordion title="نوع برنج" defaultOpen>
-          <div className="space-y-1 text-[12px] text-[#61665d]">
+          <div className="space-y-1 text-[12px] text-muted">
             {(Object.keys(RICE_TYPE_LABELS) as RiceType[]).map((t) => (
               <Check
                 key={t}
@@ -88,7 +95,7 @@ export function FilterSidebar() {
         </Accordion>
 
         <Accordion title="طول دانه">
-          <div className="space-y-1 text-[12px] text-[#61665d]">
+          <div className="space-y-1 text-[12px] text-muted">
             {(Object.keys(GRAIN_LABELS) as GrainLength[]).map((g) => (
               <Check
                 key={g}
@@ -101,7 +108,7 @@ export function FilterSidebar() {
         </Accordion>
 
         <Accordion title="پروفایل عطر">
-          <div className="space-y-1 text-[12px] text-[#61665d]">
+          <div className="space-y-1 text-[12px] text-muted">
             {(Object.keys(AROMA_LABELS) as Aroma[]).map((a) => (
               <Check
                 key={a}
@@ -114,7 +121,7 @@ export function FilterSidebar() {
         </Accordion>
 
         <Accordion title="منطقه کشت">
-          <div className="space-y-1 text-[12px] text-[#61665d]">
+          <div className="space-y-1 text-[12px] text-muted">
             {(Object.keys(REGION_LABELS) as Region[]).map((r) => (
               <Check
                 key={r}
@@ -127,7 +134,7 @@ export function FilterSidebar() {
         </Accordion>
 
         <Accordion title="وزن بسته‌بندی">
-          <div className="space-y-1 text-[12px] text-[#61665d]">
+          <div className="space-y-1 text-[12px] text-muted">
             {([2, 3, 5, 10] as const).map((w) => (
               <Check
                 key={w}
@@ -160,12 +167,12 @@ function Toggle({ on, onChange }: { on: boolean; onChange: () => void }) {
   return (
     <button
       onClick={onChange}
-      className={`w-10 h-[22px] rounded-full relative transition-colors ${on ? 'bg-deep' : 'bg-[#cad0c4]'}`}
+      className={`relative h-11 w-14 rounded-full transition-colors ${on ? 'bg-cypress' : 'bg-line'}`}
       aria-pressed={on}
     >
       <span
-        className="absolute top-1 w-[14px] h-[14px] rounded-full bg-white shadow transition-all"
-        style={{ right: on ? 22 : 4 }}
+        className="absolute top-3 h-5 w-5 rounded-full bg-white shadow transition-all"
+        style={{ right: on ? 8 : 28 }}
       />
     </button>
   );
@@ -178,9 +185,9 @@ function PriceSlider() {
   const maxPct = ((priceMax - PRICE_BOUNDS.min) / span) * 100;
   return (
     <div className="px-1">
-      <div className="relative h-[2px] bg-[#d5cdbf] my-5">
+      <div className="relative h-[3px] bg-line my-5">
         <div
-          className="absolute h-full bg-deep"
+          className="absolute h-full bg-cypress"
           style={{ right: `${100 - maxPct}%`, left: `${minPct}%` }}
         />
         <input

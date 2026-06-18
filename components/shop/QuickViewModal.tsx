@@ -1,6 +1,6 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { X, Heart, Truck, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Heart, Minus, Plus, ShieldCheck, Star, Truck, X } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
 import { useUI } from '@/lib/store/ui';
@@ -49,7 +49,7 @@ export function QuickViewModal() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
           onClick={() => setQuickView(null)}
-          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 md:p-8"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink/65 p-4 backdrop-blur-sm md:p-8"
         >
           <motion.div
             key="panel"
@@ -58,13 +58,13 @@ export function QuickViewModal() {
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
-            className="bg-paper max-w-[1000px] w-full grid md:grid-cols-[1.1fr_1fr] relative max-h-[92vh] overflow-hidden shadow-2xl"
+            className="relative grid max-h-[92vh] w-full max-w-[1000px] overflow-hidden border border-line bg-paper shadow-2xl md:grid-cols-[1.1fr_1fr]"
           >
             {/* Close */}
             <button
               onClick={() => setQuickView(null)}
               aria-label="بستن"
-              className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm rounded-full w-9 h-9 flex items-center justify-center hover:bg-white transition-colors shadow-sm"
+              className="absolute left-4 top-4 z-10 flex h-11 w-11 items-center justify-center border border-line bg-paper/92 shadow-sm backdrop-blur-sm transition-colors hover:bg-rice"
             >
               <X className="w-4 h-4" />
             </button>
@@ -86,13 +86,13 @@ export function QuickViewModal() {
                 </AnimatePresence>
               </div>
               {/* Thumbnails */}
-              <div className="flex gap-2 p-3 bg-[#ede8df]">
+              <div className="flex gap-2 bg-paper p-3">
                 {images.map((img, i) => (
                   <button
                     key={i}
                     onClick={() => setActiveImg(i)}
-                    className={`w-14 h-16 overflow-hidden shrink-0 transition-all duration-200 ${
-                      activeImg === i ? 'ring-2 ring-ink ring-offset-1' : 'opacity-60 hover:opacity-90'
+                    className={`h-16 w-14 shrink-0 overflow-hidden transition-all duration-200 ${
+                      activeImg === i ? 'ring-2 ring-cypress ring-offset-1' : 'opacity-65 hover:opacity-95'
                     }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
@@ -104,7 +104,7 @@ export function QuickViewModal() {
             {/* Info */}
             <div className="p-7 md:p-9 flex flex-col overflow-y-auto max-h-[92vh]">
               {p.badge && (
-                <span className={`self-start text-[10px] tracking-[0.1em] px-2.5 py-1 mb-4 ${
+                <span className={`mb-4 self-start px-2.5 py-1 text-[10px] ${
                   p.badge.tone === 'gold' ? 'bg-gold text-white' :
                   p.badge.tone === 'olive' ? 'bg-olive text-white' :
                   'bg-sand text-ink'
@@ -120,7 +120,7 @@ export function QuickViewModal() {
               <div className="flex items-center gap-2 mt-3">
                 <div className="flex gap-0.5">
                   {stars.map((f, i) => (
-                    <span key={i} className={`text-[14px] ${f ? 'text-gold' : 'text-[#d9d3ca]'}`}>★</span>
+                    <Star key={i} className={`h-4 w-4 ${f ? 'fill-saffron text-saffron' : 'text-line'}`} />
                   ))}
                 </div>
                 <span className="text-[12px] text-muted">
@@ -130,27 +130,27 @@ export function QuickViewModal() {
 
               <p className="text-[22px] font-light mt-4">{fmtPrice(p.price)}</p>
 
-              <p className="body-copy text-[#74756d] mt-5 leading-loose">{p.copy}</p>
+              <p className="body-copy mt-5 leading-loose text-muted">{p.copy}</p>
 
               {/* Quantity */}
               <div className="mt-6">
-                <p className="text-[11px] tracking-[0.18em] text-muted mb-3">تعداد</p>
+                <p className="section-eyebrow mb-3 text-muted">تعداد</p>
                 <div className="inline-flex items-center border border-line">
                   <button
                     onClick={() => setQty((q) => Math.max(1, q - 1))}
                     disabled={qty <= 1}
-                    className="w-10 h-10 flex items-center justify-center hover:bg-sand transition-colors disabled:opacity-40 text-[18px]"
+                    className="flex h-11 w-11 items-center justify-center text-[18px] transition-colors hover:bg-sand disabled:opacity-40"
                   >
-                    −
+                    <Minus className="h-4 w-4" />
                   </button>
-                  <span className="w-10 h-10 flex items-center justify-center text-[14px] border-x border-line tabular-nums">
+                  <span className="flex h-11 w-11 items-center justify-center border-x border-line text-[14px] tabular-nums">
                     {toFa(qty)}
                   </span>
                   <button
                     onClick={() => setQty((q) => q + 1)}
-                    className="w-10 h-10 flex items-center justify-center hover:bg-sand transition-colors text-[18px]"
+                    className="flex h-11 w-11 items-center justify-center text-[18px] transition-colors hover:bg-sand"
                   >
-                    +
+                    <Plus className="h-4 w-4" />
                   </button>
                 </div>
               </div>
@@ -160,14 +160,14 @@ export function QuickViewModal() {
                 <button
                   onClick={handleAdd}
                   disabled={!p.inStock}
-                  className="flex-1 bg-ink text-white py-4 text-[13px] tracking-wider hover:bg-[var(--terra)] transition-colors active:scale-[0.99] disabled:opacity-50"
+                  className="cta-ink flex-1 py-4 text-[13px] active:scale-[0.99] disabled:opacity-50"
                 >
                   {p.inStock ? 'افزودن به سبد خرید' : 'ناموجود'}
                 </button>
                 <button
                   onClick={() => toggleWish(p.id)}
                   aria-label="علاقه‌مندی"
-                  className={`w-12 flex items-center justify-center transition-all border ${
+                  className={`flex w-12 items-center justify-center border transition-all ${
                     wishHas ? 'bg-ink text-white border-ink' : 'border-line hover:border-olive'
                   }`}
                 >
@@ -177,20 +177,21 @@ export function QuickViewModal() {
 
               {/* Trust */}
               <div className="mt-6 pt-5 border-t border-line space-y-3">
-                <div className="flex items-center gap-2.5 text-[12px] text-[#5a6057]">
+                <div className="flex items-center gap-2.5 text-[12px] text-muted">
                   <Truck className="w-4 h-4 shrink-0 text-olive" />
                   <span>تحویل ۳ تا ۵ روز کاری · ارسال رایگان از ۵۰۰ هزار تومان</span>
                 </div>
-                <div className="flex items-center gap-2.5 text-[12px] text-[#5a6057]">
+                <div className="flex items-center gap-2.5 text-[12px] text-muted">
                   <ShieldCheck className="w-4 h-4 shrink-0 text-olive" />
                   <span>ضمانت اصالت محصول · بازگشت ۷ روزه</span>
                 </div>
                 <Link
                   href={`/product/${p.slug}`}
                   onClick={() => setQuickView(null)}
-                  className="block mt-1 text-[11px] tracking-[0.12em] text-muted hover:text-ink transition-colors text-center border-t border-line pt-4"
+                  className="mt-1 block border-t border-line pt-4 text-center text-[12px] text-muted transition-colors hover:text-ink"
                 >
-                  مشاهده صفحه کامل محصول ←
+                  مشاهده صفحه کامل محصول
+                  <ArrowLeft className="mr-2 inline h-4 w-4 align-middle" />
                 </Link>
               </div>
 
@@ -199,20 +200,20 @@ export function QuickViewModal() {
                 <div className="mt-5 pt-5 border-t border-line space-y-5">
                   {p.harvestYear && (
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] tracking-[0.18em] text-muted">برداشت</span>
+                      <span className="section-eyebrow text-muted">برداشت</span>
                       <span className="text-[13px] font-medium">{p.harvestYear}</span>
                       {p.collection === 'limited-seasonal' && (
-                        <span className="text-[9px] tracking-[0.12em] bg-gold/15 text-gold px-2 py-0.5 border border-gold/30">
+                        <span className="border border-gold/30 bg-gold/15 px-2 py-0.5 text-[9px] text-gold">
                           محدود
                         </span>
                       )}
                       {p.collection === 'rare-harvest' && (
-                        <span className="text-[9px] tracking-[0.12em] bg-ink/10 text-ink px-2 py-0.5 border border-ink/20">
+                        <span className="border border-ink/20 bg-ink/10 px-2 py-0.5 text-[9px] text-ink">
                           نادر
                         </span>
                       )}
                       {p.collection === 'chef-choice' && (
-                        <span className="text-[9px] tracking-[0.12em] bg-olive/15 text-olive px-2 py-0.5 border border-olive/30">
+                        <span className="border border-olive/30 bg-olive/15 px-2 py-0.5 text-[9px] text-olive">
                           انتخاب سرآشپز
                         </span>
                       )}
@@ -220,7 +221,7 @@ export function QuickViewModal() {
                   )}
                   {p.flavorNotes && (
                     <div>
-                      <p className="text-[10px] tracking-[0.18em] text-muted mb-2.5">پروفایل طعم</p>
+                      <p className="section-eyebrow mb-2.5 text-muted">پروفایل طعم</p>
                       <div className="flex flex-wrap gap-2">
                         {p.flavorNotes.map((note, i) => (
                           <span key={i} className="text-[11px] border border-line px-3 py-1.5 text-ink/80 bg-paper">
@@ -232,25 +233,25 @@ export function QuickViewModal() {
                   )}
                   {p.pairings && (
                     <div>
-                      <p className="text-[10px] tracking-[0.18em] text-muted mb-2.5">پیشنهاد همراهی</p>
+                      <p className="section-eyebrow mb-2.5 text-muted">پیشنهاد همراهی</p>
                       <p className="text-[12px] text-ink/70 leading-relaxed">{p.pairings.join(' · ')}</p>
                     </div>
                   )}
                   {p.originStory && (
                     <div>
-                      <p className="text-[10px] tracking-[0.18em] text-muted mb-2">داستان منشأ</p>
+                      <p className="section-eyebrow mb-2 text-muted">داستان منشأ</p>
                       <p className="text-[12px] text-ink/70 leading-relaxed italic">{p.originStory}</p>
                     </div>
                   )}
                   {p.chefNote && (
-                    <div className="bg-[#f0ebe0] p-4 border-r-2 border-olive">
-                      <p className="text-[9px] tracking-[0.2em] text-olive mb-1.5">توصیه سرآشپز</p>
+                    <div className="border-r-2 border-cypress bg-rice p-4">
+                      <p className="section-eyebrow mb-1.5 text-cypress">توصیه سرآشپز</p>
                       <p className="text-[12px] text-ink/80 leading-relaxed">{p.chefNote}</p>
                     </div>
                   )}
                   {p.cookingTip && (
                     <div>
-                      <p className="text-[10px] tracking-[0.18em] text-muted mb-1.5">راز پخت</p>
+                      <p className="section-eyebrow mb-1.5 text-muted">راز پخت</p>
                       <p className="text-[12px] text-ink/70 leading-relaxed">{p.cookingTip}</p>
                     </div>
                   )}

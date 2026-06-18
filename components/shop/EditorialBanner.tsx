@@ -1,75 +1,46 @@
-'use client';
-import { motion } from 'framer-motion';
+import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
-import { PageTransitionTrigger } from '@/components/ui/PageTransition';
-import { EASE } from '@/lib/motion';
+
+const guideItems = ['طارم برای مهمانی', 'شیرودی برای مصرف روزانه', 'دمسیاه برای عطر قوی'];
 
 export function EditorialBanner() {
   return (
-    <div className="sm:col-span-2 xl:col-span-3 my-2">
-      <div className="relative min-h-[520px] overflow-hidden grain-overlay">
-        <motion.img
-          src="https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=1700&q=80"
-          alt="مزارع برنج"
-          className="absolute inset-0 w-full h-full object-cover"
-          initial={{ scale: 1.08 }}
-          whileInView={{ scale: 1.0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 1.8, ease: EASE }}
-        />
-        <div className="absolute inset-0 editorial-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
-
-        {/* Year badge - top right */}
-        <div className="absolute top-6 left-6">
-          <span className="text-[9px] tracking-[0.2em] text-white/50 border border-white/20 px-3 py-1.5">
-            از ۱۳۸۷
-          </span>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.9, ease: EASE }}
-          className="relative p-8 md:p-14 text-white flex flex-col justify-center min-h-[520px] max-w-[700px]"
-        >
-          <p className="section-eyebrow text-white/60 mb-5">— داستان ما —</p>
-          <h2 className="title-lg leading-tight max-w-[520px]">
-            از زمین تا سفره،<br />یک مسیر عاشقانه
-          </h2>
-          <p className="body-copy text-white/80 max-w-[460px] mt-6 leading-[2.1]">
-            هر کیسه برنج کیوان، سفری است از مزارع سبز رشت تا آشپزخانه شما. کشاورزانی که نسل‌ها با دست‌های خود، بهترین دانه‌ها را برای ما می‌کارند.
-          </p>
-
-          <div className="flex items-center gap-5 mt-8">
-            <PageTransitionTrigger>
-              {(navigate) => (
-                <button
-                  onClick={() => navigate('/shop')}
-                  className="bg-white text-ink px-7 py-3.5 text-[12px] tracking-[0.1em] hover:bg-cream transition-colors"
-                >
-                  کشف کلکسیون
-                </button>
-              )}
-            </PageTransitionTrigger>
-            <Link href="/about" className="text-white/70 hover:text-white text-[12px] tracking-wider transition-colors flex items-center gap-2">
-              <span>داستان مزارع</span>
-              <span>←</span>
-            </Link>
+    <div className="my-2 sm:col-span-2 xl:col-span-3">
+      <div className="harvest-card overflow-hidden bg-ink text-rice">
+        <div className="grid md:grid-cols-[1fr_0.8fr]">
+          <div className="field-pattern p-7 md:p-10">
+            <p className="section-eyebrow mb-4 text-saffron">راهنمای سریع خرید</p>
+            <h2 className="title-md max-w-[520px] text-rice">
+              اگر مطمئن نیستید کدام برنج مناسب سفره شماست، از مصرف شروع کنید.
+            </h2>
+            <div className="mt-6 grid gap-3 text-[13px] text-rice/78 sm:grid-cols-3">
+              {guideItems.map((item) => (
+                <span key={item} className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 shrink-0 text-saffron" />
+                  {item}
+                </span>
+              ))}
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/use-case/guest-table" className="inline-flex h-11 items-center justify-center bg-rice px-5 text-[13px] text-ink transition-colors hover:bg-sand">
+                انتخاب برای مهمانی
+              </Link>
+              <Link href="/recipes" className="inline-flex h-11 items-center gap-2 px-5 text-[13px] text-rice/75 transition-colors hover:text-rice">
+                راهنمای پخت
+                <ArrowLeft className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
-        </motion.div>
-
-        {/* Bottom right stat */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="absolute bottom-6 left-8 md:left-14 text-white/50 text-[10px] tracking-[0.2em]"
-        >
-          گیلان · مازندران · گلستان
-        </motion.div>
+          <div className="relative min-h-[260px]">
+            <img
+              src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=82"
+              alt="برنج سفید پخته برای راهنمای خرید کیوان"
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-l from-ink/55 to-transparent" />
+          </div>
+        </div>
       </div>
     </div>
   );

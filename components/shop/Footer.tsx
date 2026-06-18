@@ -1,69 +1,74 @@
 'use client';
 import { useState } from 'react';
-import { Instagram } from 'lucide-react';
+import { Instagram, Send } from 'lucide-react';
 import Link from 'next/link';
+
+const shopLinks = [
+  { label: 'همه محصولات', href: '/shop' },
+  { label: 'طارم هاشمی', href: '/category/tarom' },
+  { label: 'دمسیاه شمالی', href: '/category/domsiah' },
+  { label: 'کیوان ممتاز', href: '/brand/keyvan-premium' },
+  { label: 'ارگانیک', href: '/brand/keyvan-organic' },
+];
+
+const helpLinks = [
+  { label: 'ارسال و تحویل', href: '/shipping' },
+  { label: 'بازگشت و ضمانت', href: '/returns' },
+  { label: 'پرسش‌های متداول', href: '/faq' },
+  { label: 'تماس با ما', href: '/contact' },
+  { label: 'حریم خصوصی', href: '/privacy' },
+  { label: 'شرایط فروش', href: '/terms' },
+];
 
 export function Footer() {
   const [email, setEmail] = useState('');
   const [done, setDone] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     setDone(true);
   };
 
   return (
-    <footer className="bg-ink text-white">
-      {/* Main footer grid */}
-      <div className="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 pt-16 md:pt-20 pb-10">
-        <div className="grid md:grid-cols-2 lg:grid-cols-[1.6fr_0.8fr_0.8fr_1.4fr] gap-12 lg:gap-10">
-          {/* Brand column */}
+    <footer className="bg-rice border-t border-line">
+      <div className="site-shell py-12 md:py-16">
+        <div className="grid lg:grid-cols-[1.35fr_0.75fr_0.75fr_1fr] gap-10 lg:gap-12">
           <div>
-            <div className="flex items-center gap-4 mb-4">
-              <p className="latin text-[32px] tracking-tighter font-medium leading-none">Keyvan</p>
-              <span className="text-[26px] font-semibold leading-none text-[#9ba595]">کیوان</span>
-            </div>
-            <span className="block h-px w-12 bg-[var(--terra)] mb-4" />
-            <p className="text-[13px] text-[#6d7a67] mb-2 tracking-[0.08em]">برنج‌خانه‌ی شمال · از ۱۳۸۷</p>
-            <p className="small-copy text-[#9ba595] mt-4 max-w-[300px] leading-[2]">
-              از مزارع سرسبز شمال ایران، با عشق به سفره شما می‌آوریم. هر دانه، روایتی از خاک و آفتاب و دست‌های کشاورز.
+            <Link href="/" className="inline-flex items-end gap-3">
+              <span className="latin text-[42px] leading-none text-ink">Keyvan</span>
+              <span className="text-[24px] font-semibold text-cypress leading-none">کیوان</span>
+            </Link>
+            <p className="body-copy text-muted max-w-[360px] mt-5 leading-8">
+              فروشگاه تخصصی برنج ایرانی با تمرکز بر منشأ روشن، انتخاب دقیق و تجربه خرید ساده.
             </p>
             <div className="flex gap-3 mt-7">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 border border-[#3a4a3a] flex items-center justify-center hover:border-[#6a8a6a] hover:text-[#9ba595] transition-all duration-300"
-                aria-label="اینستاگرام"
+                className="w-11 h-11 border border-line bg-paper inline-flex items-center justify-center hover:border-ink transition-colors"
+                aria-label="اینستاگرام کیوان"
               >
-                <Instagram className="w-3.5 h-3.5" />
+                <Instagram className="w-4 h-4" />
               </a>
               <a
                 href="https://t.me/keyvanrice"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 border border-[#3a4a3a] flex items-center justify-center hover:border-[#6a8a6a] hover:text-[#9ba595] transition-all duration-300 text-[11px] font-medium"
-                aria-label="تلگرام"
+                className="w-11 h-11 border border-line bg-paper inline-flex items-center justify-center hover:border-ink transition-colors"
+                aria-label="تلگرام کیوان"
               >
-                تلگ
+                <Send className="w-4 h-4" />
               </a>
             </div>
           </div>
 
-          {/* Shop column */}
           <div>
-            <p className="section-eyebrow text-[#596355] mb-6">فروشگاه</p>
-            <ul className="space-y-3 text-[13px] text-[#bdc5b7]">
-              {[
-                { label: 'همه محصولات', href: '/shop' },
-                { label: 'طارم هاشمی', href: '/shop?type=tarom' },
-                { label: 'دمسیاه شمالی', href: '/shop?type=domsiah' },
-                { label: 'محصولات ارگانیک', href: '/shop?organic=true' },
-                { label: 'بسته‌بندی هدیه', href: '/shop?collection=chef-choice' },
-                { label: 'فروش ویژه', href: '/shop?premium=true' },
-              ].map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className="hover:text-white transition-colors duration-200 cursor-pointer">
+            <p className="section-eyebrow text-cypress mb-5">فروشگاه</p>
+            <ul className="space-y-3 text-[14px] text-muted">
+              {shopLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="hover:text-ink transition-colors">
                     {link.label}
                   </Link>
                 </li>
@@ -71,72 +76,49 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Info column */}
           <div>
-            <p className="section-eyebrow text-[#596355] mb-6">اطلاعات</p>
-            <ul className="space-y-3 text-[13px] text-[#bdc5b7]">
-              <li><Link href="/about" className="hover:text-white transition-colors duration-200 cursor-pointer">درباره کیوان</Link></li>
-              <li><Link href="/about" className="hover:text-white transition-colors duration-200 cursor-pointer">داستان مزارع</Link></li>
-              <li><Link href="/recipes" className="hover:text-white transition-colors duration-200 cursor-pointer">مجله کیوان</Link></li>
-              <li><Link href="/contact" className="hover:text-white transition-colors duration-200 cursor-pointer">تماس با ما</Link></li>
-              <li><Link href="/shipping" className="hover:text-white transition-colors duration-200 cursor-pointer">ارسال و تحویل</Link></li>
-              <li><Link href="/returns" className="hover:text-white transition-colors duration-200 cursor-pointer">بازگشت و ضمانت</Link></li>
-              <li><Link href="/faq" className="hover:text-white transition-colors duration-200 cursor-pointer">پرسش‌های متداول</Link></li>
-              <li><Link href="/privacy" className="hover:text-white transition-colors duration-200 cursor-pointer">حریم خصوصی</Link></li>
-              <li><Link href="/terms" className="hover:text-white transition-colors duration-200 cursor-pointer">شرایط فروش</Link></li>
+            <p className="section-eyebrow text-cypress mb-5">راهنما</p>
+            <ul className="space-y-3 text-[14px] text-muted">
+              {helpLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="hover:text-ink transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Newsletter column */}
-          <div>
-            <p className="section-eyebrow text-[#596355] mb-6">خبرنامه کیوان</p>
-            <p className="small-copy text-[#8e9789] leading-relaxed mb-5">
-              دستورپخت فصلی، داستان کشاورزان، و تخفیف‌های ویژه — مستقیم در ایمیل شما.
+          <div className="harvest-card bg-paper p-5">
+            <p className="section-eyebrow text-cypress mb-4">خبرنامه برداشت</p>
+            <p className="small-copy text-muted leading-7 mb-5">
+              پیشنهادهای فصلی، راهنمای پخت و موجودی‌های محدود کیوان را دریافت کنید.
             </p>
             {done ? (
-              <p className="text-[13px] text-[#7a9a7a] tracking-wide">✓ به خانواده کیوان خوش آمدید</p>
+              <p className="text-[13px] text-cypress">عضویت شما ثبت شد.</p>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-3">
+              <form onSubmit={handleSubmit} className="flex gap-2">
+                <label className="sr-only" htmlFor="footer-email">ایمیل</label>
                 <input
+                  id="footer-email"
                   type="email"
                   required
                   value={email}
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={(event) => setEmail(event.target.value)}
                   placeholder="ایمیل شما"
-                  className="w-full bg-transparent border-b border-[#3a4a3a] pb-2.5 text-[13px] text-white placeholder-[#4a5a4a] outline-none focus:border-[#6a8a6a] transition-colors"
+                  className="min-h-11 flex-1 border border-line bg-rice px-3 text-[13px] outline-none focus:border-ink"
                 />
-                <button
-                  type="submit"
-                  className="text-[11px] tracking-[0.14em] text-[#7a9a6a] hover:text-white transition-colors"
-                >
-                  عضویت ←
+                <button type="submit" className="cta-ink px-4 text-[12px]">
+                  ثبت
                 </button>
               </form>
             )}
-
-            {/* Certifications */}
-            <div className="mt-8 flex flex-wrap gap-3">
-              <span className="text-[8px] tracking-[0.14em] border border-[#2e3e2e] px-2.5 py-1.5 text-[#596355]">
-                ارگانیک تأیید شده
-              </span>
-              <span className="text-[8px] tracking-[0.14em] border border-[#2e3e2e] px-2.5 py-1.5 text-[#596355]">
-                ارسال سراسری
-              </span>
-              <span className="text-[8px] tracking-[0.14em] border border-[#2e3e2e] px-2.5 py-1.5 text-[#596355]">
-                پرداخت امن
-              </span>
-            </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-[#243024] mt-14 pt-6 flex flex-col md:flex-row justify-between gap-3 text-[10px] text-[#4a5a48]">
-          <span>© ۱۴۰۳ کیوان — تمام حقوق محفوظ است</span>
-          <div className="flex items-center gap-4">
-            <span>ساخته شده با محبت در ایران</span>
-            <span>·</span>
-            <span className="latin">From Gilan, for the world</span>
-          </div>
+        <div className="border-t border-line mt-12 pt-5 flex flex-col md:flex-row justify-between gap-3 text-[12px] text-muted">
+          <span>© ۱۴۰۳ کیوان. تمام حقوق محفوظ است.</span>
+          <span className="latin">Persian rice, selected with care.</span>
         </div>
       </div>
     </footer>

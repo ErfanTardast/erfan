@@ -57,7 +57,7 @@ export function SearchOverlay() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.25 }}
-          className="fixed inset-0 z-50 bg-[#f6f1e8]/97 backdrop-blur-xl"
+          className="fixed inset-0 z-50 bg-rice/97 backdrop-blur-xl"
           onClick={(e) => { if (e.target === e.currentTarget) setSearch(false); }}
         >
           <div className="max-w-[960px] mx-auto px-5 py-8">
@@ -70,14 +70,14 @@ export function SearchOverlay() {
               <button
                 onClick={() => setSearch(false)}
                 aria-label="بستن"
-                className="p-2 hover:bg-[#ede8df] rounded-full transition-colors"
+                className="flex h-11 w-11 items-center justify-center border border-line bg-paper transition-colors hover:bg-sand"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Input */}
-            <div className="border-b border-[#bab2a6] flex items-center gap-4 pb-5">
+            <div className="flex items-center gap-4 border-b border-line pb-5">
               <input
                 ref={inputRef}
                 value={q}
@@ -88,11 +88,11 @@ export function SearchOverlay() {
                 aria-label="جستجو"
               />
               {q && (
-                <button onClick={() => setQ('')} className="p-1 text-muted hover:text-ink transition-colors">
+                <button onClick={() => setQ('')} aria-label="پاک کردن جستجو" className="flex h-11 w-11 items-center justify-center text-muted transition-colors hover:text-ink">
                   <X className="w-4 h-4" />
                 </button>
               )}
-              <Search className="w-5 h-5 text-[#687064] shrink-0" />
+              <Search className="w-5 h-5 text-muted shrink-0" />
             </div>
 
             {/* Results area */}
@@ -113,7 +113,7 @@ export function SearchOverlay() {
                           <button
                             key={s}
                             onClick={() => setQ(s)}
-                            className="border border-line px-3.5 py-2 text-[12px] hover:bg-[#ede8df] hover:border-[#b0a898] transition-all"
+                            className="min-h-11 border border-line bg-paper px-3.5 text-[12px] transition-all hover:border-cypress hover:bg-sand"
                           >
                             {s}
                           </button>
@@ -132,7 +132,7 @@ export function SearchOverlay() {
                         <button
                           key={t}
                           onClick={() => setQ(t)}
-                          className="border border-line px-3.5 py-2 text-[12px] hover:bg-[#ede8df] hover:border-[#b0a898] transition-all"
+                          className="min-h-11 border border-line bg-paper px-3.5 text-[12px] transition-all hover:border-cypress hover:bg-sand"
                         >
                           {t}
                         </button>
@@ -143,7 +143,7 @@ export function SearchOverlay() {
               ) : results.length === 0 ? (
                 <div className="text-center py-16">
                   <p className="text-[16px] text-muted mb-2">نتیجه‌ای پیدا نشد</p>
-                  <p className="small-copy text-[#a09890]">جستجوی دیگری امتحان کنید</p>
+                  <p className="small-copy text-muted">جستجوی دیگری امتحان کنید</p>
                 </div>
               ) : (
                 <div>
@@ -159,7 +159,7 @@ export function SearchOverlay() {
                         transition={{ delay: i * 0.04, duration: 0.3, ease: EASE }}
                         onClick={() => selectResult(p)}
                         className={`w-full text-right flex gap-4 items-center py-3 px-3 transition-colors ${
-                          focused === i ? 'bg-[#ede8df]' : 'hover:bg-[#f0ebe0]'
+                          focused === i ? 'bg-sand' : 'hover:bg-paper'
                         }`}
                       >
                         <img src={p.image} alt={p.title} className="w-14 h-16 object-cover shrink-0" />

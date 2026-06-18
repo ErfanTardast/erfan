@@ -1,4 +1,5 @@
 'use client';
+import { X } from 'lucide-react';
 import { useFilters } from '@/lib/store/filters';
 import {
   RICE_TYPE_LABELS,
@@ -44,12 +45,10 @@ export function ActiveFilters() {
         <button
           key={c.key}
           onClick={c.onRemove}
-          className="inline-flex items-center gap-1.5 border border-line px-3 py-1.5 text-[11px] hover:border-olive transition-colors"
+          className="inline-flex min-h-9 items-center gap-1.5 border border-line bg-paper px-3 text-[11px] transition-colors hover:border-cypress"
         >
           {c.label}
-          <span className="inline-flex items-center justify-center w-3.5 h-3.5 rounded-full bg-line text-[9px] leading-none">
-            ×
-          </span>
+          <X className="h-3.5 w-3.5 text-muted" />
         </button>
       ))}
     </div>

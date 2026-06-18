@@ -2,8 +2,8 @@
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { ChevronLeft, Heart, ShoppingBag, ShieldCheck, Truck, Star } from 'lucide-react';
-import { useState } from 'react';
+import { ChevronLeft, Heart, Minus, Plus, ShoppingBag, ShieldCheck, Truck, Star } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { PRODUCTS, getProductBySlug, getGallery, getReviews, RICE_NUTRITION, REGION_LABELS, AROMA_LABELS } from '@/lib/products';
 import { fmtPrice, toFa } from '@/lib/format';
@@ -29,6 +29,7 @@ const COLLECTION_LABELS: Record<string, string> = {
 export default function ProductPage() {
   const { slug } = useParams<{ slug: string }>();
   const product = getProductBySlug(slug);
+  const [hydrated, setHydrated] = useState(false);
   const [qty, setQty] = useState(1);
   const [adding, setAdding] = useState(false);
   const gallery = product ? getGallery(product) : [];
@@ -40,6 +41,10 @@ export default function ProductPage() {
   const toggleWish = useWishlist((s) => s.toggle);
   const showToast = useUI((s) => s.showToast);
   const addRecentlyViewed = useHistory((s) => s.addRecentlyViewed);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   if (!product) {
     return (
@@ -222,7 +227,7 @@ export default function ProductPage() {
                       className="w-10 h-11 flex items-center justify-center text-muted hover:text-ink transition-colors text-[18px]"
                       aria-label="کم کردن"
                     >
-                      −
+                      <Minus className="w-4 h-4" />
                     </button>
                     <span className="w-10 text-center text-[14px]">{toFa(qty)}</span>
                     <button
@@ -230,14 +235,15 @@ export default function ProductPage() {
                       className="w-10 h-11 flex items-center justify-center text-muted hover:text-ink transition-colors text-[18px]"
                       aria-label="زیاد کردن"
                     >
-                      +
+                      <Plus className="w-4 h-4" />
                     </button>
                   </div>
                   <button
                     onClick={handleAdd}
                     data-testid="pdp-add-to-cart"
-                    disabled={!product.inStock || adding}
-                    className="flex-1 h-11 bg-ink text-cream text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                    data-hydrated={hydrated ? 'true' : 'false'}
+                    disabled={!hydrated || !product.inStock || adding}
+                    className="flex-1 h-11 bg-ink text-cream text-[13px] hover:bg-[var(--terra)] transition-colors disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center gap-2"
                   >
                     <ShoppingBag className="w-4 h-4" />
                     {!product.inStock ? 'ناموجود' : adding ? '…' : 'افزودن به سبد'}
