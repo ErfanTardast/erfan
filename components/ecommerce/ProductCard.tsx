@@ -5,9 +5,22 @@ import { ShoppingCart, Star } from 'lucide-react';
 import { fmtPrice, toFa } from '@/lib/format';
 import type { BeltProduct } from '@/lib/ecom-data';
 
-// ── Industrial belt drive illustration ────────────────────────────────────────
+// ── Industrial illustrations ──────────────────────────────────────────────────
+// A deterministic hash of the product id selects one of several mechanical
+// illustrations, so cards within a row look varied rather than cloned.
 
-function BeltIllustration() {
+const INK = '#1e293b';
+const HUB = '#334155';
+const SVG_CLS = 'w-[72%] h-[72%]';
+
+function hashId(id: string) {
+  let h = 0;
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+// Variant A — timing belt drive (two sprockets + toothed belt)
+function TimingBeltIllo() {
   const bigTeeth = Array.from({ length: 8 }).map((_, i) => {
     const a = (i * Math.PI * 2) / 8 - Math.PI / 8;
     return {
@@ -22,9 +35,6 @@ function BeltIllustration() {
       x2: 150 + Math.cos(a) * 30, y2: 80 + Math.sin(a) * 30,
     };
   });
-
-  // Quadratic bezier teeth marks along top strand
-  // P0=(54,38), P1=(102,26), P2=(150,52)
   const beltTeeth = Array.from({ length: 7 }).map((_, i) => {
     const t = (i + 0.5) / 7;
     const x = (1 - t) * (1 - t) * 54 + 2 * t * (1 - t) * 102 + t * t * 150;
@@ -38,45 +48,104 @@ function BeltIllustration() {
   });
 
   return (
-    <svg
-      viewBox="0 0 200 160"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-[72%] h-[72%]"
-      aria-hidden
-    >
-      {/* Large left sprocket */}
-      <circle cx="54" cy="80" r="42" stroke="#1e293b" strokeWidth="4.5" opacity="0.5" />
-      <circle cx="54" cy="80" r="30" fill="#1e293b" opacity="0.2" />
-      <circle cx="54" cy="80" r="11" fill="#334155" opacity="0.4" />
+    <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" className={SVG_CLS} aria-hidden>
+      <circle cx="54" cy="80" r="42" stroke={INK} strokeWidth="4.5" opacity="0.5" />
+      <circle cx="54" cy="80" r="30" fill={INK} opacity="0.2" />
+      <circle cx="54" cy="80" r="11" fill={HUB} opacity="0.4" />
       {bigTeeth.map((t, i) => (
-        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2}
-          stroke="#1e293b" strokeWidth="7" strokeLinecap="round" opacity="0.5" />
+        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} stroke={INK} strokeWidth="7" strokeLinecap="round" opacity="0.5" />
       ))}
-
-      {/* Small right sprocket */}
-      <circle cx="150" cy="80" r="28" stroke="#1e293b" strokeWidth="3.5" opacity="0.5" />
-      <circle cx="150" cy="80" r="18" fill="#1e293b" opacity="0.2" />
-      <circle cx="150" cy="80" r="7" fill="#334155" opacity="0.4" />
+      <circle cx="150" cy="80" r="28" stroke={INK} strokeWidth="3.5" opacity="0.5" />
+      <circle cx="150" cy="80" r="18" fill={INK} opacity="0.2" />
+      <circle cx="150" cy="80" r="7" fill={HUB} opacity="0.4" />
       {smallTeeth.map((t, i) => (
-        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2}
-          stroke="#1e293b" strokeWidth="5.5" strokeLinecap="round" opacity="0.5" />
+        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} stroke={INK} strokeWidth="5.5" strokeLinecap="round" opacity="0.5" />
       ))}
-
-      {/* Top belt strand */}
-      <path d="M54 38 Q102 26 150 52" stroke="#1e293b" strokeWidth="12"
-        strokeLinecap="round" opacity="0.42" />
-      {/* Belt teeth marks */}
+      <path d="M54 38 Q102 26 150 52" stroke={INK} strokeWidth="12" strokeLinecap="round" opacity="0.42" />
       {beltTeeth.map((t, i) => (
-        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2}
-          stroke="#f8fafc" strokeWidth="2.5" opacity="0.55" />
+        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} stroke="#f8fafc" strokeWidth="2.5" opacity="0.55" />
       ))}
-
-      {/* Bottom belt strand */}
-      <path d="M54 122 Q102 134 150 108" stroke="#1e293b" strokeWidth="12"
-        strokeLinecap="round" opacity="0.42" />
+      <path d="M54 122 Q102 134 150 108" stroke={INK} strokeWidth="12" strokeLinecap="round" opacity="0.42" />
     </svg>
   );
+}
+
+// Variant B — V-belt pulley drive (two grooved pulleys + smooth belt)
+function VBeltIllo() {
+  return (
+    <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" className={SVG_CLS} aria-hidden>
+      {/* Belt strands (smooth, no teeth) */}
+      <path d="M58 40 L150 54" stroke={INK} strokeWidth="11" strokeLinecap="round" opacity="0.4" />
+      <path d="M58 120 L150 106" stroke={INK} strokeWidth="11" strokeLinecap="round" opacity="0.4" />
+      {/* Large grooved pulley */}
+      <circle cx="58" cy="80" r="40" stroke={INK} strokeWidth="5" opacity="0.5" />
+      <circle cx="58" cy="80" r="31" stroke={INK} strokeWidth="2" opacity="0.4" />
+      <circle cx="58" cy="80" r="22" stroke={INK} strokeWidth="2" opacity="0.3" />
+      <circle cx="58" cy="80" r="12" fill={HUB} opacity="0.4" />
+      {/* Small grooved pulley */}
+      <circle cx="150" cy="80" r="26" stroke={INK} strokeWidth="4" opacity="0.5" />
+      <circle cx="150" cy="80" r="18" stroke={INK} strokeWidth="2" opacity="0.4" />
+      <circle cx="150" cy="80" r="8" fill={HUB} opacity="0.4" />
+    </svg>
+  );
+}
+
+// Variant C — single industrial sprocket close-up
+function SprocketIllo() {
+  const teeth = Array.from({ length: 14 }).map((_, i) => {
+    const a = (i * Math.PI * 2) / 14;
+    return {
+      x1: 100 + Math.cos(a) * 46, y1: 80 + Math.sin(a) * 46,
+      x2: 100 + Math.cos(a) * 56, y2: 80 + Math.sin(a) * 56,
+    };
+  });
+  const bolts = Array.from({ length: 6 }).map((_, i) => {
+    const a = (i * Math.PI) / 3;
+    return { cx: 100 + Math.cos(a) * 24, cy: 80 + Math.sin(a) * 24 };
+  });
+  return (
+    <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" className={SVG_CLS} aria-hidden>
+      {teeth.map((t, i) => (
+        <line key={i} x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2} stroke={INK} strokeWidth="8" strokeLinecap="round" opacity="0.45" />
+      ))}
+      <circle cx="100" cy="80" r="46" stroke={INK} strokeWidth="5" opacity="0.5" />
+      <circle cx="100" cy="80" r="34" stroke={INK} strokeWidth="3" opacity="0.35" />
+      {bolts.map((b, i) => (
+        <circle key={i} cx={b.cx} cy={b.cy} r="3.6" fill={INK} opacity="0.3" />
+      ))}
+      <circle cx="100" cy="80" r="14" fill={HUB} opacity="0.4" />
+      <circle cx="100" cy="80" r="5" fill="#f8fafc" opacity="0.5" />
+    </svg>
+  );
+}
+
+// Variant D — ribbed serpentine belt loop
+function RibbedBeltIllo() {
+  const topRibs = Array.from({ length: 6 }).map((_, i) => 74 + i * 11);
+  const botRibs = Array.from({ length: 6 }).map((_, i) => 74 + i * 11);
+  return (
+    <svg viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" className={SVG_CLS} aria-hidden>
+      {/* Belt loop body */}
+      <path d="M74 46 H126 A34 34 0 0 1 126 114 H74 A34 34 0 0 1 74 46 Z" stroke={INK} strokeWidth="15" opacity="0.42" />
+      {/* Inner edge highlight */}
+      <path d="M74 46 H126 A34 34 0 0 1 126 114 H74 A34 34 0 0 1 74 46 Z" stroke="#f8fafc" strokeWidth="2" opacity="0.25" />
+      {/* Rib ticks along top run */}
+      {topRibs.map((x, i) => (
+        <line key={`t${i}`} x1={x} y1={39} x2={x} y2={53} stroke="#f8fafc" strokeWidth="2" opacity="0.45" />
+      ))}
+      {/* Rib ticks along bottom run */}
+      {botRibs.map((x, i) => (
+        <line key={`b${i}`} x1={x} y1={107} x2={x} y2={121} stroke="#f8fafc" strokeWidth="2" opacity="0.45" />
+      ))}
+    </svg>
+  );
+}
+
+const ILLUSTRATIONS = [TimingBeltIllo, VBeltIllo, SprocketIllo, RibbedBeltIllo];
+
+function ProductIllustration({ id }: { id: string }) {
+  const Illo = ILLUSTRATIONS[hashId(id) % ILLUSTRATIONS.length];
+  return <Illo />;
 }
 
 // ── Star rating ───────────────────────────────────────────────────────────────
@@ -128,7 +197,13 @@ export function ProductCard({ product }: ProductCardProps) {
           <rect width="100%" height="100%" fill={`url(#dot-${product.id})`} />
         </svg>
 
-        <BeltIllustration />
+        {/* Soft top-light for depth */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.45) 0%, transparent 55%)' }}
+        />
+
+        <ProductIllustration id={product.id} />
 
         {/* Discount badge — round */}
         {discountPercent && (
