@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
-export const riceTypeSchema = z.enum(['tarom', 'shirudi', 'domsiah', 'alikazemi', 'langroudi']);
-export const regionSchema = z.enum(['gilan', 'mazandaran', 'golestan']);
+export const riceTypeSchema = z.enum(['tarom', 'shirudi', 'domsiah', 'alikazemi', 'neda']);
+export const regionSchema = z.literal('mazandaran');
 export const aromaSchema = z.enum(['strong', 'mild', 'neutral']);
 export const grainLengthSchema = z.enum(['long', 'medium', 'short']);
 
@@ -11,11 +11,18 @@ export const productSchema = z.object({
   kicker: z.string().min(1),
   title: z.string().min(1),
   price: z.number().nonnegative(),
+  priceUnit: z.literal('کیلوگرم'),
   weight: z.string().min(1),
   weightKg: z.union([z.literal(2), z.literal(3), z.literal(5), z.literal(10)]),
+  packPrice: z.number().nonnegative(),
+  recommendedUse: z.string().min(1),
+  stockStatus: z.enum(['in-stock', 'low-stock', 'out-of-stock']),
+  gallery: z.array(z.string().min(1)).min(1),
+  cookingNotes: z.string().min(1),
+  storageInstructions: z.string().min(1),
   copy: z.string().min(1),
   shortNote: z.string().min(1),
-  image: z.string().url(),
+  image: z.string().min(1),
   rating: z.number().min(0).max(5),
   reviewCount: z.number().int().nonnegative(),
   badge: z.object({

@@ -1,100 +1,88 @@
 'use client';
-import Link from 'next/link';
+
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowLeft, CheckCircle2, Wheat, Truck } from 'lucide-react';
+import { ArrowLeft, Check, MapPin, PackageCheck, Truck } from 'lucide-react';
 import { EASE } from '@/lib/motion';
 
-const facts = [
-  { label: 'برداشت', value: '۱۴۰۳' },
-  { label: 'گونه', value: '۸ نوع' },
-  { label: 'ارسال', value: 'سراسری' },
+const PROOFS = [
+  { icon: MapPin, label: 'آمل، برداشت ۱۴۰۳' },
+  { icon: PackageCheck, label: 'تست عطر و پخت' },
+  { icon: Truck, label: 'ارسال قابل پیگیری' },
 ];
 
 export function LandingHero() {
   return (
-    <section className="relative overflow-hidden bg-rice field-pattern">
-      <div className="site-shell grid lg:grid-cols-[1.02fr_0.98fr] gap-10 lg:gap-14 items-center min-h-[calc(100svh-76px)] py-10 md:py-16">
+    <section className="relative isolate min-h-[690px] overflow-hidden bg-deep text-rice lg:min-h-[calc(100svh-76px)] lg:max-h-[860px]">
+      <Image
+        src="/images/keyvan/hero-ledger.webp"
+        alt="بسته برنج ممتاز کیوان در کنار کاسه مسی برنج ایرانی"
+        fill
+        priority
+        fetchPriority="high"
+        sizes="100vw"
+        className="object-cover object-[38%_center] md:object-center"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,26,21,0.04)_0%,rgba(11,26,21,0.14)_34%,rgba(11,26,21,0.88)_72%,rgba(11,26,21,0.96)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-deep/75 to-transparent" />
+
+      <div className="site-shell relative z-10 flex min-h-[690px] items-center py-16 lg:min-h-[calc(100svh-76px)] lg:max-h-[860px]">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: EASE }}
-          className="relative z-10"
+          transition={{ duration: 0.6, ease: EASE }}
+          className="mr-auto w-full max-w-[650px] lg:mr-0 lg:pr-5"
         >
-          <div className="inline-flex items-center gap-2 border border-line bg-paper px-3 py-2 text-[12px] text-cypress mb-6">
-            <Wheat className="w-4 h-4" />
-            برنج اصیل شمال، انتخاب‌شده برای پخت روزانه و مهمانی
+          <div className="mb-7 flex items-center gap-4">
+            <span className="h-px w-12 bg-saffron" />
+            <p className="section-eyebrow text-rice/75">دفتر برداشت کیوان · آمل، مازندران</p>
           </div>
 
-          <h1 className="text-[clamp(46px,8vw,112px)] leading-[1.02] font-semibold text-ink max-w-[760px]">
-            کیوان؛
-            <span className="block text-cypress">برنجی که روی سفره می‌درخشد</span>
+          <h1 className="max-w-[650px] text-[clamp(48px,7.5vw,104px)] font-semibold leading-[1.02] text-rice">
+            برنجی که
+            <span className="block text-saffron">منشأ دارد.</span>
           </h1>
 
-          <p className="body-copy text-muted max-w-[540px] mt-6 leading-[2.05]">
-            از مزارع گیلان و مازندران تا خانه شما؛ برنج‌های کیوان با منشأ روشن، عطر واقعی و بسته‌بندی تمیز برای خرید مطمئن آماده‌اند.
+          <p className="mt-6 max-w-[530px] text-[16px] leading-8 text-rice/76 md:text-[18px] md:leading-9">
+            طارم، دمسیاه و برنج‌های منتخب شمال؛ با منطقه کشت، سال برداشت و قیمت کامل بسته، پیش از خرید.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 mt-8">
-            <Link href="/shop" className="cta-ink inline-flex items-center justify-center gap-3 px-8 py-3.5 text-[14px]">
-              ورود به فروشگاه
-              <ArrowLeft className="w-4 h-4" />
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link href="#featured-products" className="inline-flex min-h-12 items-center justify-center gap-3 bg-saffron px-7 text-[14px] font-semibold text-deep transition-colors hover:bg-rice">
+              انتخاب برنج
+              <ArrowLeft className="h-4 w-4" />
             </Link>
-            <Link href="/use-case/guest-table" className="cta-outline inline-flex items-center justify-center px-8 py-3.5 text-[14px]">
-              انتخاب برای مهمانی
+            <Link href="/product/tarom-hashemi-premium" className="inline-flex min-h-12 items-center justify-center border border-rice/35 bg-deep/25 px-7 text-[14px] text-rice backdrop-blur-sm transition-colors hover:border-rice hover:bg-deep/45">
+              طارم هاشمی ممتاز
             </Link>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 max-w-[520px] mt-10">
-            {facts.map((fact) => (
-              <div key={fact.label} className="border border-line bg-paper/80 px-4 py-3">
-                <p className="text-[11px] text-muted">{fact.label}</p>
-                <p className="text-[18px] text-ink font-semibold mt-1">{fact.value}</p>
+          <div className="mt-9 grid gap-3 border-t border-rice/18 pt-5 sm:grid-cols-3">
+            {PROOFS.map((proof) => (
+              <div key={proof.label} className="flex items-center gap-2 text-[12px] text-rice/72">
+                <proof.icon className="h-4 w-4 shrink-0 text-saffron" />
+                <span>{proof.label}</span>
               </div>
             ))}
           </div>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.05, duration: 0.5, ease: EASE }}
-          className="relative min-h-[480px] md:min-h-[620px]"
-        >
-          <div className="absolute inset-y-0 left-0 w-[58%] overflow-hidden border border-line bg-sand">
-            <Image
-              src="https://images.unsplash.com/photo-1634376413866-d89f8b489a05?auto=format&fit=crop&w=1100&q=82"
-              alt="مزارع برنج فومن گیلان"
-              fill
-              priority
-              sizes="(min-width: 1024px) 30vw, 58vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="absolute top-[12%] right-0 w-[58%] aspect-[4/5] overflow-hidden border border-line bg-paper shadow-[0_24px_90px_rgba(23,33,26,0.18)]">
-            <Image
-              src="https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=900&q=82"
-              alt="دانه‌های برنج کیوان"
-              fill
-              sizes="(min-width: 1024px) 30vw, 58vw"
-              className="object-cover"
-            />
-          </div>
-          <div className="absolute bottom-6 right-6 left-6 md:left-auto md:w-[360px] harvest-card p-5">
-            <p className="section-eyebrow text-cypress mb-3">دفتر برداشت کیوان</p>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-olive mt-0.5 shrink-0" />
-                <p className="text-[13px] leading-7 text-muted">هر محصول با نوع برنج، منطقه کشت و سال برداشت مشخص عرضه می‌شود.</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <Truck className="w-5 h-5 text-olive mt-0.5 shrink-0" />
-                <p className="text-[13px] leading-7 text-muted">ارسال تمیز و قابل پیگیری برای سفارش‌های خانگی و هدیه.</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, x: -16 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2, duration: 0.5, ease: EASE }}
+        className="absolute bottom-6 left-5 z-10 hidden items-center gap-4 border-l-2 border-saffron bg-paper/94 px-5 py-4 text-ink shadow-[0_16px_50px_rgba(11,26,21,0.2)] backdrop-blur-sm md:flex"
+      >
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-cypress text-rice">
+          <Check className="h-4 w-4" />
+        </span>
+        <div>
+          <p className="text-[12px] text-cypress">قیمت شفاف بسته ۵ کیلویی</p>
+          <p className="mt-1 text-[18px] font-semibold">۹۲۵٬۰۰۰ تومان</p>
+        </div>
+      </motion.div>
     </section>
   );
 }

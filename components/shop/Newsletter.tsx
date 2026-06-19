@@ -1,4 +1,5 @@
 'use client';
+
 import { CheckCircle2, Mail } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -46,58 +47,58 @@ export function Newsletter() {
   };
 
   return (
-    <section className="bg-rice py-14 md:py-20">
-      <div className="site-shell">
-        <div className="harvest-card grid overflow-hidden md:grid-cols-[0.9fr_1fr]">
-          <div className="field-pattern bg-ink p-7 text-rice md:p-10">
-            <p className="section-eyebrow mb-4 text-saffron">نامه کیوان</p>
-            <h2 className="title-md max-w-[420px] text-rice">پیشنهادهای فصلی، دستور پخت و موجودی تازه</h2>
-            <p className="body-copy mt-5 max-w-[440px] text-rice/68">
-              فقط پیام‌های کوتاه و کاربردی برای خرید بهتر برنج. لغو عضویت همیشه ساده است.
-            </p>
-          </div>
+    <section className="border-b border-line bg-paper">
+      <div className="site-shell grid lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="border-b border-line py-14 lg:border-b-0 lg:border-l lg:py-20 lg:pl-14">
+          <p className="section-eyebrow mb-4 text-clay">نامه برداشت</p>
+          <h2 className="max-w-[520px] text-[clamp(32px,4vw,56px)] font-semibold leading-[1.22] text-ink">
+            موجودی تازه و راهنمای پخت، کوتاه و کاربردی.
+          </h2>
+          <p className="mt-5 max-w-[500px] text-[14px] leading-8 text-muted">
+            فقط زمان عرضه برداشت‌های محدود، پیشنهادهای فصلی و نکته‌های واقعی برای بهتر پختن برنج.
+          </p>
+        </div>
 
-          <div className="bg-paper p-7 md:p-10">
-            {status === 'success' ? (
-              <div className="flex min-h-[180px] flex-col items-start justify-center">
-                <CheckCircle2 className="mb-5 h-9 w-9 text-cypress" />
-                <p className="text-[17px] font-medium">{msg}</p>
-                <p className="small-copy mt-2 text-muted">به‌زودی اولین نامه کیوان را دریافت می‌کنید.</p>
+        <div className="flex items-center py-14 lg:py-20 lg:pr-14">
+          {status === 'success' ? (
+            <div className="flex min-h-[160px] items-start gap-4">
+              <CheckCircle2 className="mt-1 h-7 w-7 shrink-0 text-cypress" />
+              <div>
+                <p className="text-[20px] font-semibold text-ink">{msg}</p>
+                <p className="mt-2 text-[13px] text-muted">نامه بعدی کیوان به این ایمیل می‌رسد.</p>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit(submit)} className="space-y-4" noValidate>
-                <div>
-                  <label htmlFor="nl-email" className="mb-2 block text-[13px] font-medium">
-                    آدرس ایمیل
-                  </label>
-                  <div className="flex min-h-12 items-center gap-3 border border-line bg-rice px-4 focus-within:border-cypress">
-                    <Mail className="h-4 w-4 shrink-0 text-muted" />
-                    <input
-                      id="nl-email"
-                      type="email"
-                      required
-                      {...register('email')}
-                      placeholder="your@email.com"
-                      dir="ltr"
-                      className="latin h-12 flex-1 bg-transparent text-[14px] outline-none placeholder:text-muted/55"
-                    />
-                  </div>
-                  {errors.email && <p className="mt-1.5 text-[11px] text-clay">{errors.email.message}</p>}
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit(submit)} className="w-full" noValidate>
+              <label htmlFor="nl-email" className="mb-3 block text-[13px] font-semibold text-ink">
+                ایمیل برای دریافت نامه کیوان
+              </label>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <div className="flex min-h-12 flex-1 items-center gap-3 border border-line bg-rice px-4 focus-within:border-cypress">
+                  <Mail className="h-4 w-4 shrink-0 text-indigo" />
+                  <input
+                    id="nl-email"
+                    type="email"
+                    required
+                    {...register('email')}
+                    placeholder="name@example.com"
+                    dir="ltr"
+                    className="latin h-12 flex-1 bg-transparent text-[14px] outline-none placeholder:text-muted/55"
+                  />
                 </div>
                 <button
                   type="submit"
                   disabled={status === 'loading'}
-                  className="cta-ink flex h-12 w-full items-center justify-center text-[13px] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="min-h-12 bg-cypress px-7 text-[13px] font-semibold text-rice transition-colors hover:bg-deep disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  {status === 'loading' ? 'در حال ثبت...' : 'عضویت در نامه کیوان'}
+                  {status === 'loading' ? 'در حال ثبت...' : 'عضویت'}
                 </button>
-                {status === 'error' && <p className="text-[12px] text-clay">{msg}</p>}
-                <p className="text-[12px] leading-7 text-muted">
-                  ایمیل شما فقط برای اطلاع‌رسانی کیوان استفاده می‌شود.
-                </p>
-              </form>
-            )}
-          </div>
+              </div>
+              {errors.email && <p className="mt-2 text-[11px] text-clay">{errors.email.message}</p>}
+              {status === 'error' && <p className="mt-2 text-[12px] text-clay">{msg}</p>}
+              <p className="mt-4 text-[11px] leading-6 text-muted">لغو عضویت همیشه با یک کلیک ممکن است.</p>
+            </form>
+          )}
         </div>
       </div>
     </section>

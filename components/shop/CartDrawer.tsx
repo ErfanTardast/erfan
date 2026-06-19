@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Minus, Plus, ShoppingBag, Trash2, Truck, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useCart } from '@/lib/store/cart';
 import { getProductById, PRODUCTS, type Product } from '@/lib/products';
 import { fmtPrice, toFa, fmtPriceShort } from '@/lib/format';
@@ -45,12 +45,23 @@ export function CartDrawer() {
   const { items, isOpen, close, inc, dec, remove } = useCart();
   const [giftWrap, setGiftWrap] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    closeRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') close();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isOpen, close]);
 
   const lines = items
     .map((i) => ({ ...i, p: getProductById(i.id) }))
     .filter((l): l is CartLine => Boolean(l.p));
 
-  const total = lines.reduce((s, l) => s + l.p.price * l.qty, 0);
+  const total = lines.reduce((s, l) => s + l.p.packPrice * l.qty, 0);
 
   const cartIds = new Set(items.map((i) => i.id));
   const recommendations = PRODUCTS.filter((p) => !cartIds.has(p.id) && p.inStock && p.isFeatured).slice(0, 2);
@@ -71,6 +82,9 @@ export function CartDrawer() {
           <motion.aside
             key="dr"
             data-testid="cart-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="cart-title"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
@@ -80,14 +94,14 @@ export function CartDrawer() {
             {/* Header */}
             <div className="px-5 py-4 border-b border-line flex items-center justify-between shrink-0">
               <div className="flex items-center gap-2.5">
-                <h2 className="text-[18px] font-medium">سبد خرید</h2>
+                <h2 id="cart-title" className="text-[18px] font-medium">سبد خرید</h2>
                 {lines.length > 0 && (
                   <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-ink px-1 text-[10px] text-rice">
                     {toFa(lines.reduce((s, l) => s + l.qty, 0))}
                   </span>
                 )}
               </div>
-              <button onClick={close} aria-label="بستن" className="flex h-11 w-11 items-center justify-center border border-line bg-paper transition-colors hover:bg-sand">
+              <button ref={closeRef} onClick={close} aria-label="بستن" className="flex h-11 w-11 items-center justify-center border border-line bg-paper transition-colors hover:bg-sand">
                 <X className="w-[18px] h-[18px]" />
               </button>
             </div>
@@ -165,7 +179,7 @@ export function CartDrawer() {
                             animate={{ opacity: 1, y: 0 }}
                             className="text-[13px] font-medium"
                           >
-                            {fmtPriceShort(l.p.price * l.qty)} ت
+                            {fmtPriceShort(l.p.packPrice * l.qty)} تومان
                           </motion.p>
                           <button
                             onClick={() => remove(l.id)}
@@ -274,7 +288,7 @@ function RecoItem({ product }: { product: import('@/lib/products').Product }) {
       </span>
       <div className="flex-1 min-w-0">
         <p className="text-[12px] font-medium truncate">{product.title}</p>
-        <p className="text-[11px] text-muted mt-0.5">{fmtPriceShort(product.price)} ت</p>
+        <p className="text-[11px] text-muted mt-0.5">{fmtPriceShort(product.packPrice)} تومان</p>
       </div>
       <button
         onClick={() => {

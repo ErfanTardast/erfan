@@ -64,15 +64,11 @@ export function FilterSidebar() {
   return (
     <aside className="hidden lg:block">
       <div className="sticky top-[98px]">
-        <div className="harvest-card mb-4 p-5">
-          <p className="section-eyebrow text-cypress mb-2">راهنمای انتخاب</p>
-          <p className="text-[13px] leading-7 text-muted">
-            با نوع برنج، منطقه کشت و وزن بسته، سریع‌تر به محصول مناسب برسید.
-          </p>
-        </div>
-
         <div className="flex items-center justify-between border-b border-line pb-4">
-          <h2 className="text-[17px] font-medium">فیلترها</h2>
+          <div>
+            <p className="section-eyebrow mb-1 text-cypress">انتخاب دقیق</p>
+            <h2 className="text-[17px] font-medium">فیلتر محصولات</h2>
+          </div>
           <button
             onClick={f.clear}
             className="min-h-9 text-[12px] text-cypress underline transition-colors hover:text-ink"

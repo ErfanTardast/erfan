@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, User as UserIcon } from 'lucide-react';
 import { Header } from '@/components/shop/Header';
+import { Footer } from '@/components/shop/Footer';
 import { useAccount } from '@/lib/store/account';
 
 type Mode = 'login' | 'signup';
@@ -19,6 +20,11 @@ export default function LoginPage() {
   const [phone, setPhone] = useState('');
   const [pass, setPass] = useState('');
   const [error, setError] = useState('');
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,8 +40,11 @@ export default function LoginPage() {
   const tab = (m: Mode, label: string) => (
     <button
       type="button"
+      disabled={!hydrated}
+      data-testid={`account-tab-${m}`}
+      data-hydrated={hydrated ? 'true' : 'false'}
       onClick={() => { setMode(m); setError(''); }}
-      className={`flex-1 pb-3 text-[13px] tracking-[0.08em] border-b-2 transition-colors ${
+      className={`flex-1 pb-3 text-[13px] tracking-[0.08em] border-b-2 transition-colors disabled:cursor-wait disabled:opacity-60 ${
         mode === m ? 'border-[var(--ink)] text-[var(--ink)]' : 'border-[var(--line)] text-[var(--muted)] hover:text-[var(--ink)]'
       }`}
     >
@@ -44,12 +53,13 @@ export default function LoginPage() {
   );
 
   const input = (
-    label: string, value: string, set: (v: string) => void,
+    id: string, label: string, value: string, set: (v: string) => void,
     type = 'text', ph = '',
   ) => (
     <div>
-      <label className="block text-[10px] tracking-[0.18em] text-[var(--muted)] mb-2">{label}</label>
+      <label htmlFor={id} className="block text-[10px] tracking-[0.18em] text-[var(--muted)] mb-2">{label}</label>
       <input
+        id={id}
         type={type}
         value={value}
         onChange={(e) => set(e.target.value)}
@@ -83,15 +93,16 @@ export default function LoginPage() {
           </div>
 
           <form onSubmit={submit} className="space-y-5">
-            {mode === 'signup' && input('نام و نام خانوادگی', name, setName, 'text', 'مثلاً علی رضایی')}
-            {input('ایمیل', email, setEmail, 'email', 'you@example.com')}
-            {mode === 'signup' && input('شماره موبایل', phone, setPhone, 'tel', '۰۹۱۲۳۴۵۶۷۸۹')}
-            {input('رمز عبور', pass, setPass, 'password', '••••••••')}
+            {mode === 'signup' && input('account-name', 'نام و نام خانوادگی', name, setName, 'text', 'مثلاً علی رضایی')}
+            {input('account-email', 'ایمیل', email, setEmail, 'email', 'you@example.com')}
+            {mode === 'signup' && input('account-phone', 'شماره موبایل', phone, setPhone, 'tel', '۰۹۱۲۳۴۵۶۷۸۹')}
+            {input('account-password', 'رمز عبور', pass, setPass, 'password', '••••••••')}
 
             {error && <p className="text-[var(--terra)] text-[12px]">{error}</p>}
 
             <button
               type="submit"
+              disabled={!hydrated}
               className="w-full bg-[var(--ink)] text-[var(--cream)] py-4 text-[13px] tracking-[0.1em] hover:bg-[var(--terra)] transition-colors flex items-center justify-center gap-2"
             >
               {mode === 'login' ? 'ورود به حساب' : 'ساخت حساب'}
@@ -110,6 +121,7 @@ export default function LoginPage() {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }

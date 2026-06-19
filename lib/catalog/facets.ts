@@ -51,12 +51,12 @@ export const CATALOG_CATEGORIES = [
   },
   {
     kind: 'category',
-    slug: 'langroudi',
-    label: 'لنگرودی',
-    englishLabel: 'Langroudi',
+    slug: 'neda',
+    label: 'ندا',
+    englishLabel: 'Neda',
     description: 'بافت نرم و مناسب دمی، کته و پخت‌های خانگی.',
-    shopHref: '/shop?type=langroudi',
-    match: (product) => product.type === 'langroudi',
+    shopHref: '/shop?type=neda',
+    match: (product) => product.type === 'neda',
   },
 ] satisfies CatalogFacet[];
 
@@ -98,7 +98,7 @@ export const CATALOG_USE_CASES = [
     englishLabel: 'Daily Cooking',
     description: 'برنج‌های خوش‌پخت و قابل اعتماد برای وعده‌های روزمره.',
     shopHref: '/shop',
-    match: (product) => product.type === 'shirudi' || product.type === 'langroudi' || !product.premium,
+    match: (product) => product.type === 'shirudi' || product.type === 'neda' || !product.premium,
   },
   {
     kind: 'use-case',

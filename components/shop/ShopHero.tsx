@@ -1,59 +1,54 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, ChevronLeft, SlidersHorizontal } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, MapPin } from 'lucide-react';
+
+const ROUTES = [
+  { label: 'مجلسی', sub: 'طارم و دمسیاه', href: '/use-case/guest-table' },
+  { label: 'مصرف روزانه', sub: 'شیرودی و ندا', href: '/use-case/daily-cooking' },
+  { label: 'کشت طبیعی', sub: 'انتخاب‌های ارگانیک', href: '/use-case/organic-family' },
+];
 
 export function ShopHero() {
   return (
-    <section className="bg-rice border-b border-line field-pattern">
-      <div className="site-shell py-10 md:py-16">
-        <nav className="flex items-center gap-2 text-[12px] text-muted mb-8">
-          <Link href="/" className="hover:text-ink transition-colors">خانه</Link>
-          <ChevronLeft className="w-3.5 h-3.5" />
+    <section className="border-b border-line bg-cream">
+      <div className="site-shell py-6">
+        <nav className="mb-5 flex items-center gap-2 text-[12px] text-muted">
+          <Link href="/" className="transition-colors hover:text-ink">خانه</Link>
+          <ChevronLeft className="h-3.5 w-3.5" />
           <span className="text-ink">فروشگاه</span>
         </nav>
 
-        <div className="grid lg:grid-cols-[1fr_420px] gap-8 lg:gap-12 items-end">
-          <div>
-            <p className="section-eyebrow text-cypress mb-4">فروشگاه کیوان</p>
-            <h1 className="text-[clamp(42px,7vw,92px)] leading-[1.05] font-semibold text-ink max-w-[820px]">
-              انتخاب برنج بر اساس عطر، پخت و سفره
-            </h1>
-            <p className="body-copy text-muted max-w-[620px] mt-5 leading-[2]">
-              محصولات را بر اساس نوع برنج، منطقه کشت، وزن بسته‌بندی و کاربرد انتخاب کنید. هر کارت محصول مستقیم به خرید، جزئیات و علاقه‌مندی متصل است.
-            </p>
-            <div className="flex flex-wrap gap-3 mt-7">
-              <Link href="/brand/keyvan-premium" className="cta-ink inline-flex items-center justify-center gap-2 px-6 py-3 text-[13px]">
-                کیوان ممتاز
-                <ArrowLeft className="w-4 h-4" />
-              </Link>
-              <Link href="/use-case/daily-cooking" className="cta-outline inline-flex items-center justify-center px-6 py-3 text-[13px]">
-                پخت روزانه
-              </Link>
-              <Link href="/use-case/organic-family" className="cta-outline inline-flex items-center justify-center px-6 py-3 text-[13px]">
-                ارگانیک
-              </Link>
-            </div>
+        <div className="grid overflow-hidden border border-line bg-paper lg:grid-cols-[0.62fr_1.38fr]">
+          <div className="relative min-h-[300px] lg:min-h-[420px]">
+            <Image
+              src="/images/keyvan/hero-ledger.webp"
+              alt="برنج‌های منتخب فروشگاه کیوان"
+              fill
+              priority
+              sizes="(min-width: 1024px) 32vw, 100vw"
+              className="object-cover object-left"
+            />
           </div>
 
-          <div className="harvest-card bg-paper p-5 md:p-6">
-            <div className="flex items-center gap-3 mb-5">
-              <span className="w-11 h-11 bg-cypress text-rice flex items-center justify-center">
-                <SlidersHorizontal className="w-5 h-5" />
-              </span>
-              <div>
-                <p className="text-[15px] font-semibold">راهنمای سریع انتخاب</p>
-                <p className="text-[12px] text-muted mt-1">سه مسیر اصلی برای پیدا کردن محصول</p>
-              </div>
+          <div className="flex flex-col justify-center p-6 md:p-10 lg:p-12">
+            <div className="flex items-center gap-3 text-[12px] text-indigo">
+              <MapPin className="h-4 w-4" />
+              آمل، مازندران
             </div>
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                ['مجلس', 'دمسیاه و طارم ممتاز'],
-                ['روزانه', 'شیرودی و لنگرودی'],
-                ['طبیعی', 'گزینه‌های ارگانیک'],
-              ].map(([label, desc]) => (
-                <div key={label} className="border border-line bg-rice p-3">
-                  <p className="text-[13px] font-semibold text-ink">{label}</p>
-                  <p className="text-[11px] leading-5 text-muted mt-1">{desc}</p>
-                </div>
+            <h1 className="mt-5 max-w-[760px] text-[clamp(38px,6vw,78px)] font-semibold leading-[1.08] text-ink">
+              برنج را با نتیجه پخت انتخاب کنید.
+            </h1>
+            <p className="mt-5 max-w-[650px] text-[15px] leading-8 text-muted">
+              نوع برنج، عطر، منطقه کشت، وزن بسته و قیمت کامل در یک نگاه؛ بدون حدس‌زدن و قیمت مبهم.
+            </p>
+
+            <div className="mt-8 grid gap-px border border-line bg-line sm:grid-cols-3">
+              {ROUTES.map((route) => (
+                <Link key={route.href} href={route.href} className="group bg-paper p-4 transition-colors hover:bg-rice">
+                  <span className="block text-[15px] font-semibold text-ink">{route.label}</span>
+                  <span className="mt-1 block text-[11px] text-muted">{route.sub}</span>
+                  <ArrowLeft className="mt-4 h-4 w-4 text-cypress transition-transform group-hover:-translate-x-1" />
+                </Link>
               ))}
             </div>
           </div>

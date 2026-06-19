@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SearchX } from 'lucide-react';
 import { PRODUCTS } from '@/lib/products';
+import { toFa } from '@/lib/format';
 import { selectProducts } from '@/lib/catalog/selectors';
 import { useFilters } from '@/lib/store/filters';
 import { ProductCard } from './ProductCard';
@@ -40,7 +41,7 @@ export function ProductGrid() {
       ) : (
         <motion.div
           layout
-          className={`grid sm:grid-cols-2 ${gridCols === 3 ? 'xl:grid-cols-3' : ''} gap-x-6 gap-y-14`}
+          className={`grid sm:grid-cols-2 ${gridCols === 3 ? 'xl:grid-cols-3' : ''} gap-x-6 gap-y-8`}
         >
           <AnimatePresence mode="popLayout">
             {visible.slice(0, 4).map((p) => (
@@ -56,7 +57,7 @@ export function ProductGrid() {
 
       <div className="text-center mt-16 pt-10 border-t border-line">
         <p className="small-copy text-muted mb-5">
-          نمایش {visible.length === PRODUCTS.length ? 'همه' : visible.length} محصول
+          نمایش {visible.length === PRODUCTS.length ? 'همه' : toFa(visible.length)} محصول
         </p>
       </div>
     </section>

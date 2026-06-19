@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Package, MapPin, User as UserIcon, LogOut, Plus, Trash2, Heart, ShoppingBag } from 'lucide-react';
 import { Header } from '@/components/shop/Header';
+import { Footer } from '@/components/shop/Footer';
 import { useAccount, type Address } from '@/lib/store/account';
 import { useWishlist } from '@/lib/store/wishlist';
 import { fmtPrice, toFa } from '@/lib/format';
@@ -194,6 +195,7 @@ export default function AccountPage() {
           </section>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
@@ -213,17 +215,23 @@ function AddressForm({ onAdd, onCancel }: { onAdd: (a: Omit<Address, 'id'>) => v
     toast.success('آدرس ذخیره شد');
   };
 
-  const cls = 'w-full border border-[var(--line)] bg-[var(--cream)] px-3.5 py-3 text-[13px] outline-none focus:border-[var(--ink)] transition-colors';
+  const cls = 'w-full min-h-11 border border-[var(--line)] bg-[var(--cream)] px-3.5 py-3 text-[13px] outline-none focus:border-[var(--ink)] transition-colors';
+  const field = (id: keyof AddressInput, label: string, placeholder: string, wide = false) => (
+    <div className={wide ? 'sm:col-span-2' : ''}>
+      <label htmlFor={`address-${id}`} className="mb-1.5 block text-[11px] text-[var(--muted)]">{label}</label>
+      <input id={`address-${id}`} className={cls} placeholder={placeholder} {...register(id)} />
+    </div>
+  );
 
   return (
     <form onSubmit={handleSubmit(submit)} className="bg-[var(--paper)] border border-[var(--line)] p-5 mb-4 grid sm:grid-cols-2 gap-3" noValidate>
-      <input className={cls} placeholder="عنوان (خانه/کار)" {...register('title')} />
-      <input className={cls} placeholder="نام گیرنده" {...register('recipient')} />
-      <input className={cls} placeholder="شماره تماس" {...register('phone')} />
-      <input className={cls} placeholder="استان" {...register('province')} />
-      <input className={cls} placeholder="شهر" {...register('city')} />
-      <input className={cls} placeholder="کد پستی" {...register('postal')} />
-      <input className={`${cls} sm:col-span-2`} placeholder="آدرس کامل" {...register('line')} />
+      {field('title', 'عنوان آدرس', 'خانه یا محل کار')}
+      {field('recipient', 'نام گیرنده', 'نام و نام خانوادگی')}
+      {field('phone', 'شماره تماس', '۰۹۱۲۳۴۵۶۷۸۹')}
+      {field('province', 'استان', 'تهران')}
+      {field('city', 'شهر', 'تهران')}
+      {field('postal', 'کد پستی', '۱۰ رقم')}
+      {field('line', 'آدرس کامل', 'خیابان، کوچه، پلاک و واحد', true)}
       {Object.keys(errors).length > 0 && (
         <p className="sm:col-span-2 text-[11px] text-[var(--terra)]">
           {Object.values(errors)[0]?.message}

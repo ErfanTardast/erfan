@@ -5,7 +5,7 @@ import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
 import type { CatalogFacet } from '@/lib/catalog/facets';
 import type { Product } from '@/lib/products';
-import { fmtPrice } from '@/lib/format';
+import { fmtPackPrice, fmtUnitPrice } from '@/lib/format';
 
 export function CatalogLandingPage({
   facet,
@@ -70,8 +70,9 @@ export function CatalogLandingPage({
                     <p className="text-[12px] text-cypress mb-2">{product.kicker}</p>
                     <div className="flex items-start justify-between gap-3">
                       <h3 className="product-title group-hover:text-cypress transition-colors">{product.title}</h3>
-                      <p className="text-[13px] whitespace-nowrap text-ink">{fmtPrice(product.price)}</p>
+                      <p className="text-[12px] whitespace-nowrap text-ink">{fmtUnitPrice(product.price)}</p>
                     </div>
+                    <p className="mt-1 text-[12px] text-muted">{fmtPackPrice(product.packPrice, product.weightKg)}</p>
                     <p className="small-copy text-muted mt-2 line-clamp-2">{product.shortNote}</p>
                   </div>
                 </Link>

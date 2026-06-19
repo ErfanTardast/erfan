@@ -59,7 +59,7 @@ export function RecentlyViewed() {
               <p className="text-[14px] font-medium transition-colors group-hover:text-cypress">{p.title}</p>
             </div>
             <div className="flex items-center justify-between border-t border-line px-4 py-3">
-              <p className="text-[12px] text-muted">{fmtPrice(p.price)}</p>
+              <p className="text-[12px] text-muted">{fmtPrice(p.packPrice)} / بسته</p>
               <button
                 onClick={(e) => {
                   e.stopPropagation();

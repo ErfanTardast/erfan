@@ -1,29 +1,30 @@
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Sprout, Hand, ShieldCheck, Heart } from 'lucide-react';
 
 export const metadata = { title: 'داستان ما — Keyvan Rice' };
 
 const STATS = [
-  { value: '۳۶', label: 'سال تجربه' },
-  { value: '۳', label: 'استان شمالی' },
+  { value: '۱۸', label: 'سال فعالیت' },
+  { value: '۱', label: 'منطقه اصلی کشت' },
   { value: '۸', label: 'نوع برنج اصیل' },
-  { value: '۱۲٬۰۰۰+', label: 'مشتری راضی' },
+  { value: '۱۰۰٪', label: 'منشأ قابل رهگیری' },
 ];
 
 const VALUES = [
   { icon: Sprout, title: 'کشت اصیل', text: 'تنها بذرهای بومی شمال ایران، در خاکی که نسل‌ها برنج پرورده است.' },
-  { icon: Hand, title: 'برداشت دستی', text: 'هر خوشه با دست و در زمان درست برداشت می‌شود — ماشین جای ظرافت کشاورز را نمی‌گیرد.' },
+  { icon: Hand, title: 'انتخاب دقیق', text: 'هر محموله از نظر عطر، یکدستی دانه و نتیجه پخت بررسی می‌شود.' },
   { icon: ShieldCheck, title: 'تضمین اصالت', text: 'بدون اختلاط، بدون افزودنی. هر کیسه دقیقاً همان است که روی برچسب نوشته شده.' },
-  { icon: Heart, title: 'بدون واسطه', text: 'مستقیم از کشاورز به سفره شما — قیمت منصفانه برای شما و کشاورز.' },
+  { icon: Heart, title: 'رابطه مستقیم', text: 'همکاری پایدار با تأمین‌کنندگان منتخب شمال و اطلاعات روشن برای خریدار.' },
 ];
 
 const TIMELINE = [
-  { year: '۱۳۶۷', title: 'آغاز راه', text: 'پدربزرگ ما اولین کیسه‌های برنج طارم را از مزرعه‌ی خانوادگی در رشت به بازار برد.' },
-  { year: '۱۳۸۷', title: 'نام کیوان', text: 'نسل دوم، برند کیوان را بنیان گذاشت تا برنج اصیل شمال را به سراسر ایران برساند.' },
-  { year: '۱۳۹۸', title: 'کشت ارگانیک', text: 'اولین مزارع ارگانیک تأییدشده‌ی ما به بهره‌برداری رسید.' },
-  { year: '۱۴۰۳', title: 'فروشگاه آنلاین', text: 'امروز، با ارسال مستقیم به سراسر کشور، کیوان را در خانه‌ی شما داریم.' },
+  { year: '۱۳۸۷', title: 'آغاز کیوان', text: 'فعالیت کیوان با تمرکز بر انتخاب و عرضه برنج اصیل شمال آغاز شد.' },
+  { year: '۱۳۹۵', title: 'شفافیت منشأ', text: 'اطلاعات نوع برنج و منطقه کشت به بخش ثابت معرفی محصولات تبدیل شد.' },
+  { year: '۱۴۰۳', title: 'فروشگاه آنلاین', text: 'خرید مستقیم محصولات کیوان برای مشتریان سراسر ایران فراهم شد.' },
+  { year: '۱۴۰۵', title: 'تجربه خرید تازه', text: 'فروشگاه با قیمت‌گذاری شفاف، انتخاب سریع و اطلاعات دقیق‌تر محصول بازطراحی شد.' },
 ];
 
 export default function AboutPage() {
@@ -32,20 +33,23 @@ export default function AboutPage() {
       <Header />
       <main className="bg-[var(--cream)]">
         {/* Hero */}
-        <section className="relative h-[58vh] min-h-[420px] overflow-hidden grain-overlay">
-          <img
-            src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80"
-            alt="مزارع برنج شمال ایران"
-            className="absolute inset-0 w-full h-full object-cover"
+        <section className="relative h-[58vh] min-h-[420px] overflow-hidden">
+          <Image
+            src="/images/keyvan/about-quality.webp"
+            alt="بررسی کیفیت دانه‌های برنج کیوان پیش از بسته‌بندی"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
           />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(28,22,14,0.7), rgba(44,30,18,0.55))' }} />
-          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/25 to-transparent" />
+          <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-12 text-center md:pb-16">
             <p className="text-[var(--cream)]/60 text-[11px] tracking-[0.3em] mb-5">— داستان ما —</p>
             <h1 className="text-[var(--cream)] font-light leading-tight" style={{ fontSize: 'clamp(36px,6vw,72px)' }}>
-              از خاک شمال ایران
+              از خاک آمل، مازندران
             </h1>
             <p className="text-[var(--cream)]/70 text-[14px] md:text-[16px] mt-5 max-w-[480px] leading-loose">
-              سه نسل، یک باور: برنجی که شایسته‌ی سفره‌ی شماست.
+              یک برند خانوادگی با تمرکز بر انتخاب، کیفیت و منشأ روشن.
             </p>
           </div>
         </section>
@@ -53,9 +57,9 @@ export default function AboutPage() {
         {/* Intro */}
         <section className="max-w-[760px] mx-auto px-6 md:px-12 py-20 md:py-28 text-center">
           <p className="text-[var(--ink)] text-[18px] md:text-[22px] font-light leading-[2.1]">
-            کیوان از سال ۱۳۶۷ با کشاورزان نسل‌های شمال ایران کار می‌کند تا بهترین دانه‌ها،
-            بدون واسطه و بدون مصالحه روی کیفیت، به دست شما برسد. مزارع ما در گیلان، مازندران
-            و گلستان قرار دارند — جایی که آب‌وهوای مطبوع و خاک حاصل‌خیز، بهترین برنج جهان را می‌پروراند.
+            کیوان از سال ۱۳۸۷ بر انتخاب برنج ایرانی از شالیزارهای آمل در مازندران تمرکز دارد.
+            هر محصول با نوع برنج، منطقه کشت، وزن بسته و نتیجه پخت پیشنهادی معرفی می‌شود تا انتخاب
+            برای مصرف روزانه یا مهمانی روشن و قابل اعتماد باشد.
           </p>
         </section>
 
@@ -95,7 +99,7 @@ export default function AboutPage() {
           <div className="max-w-[820px] mx-auto px-6 md:px-12 py-20 md:py-28">
             <p className="text-[var(--olive)] text-[10px] tracking-[0.24em] mb-3 text-center">— مسیر کیوان —</p>
             <h2 className="text-[var(--ink)] font-light text-center mb-14" style={{ fontSize: 'clamp(28px,4vw,44px)' }}>
-              سه نسل، یک مسیر
+              مسیر رشد کیوان
             </h2>
             <div className="space-y-0">
               {TIMELINE.map((t, i) => (

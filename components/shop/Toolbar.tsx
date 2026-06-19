@@ -19,16 +19,16 @@ export function Toolbar({ count, gridCols, onGridChange }: Props) {
   const [sortOpen, setSortOpen] = useState(false);
 
   return (
-    <div className="harvest-card bg-paper p-4 md:p-5 mb-8">
+    <div className="mb-8 border-b border-line pb-6">
       <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5">
         <div>
-          <p className="section-eyebrow text-cypress mb-2">کاتالوگ محصولات</p>
+          <p className="section-eyebrow text-cypress mb-2">دفتر موجودی کیوان</p>
           <h2 className="title-md text-ink">همه محصولات</h2>
           <p className="small-copy text-muted mt-1">{toFa(count)} محصول آماده خرید</p>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-center gap-3">
-          <label className="min-h-11 border border-line bg-rice flex items-center gap-2 px-3 min-w-[240px]">
+          <label className="min-h-11 border-b border-line bg-transparent flex items-center gap-2 px-1 min-w-[240px] focus-within:border-ink">
             <Search className="w-4 h-4 text-muted shrink-0" />
             <span className="sr-only">جستجو در محصولات</span>
             <input
@@ -43,7 +43,7 @@ export function Toolbar({ count, gridCols, onGridChange }: Props) {
             <button
               type="button"
               onClick={() => setSortOpen((value) => !value)}
-              className="min-h-11 border border-line bg-rice px-4 text-[13px] flex items-center justify-between gap-4 hover:border-ink transition-colors min-w-[170px]"
+              className="min-h-11 border-b border-line bg-transparent px-1 text-[13px] flex items-center justify-between gap-4 hover:border-ink transition-colors min-w-[170px]"
               aria-expanded={sortOpen}
             >
               <span>{SORT_LABELS[sort]}</span>

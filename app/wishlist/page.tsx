@@ -4,7 +4,7 @@ import { useWishlist } from '@/lib/store/wishlist';
 import { useCart } from '@/lib/store/cart';
 import { toast } from 'sonner';
 import { PRODUCTS } from '@/lib/products';
-import { fmtPriceShort, toFa } from '@/lib/format';
+import { fmtPackPrice, fmtUnitPrice, toFa } from '@/lib/format';
 import Link from 'next/link';
 import { Heart, ShoppingBag, ArrowLeft } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -77,8 +77,9 @@ export default function WishlistPage() {
                       <Link href={`/product/${product.slug}`} className="text-[15px] font-medium hover:text-[var(--olive)] transition-colors">
                         {product.title}
                       </Link>
-                      <span className="text-[13px] text-[var(--muted)] whitespace-nowrap">{fmtPriceShort(product.price)} ت</span>
+                      <span className="text-[12px] text-[var(--muted)] whitespace-nowrap">{fmtUnitPrice(product.price)}</span>
                     </div>
+                    <p className="mb-3 text-[12px] text-muted">{fmtPackPrice(product.packPrice, product.weightKg)}</p>
                     <button
                       onClick={() => {
                         add(product.id);

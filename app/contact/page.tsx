@@ -3,15 +3,15 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { Mail, Phone, MapPin, Clock, Instagram, Send, Check } from 'lucide-react';
+import { Mail, PackageCheck, MapPin, Clock, Instagram, Send, Check } from 'lucide-react';
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
 import { contactFormSchema, type ContactFormInput } from '@/schemas/forms';
 
 const INFO = [
   { icon: Mail, label: 'ایمیل', value: 'info@keyvanrice.ir', href: 'mailto:info@keyvanrice.ir' },
-  { icon: Phone, label: 'تلفن', value: '۰۲۱-۱۲۳۴-۵۶۷۸', href: 'tel:+982112345678' },
-  { icon: MapPin, label: 'آدرس', value: 'تهران، خیابان ولیعصر، پلاک ۱۲۳' },
+  { icon: PackageCheck, label: 'پیگیری سفارش', value: 'از طریق حساب کاربری و ایمیل سفارش' },
+  { icon: MapPin, label: 'محدوده ارسال', value: 'ارسال قابل پیگیری به سراسر ایران' },
   { icon: Clock, label: 'ساعات پاسخگویی', value: 'شنبه تا پنج‌شنبه، ۹ تا ۱۸' },
 ];
 

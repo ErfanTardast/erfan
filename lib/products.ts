@@ -1,5 +1,7 @@
-export type RiceType = 'tarom' | 'shirudi' | 'domsiah' | 'alikazemi' | 'langroudi';
-export type Region = 'gilan' | 'mazandaran' | 'golestan';
+import { productSchema } from '@/schemas/product';
+
+export type RiceType = 'tarom' | 'shirudi' | 'domsiah' | 'alikazemi' | 'neda';
+export type Region = 'mazandaran';
 export type Aroma = 'strong' | 'mild' | 'neutral';
 export type GrainLength = 'long' | 'medium' | 'short';
 
@@ -8,9 +10,17 @@ export type Product = {
   slug: string;
   kicker: string;
   title: string;
+  /** Price per kilogram in toman. */
   price: number;
+  priceUnit: 'کیلوگرم';
   weight: string;
   weightKg: 2 | 3 | 5 | 10;
+  packPrice: number;
+  recommendedUse: string;
+  stockStatus: 'in-stock' | 'low-stock' | 'out-of-stock';
+  gallery: string[];
+  cookingNotes: string;
+  storageInstructions: string;
   copy: string;
   shortNote: string;
   image: string;
@@ -37,7 +47,12 @@ export type Product = {
   cookingTip?: string;
 };
 
-const rawProducts: Product[] = [
+type ProductSource = Omit<
+  Product,
+  'priceUnit' | 'packPrice' | 'recommendedUse' | 'stockStatus' | 'gallery' | 'cookingNotes' | 'storageInstructions'
+>;
+
+const rawProducts: ProductSource[] = [
   {
     id: '1',
     slug: 'tarom-hashemi-premium',
@@ -48,12 +63,12 @@ const rawProducts: Product[] = [
     weightKg: 5,
     copy: 'برنج طارم هاشمی ممتاز با دانه‌های کشیده و عطر بهشتی، انتخاب مجالس و سفره‌های خاص ایرانی است. هر وعده با این برنج، تجربه‌ای از طبیعت شمال ایران است.',
     shortNote: 'عطر بهشتی، بافت ابریشمی — مناسب پلوهای مجلسی',
-    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&q=80',
+    image: '/images/keyvan/tarom-premium.webp',
     rating: 4.9,
     reviewCount: 127,
     badge: { label: '۵ کیلوگرم', tone: 'neutral' },
     type: 'tarom',
-    region: 'gilan',
+    region: 'mazandaran',
     aroma: 'strong',
     grain: 'long',
     organic: false,
@@ -61,7 +76,7 @@ const rawProducts: Product[] = [
     inStock: true,
     isFeatured: true,
     harvestYear: '۱۴۰۳',
-    originStory: 'از دل مزارع پرآب رشت، جایی که مه صبحگاهی آرام روی خوشه‌های برنج می‌نشیند و کشاورزان نسل‌ها است این آیین را زنده نگه داشته‌اند.',
+    originStory: 'از دل شالیزارهای پرآب آمل، جایی که آب هراز به دشت می‌رسد و کشاورزان نسل‌ها است آیین کشت برنج را زنده نگه داشته‌اند.',
     flavorNotes: ['گلبرگ بهاری', 'دانه‌ی سفید زعفران', 'نفس کوه البرز'],
     aromaProfile: 'عطری که لحظه‌ای چشمانت را می‌بندد و به باغ‌های شمال می‌بری',
     textureProfile: 'ابریشمی، سبک و جداجدا — هر دانه یک دنیای مستقل',
@@ -80,7 +95,7 @@ const rawProducts: Product[] = [
     weightKg: 5,
     copy: 'شیرودی اصیل با سفیدی یکنواخت و پخت آسانش، ایده‌آل برای کته روزانه و غذاهای خانوادگی است.',
     shortNote: 'سفید یکنواخت، پخت آسان — ایده‌آل برای کته',
-    image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=720&q=80',
+    image: '/images/keyvan/daily.webp',
     rating: 4.7,
     reviewCount: 89,
     badge: { label: '۵ کیلوگرم', tone: 'neutral' },
@@ -92,7 +107,7 @@ const rawProducts: Product[] = [
     premium: false,
     inStock: true,
     harvestYear: '۱۴۰۳',
-    originStory: 'از جنگل‌های سرسبز مازندران، برنجی که سادگی را به هنر تبدیل می‌کند.',
+    originStory: 'از شالیزارهای آمل در مازندران، برنجی با پخت مطمئن برای سفره روزانه.',
     flavorNotes: ['برنج تازه', 'نان گرم', 'روستای باران‌خورده'],
     aromaProfile: 'عطر ساده و صادق — مثل خانه‌ی مادربزرگ',
     textureProfile: 'یکنواخت و نرم، پخت مطمئن و همیشه درست',
@@ -109,12 +124,12 @@ const rawProducts: Product[] = [
     weightKg: 5,
     copy: 'دمسیاه شمالی با دانه‌های کشیده و عطر ملایمش، انتخاب افرادی است که کیفیت واقعی را می‌شناسند.',
     shortNote: 'دانه‌های کشیده، عطر ملایم — انتخاب خاص',
-    image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=720&q=80',
+    image: '/images/keyvan/domsiah.webp',
     rating: 5,
     reviewCount: 64,
     badge: { label: 'ممتاز', tone: 'ink' },
     type: 'domsiah',
-    region: 'gilan',
+    region: 'mazandaran',
     aroma: 'mild',
     grain: 'long',
     organic: false,
@@ -122,7 +137,7 @@ const rawProducts: Product[] = [
     inStock: true,
     isFeatured: true,
     harvestYear: '۱۴۰۳',
-    originStory: 'از فومن گیلان، شهری که برنج‌اش معروف‌ترین شهر در ایران است. دمسیاه با دانه‌های کشیده‌اش نجیب‌ترین برنج ایران است.',
+    originStory: 'منتخب شالیزارهای آمل در مازندران؛ دمسیاه با دانه‌های کشیده و عطر ماندگار برای پلوهای رسمی.',
     flavorNotes: ['گل یاس', 'چوب صندل', 'نور آفتاب صبحگاهی'],
     aromaProfile: 'عطری شاعرانه و عمیق که حتی قبل از پخت هم حس می‌شود',
     textureProfile: 'کشیده، شفاف و جداجدا — هر دانه یک شعر کوتاه',
@@ -141,7 +156,7 @@ const rawProducts: Product[] = [
     weightKg: 5,
     copy: 'علی‌کاظمی با دانه‌های بلند و ممتاز، تاج طلایی خوان ایرانی است که هر وعده را به مناسبتی خاص تبدیل می‌کند.',
     shortNote: 'دانه بلند ممتاز — تاج طلایی خوان ایرانی',
-    image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=720&q=80',
+    image: '/images/keyvan/tarom-premium.webp',
     rating: 4.6,
     reviewCount: 102,
     badge: { label: '۵ کیلوگرم', tone: 'neutral' },
@@ -153,7 +168,7 @@ const rawProducts: Product[] = [
     premium: false,
     inStock: true,
     harvestYear: '۱۴۰۳',
-    originStory: 'علی‌کاظمی از مازندران، جایی که خاک سرخ و آب معدنی کوه‌های البرز ترکیبی منحصربه‌فرد می‌سازند.',
+    originStory: 'علی‌کاظمی منتخب آمل در مازندران، جایی که آب دامنه‌های البرز و خاک شالیزار نتیجه پختی متمایز می‌سازند.',
     flavorNotes: ['دانه طلایی', 'شیر برنج', 'خاک باران‌خورده'],
     aromaProfile: 'عطر ملایمی که با گرما شکوفا می‌شود',
     textureProfile: 'بلند و ممتاز، با قوام عالی برای پلوهای مجلسی',
@@ -170,19 +185,19 @@ const rawProducts: Product[] = [
     weightKg: 5,
     copy: 'کشت طبیعی بدون سموم شیمیایی، تأیید شده ارگانیک — برای خانواده‌هایی که سلامت را در اولویت قرار می‌دهند.',
     shortNote: 'کشت طبیعی، بدون سموم — تأیید شده ارگانیک',
-    image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=720&q=80',
+    image: '/images/keyvan/organic.webp',
     rating: 4.8,
     reviewCount: 73,
     badge: { label: 'ارگانیک', tone: 'olive' },
     type: 'tarom',
-    region: 'gilan',
+    region: 'mazandaran',
     aroma: 'strong',
     grain: 'long',
     organic: true,
     premium: true,
     inStock: true,
     harvestYear: '۱۴۰۳',
-    originStory: 'کشتی بدون کمک شیمی و با دست‌های کشاورزانی که به طبیعت احترام می‌گذارند. گواهی سبز از خاک سالم گیلان.',
+    originStory: 'کشت محدود در شالیزارهای منتخب آمل با حداقل مداخله و توجه به سلامت خاک و آب.',
     flavorNotes: ['طبیعت خالص', 'آفتاب مستقیم', 'باد شمال'],
     aromaProfile: 'پاک‌ترین عطر برنج ایرانی — طبیعت در هر نفس',
     textureProfile: 'نرم و سبک، با طعمی که سادگی را تجلیل می‌کند',
@@ -201,19 +216,19 @@ const rawProducts: Product[] = [
     weightKg: 5,
     copy: 'هاشمی سفید با سفیدی مرواریدی و عطر لطیف، همراه همیشگی سفره‌های ایرانی است.',
     shortNote: 'سفید مرواریدی، عطر لطیف — مناسب هر روز',
-    image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=720&q=80',
+    image: '/images/keyvan/daily.webp',
     rating: 4.5,
     reviewCount: 156,
     badge: { label: '۵ کیلوگرم', tone: 'neutral' },
     type: 'tarom',
-    region: 'gilan',
+    region: 'mazandaran',
     aroma: 'mild',
     grain: 'long',
     organic: false,
     premium: false,
     inStock: true,
     harvestYear: '۱۴۰۲',
-    originStory: 'هاشمی کلاسیک، قدیمی‌ترین عضو خانواده طارم. نسل‌هاست که صادقانه روی سفره‌های ایرانی حاضر است.',
+    originStory: 'هاشمی کلاسیک از آمل مازندران؛ انتخابی آشنا که نسل‌ها روی سفره‌های ایرانی حاضر بوده است.',
     flavorNotes: ['برنج خالص', 'کمی شیرینی طبیعی', 'سادگی اصیل'],
     aromaProfile: 'عطر آشنا و دلنشین — مثل بوی دم در آشپزخانه‌ی خانواده',
     textureProfile: 'نرم، سفید و یکنواخت — اعتمادپذیر و همیشه درست',
@@ -230,12 +245,12 @@ const rawProducts: Product[] = [
     weightKg: 5,
     copy: 'اولین محصول سال، با طعم تازه‌ی بهار در سفره. این برنج فصلی در مقدار محدود موجود است.',
     shortNote: 'اولین محصول سال — طعم تازه‌ی بهار در سفره',
-    image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=720&q=80',
+    image: '/images/keyvan/tarom-premium.webp',
     rating: 5,
     reviewCount: 42,
     badge: { label: 'فصلی', tone: 'gold' },
     type: 'tarom',
-    region: 'gilan',
+    region: 'mazandaran',
     aroma: 'strong',
     grain: 'long',
     organic: true,
@@ -243,7 +258,7 @@ const rawProducts: Product[] = [
     inStock: true,
     isNew: true,
     harvestYear: '۱۴۰۳',
-    originStory: 'اولین محصول سال از بهترین مزارع گیلان. بهار همه چیز را تازه می‌کند — این برنج هم.',
+    originStory: 'اولین محصول سال از شالیزارهای منتخب آمل. بهار همه چیز را تازه می‌کند — این برنج هم.',
     flavorNotes: ['شکوفه بهار', 'علف تازه', 'باران نوروز'],
     aromaProfile: 'تازه‌ترین عطر ممکن — انگار بهار در کیسه‌ی برنج است',
     textureProfile: 'ظریف و شکننده، با طعمی که فصل را یادت می‌اندازد',
@@ -254,27 +269,27 @@ const rawProducts: Product[] = [
   },
   {
     id: '8',
-    slug: 'langroudi-premium',
+    slug: 'neda-premium',
     kicker: 'برنج دانه کوتاه',
-    title: 'لنگرودی ممتاز',
+    title: 'ندا ممتاز',
     price: 210000,
     weight: '۳ کیلوگرم',
     weightKg: 3,
-    copy: 'لنگرودی ممتاز با دانه‌های گرد و بافت نرم، برای دمی و کته‌های خاص بی‌نظیر است.',
+    copy: 'برنج ندا ممتاز با پخت یکنواخت و بافت نرم، برای دمی و کته‌های روزانه انتخابی مطمئن است.',
     shortNote: 'دانه گرد، بافت نرم — عالی برای دمی و کته',
-    image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=720&q=80',
+    image: '/images/keyvan/organic.webp',
     rating: 4.7,
     reviewCount: 58,
     badge: { label: '۳ کیلوگرم', tone: 'neutral' },
-    type: 'langroudi',
-    region: 'gilan',
+    type: 'neda',
+    region: 'mazandaran',
     aroma: 'mild',
     grain: 'short',
     organic: false,
     premium: true,
     inStock: true,
     harvestYear: '۱۴۰۳',
-    originStory: 'از شهر لنگرود گیلان، جایی که برنج دانه‌کوتاه با طعمی متفاوت به دنیا می‌آید.',
+    originStory: 'از شالیزارهای آمل در مازندران؛ برنج ندا با پخت یکنواخت برای مصرف روزانه انتخاب شده است.',
     flavorNotes: ['خامه‌ی طبیعی', 'رزی گرم', 'مرواریدی سفید'],
     aromaProfile: 'عطر کمرنگ و خوشایند — خودش را با غذا هماهنگ می‌کند',
     textureProfile: 'گرد و نرم، می‌چسبد به هم — ایده‌آل برای دمی و کته‌های خاص',
@@ -284,7 +299,26 @@ const rawProducts: Product[] = [
   },
 ];
 
-export const PRODUCTS: Product[] = productSchema.array().parse(rawProducts);
+const USE_BY_TYPE: Record<RiceType, string> = {
+  tarom: 'پلو مجلسی و مهمانی',
+  shirudi: 'کته و مصرف روزانه',
+  domsiah: 'پذیرایی رسمی و پلو زعفرانی',
+  alikazemi: 'پلو خانوادگی و کباب',
+  neda: 'دمی و کته نرم',
+};
+
+export const PRODUCTS: Product[] = productSchema.array().parse(
+  rawProducts.map((product) => ({
+    ...product,
+    priceUnit: 'کیلوگرم' as const,
+    packPrice: product.price * product.weightKg,
+    recommendedUse: USE_BY_TYPE[product.type],
+    stockStatus: product.inStock ? (product.isNew ? 'low-stock' : 'in-stock') : 'out-of-stock',
+    gallery: [product.image],
+    cookingNotes: product.cookingTip ?? 'پیش از پخت ۴۵ دقیقه خیس شود و با حرارت ملایم دم بکشد.',
+    storageInstructions: 'در جای خشک، خنک و دور از نور مستقیم نگهداری شود.',
+  }))
+);
 
 export const getProductById = (id: string) => PRODUCTS.find((p) => p.id === id);
 export const getProductBySlug = (slug: string) => PRODUCTS.find((p) => p.slug === slug);
@@ -293,10 +327,10 @@ export const getProductBySlug = (slug: string) => PRODUCTS.find((p) => p.slug ==
 // Contextual rice imagery (field, grains, cooked, served) shown alongside
 // each product's primary photo.
 const CONTEXT_IMAGES = [
-  'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=720&q=80', // مزرعه
-  'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=720&q=80', // دانه برنج
-  'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=720&q=80', // برنج پخته
-  'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=720&q=80', // سرو شده
+  '/images/keyvan/hero-keyvan.webp',
+  '/images/keyvan/tarom-premium.webp',
+  '/images/keyvan/domsiah.webp',
+  '/images/keyvan/organic.webp',
 ];
 
 const baseId = (url: string) => url.split('?')[0];
@@ -304,7 +338,7 @@ const baseId = (url: string) => url.split('?')[0];
 export function getGallery(p: Product): string[] {
   const seen = new Set<string>();
   const out: string[] = [];
-  for (const url of [p.image, ...CONTEXT_IMAGES]) {
+  for (const url of [...p.gallery, ...CONTEXT_IMAGES]) {
     const id = baseId(url);
     if (!seen.has(id)) { seen.add(id); out.push(url); }
   }
@@ -346,13 +380,11 @@ export const RICE_TYPE_LABELS: Record<RiceType, string> = {
   shirudi: 'شیرودی',
   domsiah: 'دمسیاه',
   alikazemi: 'علی‌کاظمی',
-  langroudi: 'لنگرودی',
+  neda: 'ندا',
 };
 
 export const REGION_LABELS: Record<Region, string> = {
-  gilan: 'گیلان',
-  mazandaran: 'مازندران',
-  golestan: 'گلستان',
+  mazandaran: 'آمل، مازندران',
 };
 
 export const AROMA_LABELS: Record<Aroma, string> = {
@@ -366,4 +398,3 @@ export const GRAIN_LABELS: Record<GrainLength, string> = {
   medium: 'دانه متوسط',
   short: 'دانه کوتاه',
 };
-import { productSchema } from '@/schemas/product';

@@ -1,5 +1,6 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import { ArrowLeft, Heart, Leaf, ShoppingBag, User, X } from 'lucide-react';
 import Link from 'next/link';
 import { useMobileMenuStore } from '@/stores/mobile-menu-store';
@@ -25,8 +26,19 @@ export function MobileMenuDrawer() {
   const open = useMobileMenuStore((s) => s.isOpen);
   const setOpen = useMobileMenuStore((s) => s.setOpen);
   const user = useAccount((s) => s.user);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   const close = () => setOpen(false);
+
+  useEffect(() => {
+    if (!open) return;
+    closeRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [open, setOpen]);
 
   return (
     <AnimatePresence>
@@ -44,6 +56,9 @@ export function MobileMenuDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.28, ease: [0.2, 0.7, 0.2, 1] }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="منوی اصلی"
             className="fixed inset-y-0 right-0 z-50 flex w-[88%] max-w-[390px] flex-col overflow-y-auto border-l border-line bg-rice"
           >
             <div className="border-b border-line bg-paper p-5">
@@ -57,7 +72,7 @@ export function MobileMenuDrawer() {
                     <span className="mt-1 block text-[11px] text-muted">برنج اصیل ایرانی</span>
                   </span>
                 </Link>
-                <button onClick={close} aria-label="بستن" className="flex h-11 w-11 items-center justify-center border border-line bg-rice">
+                <button ref={closeRef} onClick={close} aria-label="بستن" className="flex h-11 w-11 items-center justify-center border border-line bg-rice">
                   <X className="h-5 w-5" />
                 </button>
               </div>
@@ -105,7 +120,7 @@ export function MobileMenuDrawer() {
             <div className="border-t border-line bg-paper p-5 text-[12px] leading-7 text-muted">
               ارسال رایگان برای سفارش‌های بالای ۵۰۰ هزار تومان
               <br />
-              پشتیبانی: ۰۲۱-۱۲۳۴۵۶۷۸
+              پشتیبانی: info@keyvanrice.ir
             </div>
           </motion.aside>
         </>

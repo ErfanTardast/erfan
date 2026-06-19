@@ -1,20 +1,16 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, Heart, Minus, Plus, ShieldCheck, Star, Truck, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useQuickViewStore } from '@/stores/quick-view-store';
 import { toast } from 'sonner';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
-import { fmtPrice, toFa } from '@/lib/format';
+import { fmtPackPrice, fmtUnitPrice, toFa } from '@/lib/format';
+import { getGallery } from '@/lib/products';
 import { EASE, modalScale } from '@/lib/motion';
-
-const GALLERY_EXTRA = [
-  'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=80',
-  'https://images.unsplash.com/photo-1536304929831-ee1ca9d44906?auto=format&fit=crop&w=900&q=80',
-];
 
 export function QuickViewModal() {
   const p = useQuickViewStore((s) => s.product);
@@ -26,10 +22,21 @@ export function QuickViewModal() {
   const toggleWish = useWishlist((s) => s.toggle);
   const [activeImg, setActiveImg] = useState(0);
   const [qty, setQty] = useState(1);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
-  const images = p ? [p.image, ...GALLERY_EXTRA] : [];
+  const images = p ? getGallery(p) : [];
   const filled = p ? Math.round(p.rating) : 0;
   const stars = Array.from({ length: 5 }, (_, i) => i < filled);
+
+  useEffect(() => {
+    if (!p) return;
+    closeRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeQuickView();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [p, closeQuickView]);
 
   const handleAdd = () => {
     if (!p) return;
@@ -60,11 +67,16 @@ export function QuickViewModal() {
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="quick-view-title"
+            aria-label={p.title}
             className="relative grid max-h-[92vh] w-full max-w-[1000px] overflow-hidden border border-line bg-paper shadow-2xl md:grid-cols-[1.1fr_1fr]"
           >
             {/* Close */}
             <button
               onClick={closeQuickView}
+              ref={closeRef}
               aria-label="بستن"
               className="absolute left-4 top-4 z-10 flex h-11 w-11 items-center justify-center border border-line bg-paper/92 shadow-sm backdrop-blur-sm transition-colors hover:bg-rice"
             >
@@ -112,7 +124,7 @@ export function QuickViewModal() {
               )}
               <span className="block h-px w-10 bg-[var(--terra)] mb-4" />
               <p className="section-eyebrow text-olive mb-3">{p.kicker}</p>
-              <h2 className="title-md leading-tight">{p.title}</h2>
+              <h2 id="quick-view-title" className="title-md leading-tight">{p.title}</h2>
 
               {/* Rating */}
               <div className="flex items-center gap-2 mt-3">
@@ -126,7 +138,10 @@ export function QuickViewModal() {
                 </span>
               </div>
 
-              <p className="text-[22px] font-light mt-4">{fmtPrice(p.price)}</p>
+              <div className="mt-4">
+                <p className="text-[18px] font-semibold">{fmtUnitPrice(p.price)}</p>
+                <p className="mt-1 text-[13px] text-muted">{fmtPackPrice(p.packPrice, p.weightKg)}</p>
+              </div>
 
               <p className="body-copy mt-5 leading-loose text-muted">{p.copy}</p>
 

@@ -23,7 +23,6 @@ export default function ShopPage() {
       <Header />
       <main className="pb-16 lg:pb-0">
         <ShopHero />
-        <TrustBar />
         <section className="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-10 md:py-16">
           <MobileFilterBarWrapper />
           <div className="grid lg:grid-cols-[260px_1fr] gap-10 xl:gap-16">
@@ -31,6 +30,7 @@ export default function ShopPage() {
             <ProductGrid />
           </div>
         </section>
+        <TrustBar />
         <RecentlyViewed />
         <EducationalSection />
         <Newsletter />

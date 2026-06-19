@@ -32,7 +32,7 @@ export function productJsonLd(product: Product) {
       '@type': 'Offer',
       url: absoluteUrl(`/product/${product.slug}`),
       priceCurrency: 'IRR',
-      price: product.price * 10,
+      price: product.packPrice * 10,
       availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       itemCondition: 'https://schema.org/NewCondition',
     },

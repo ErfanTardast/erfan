@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=85',
+        url: '/images/keyvan/hero-keyvan.webp',
         width: 1200,
         height: 630,
         alt: 'برنج ایرانی کیوان',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Keyvan Rice',
     description: 'برنج‌های اصیل ایرانی، از مزارع شمال تا سفره شما',
-    images: ['https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1200&q=85'],
+    images: ['/images/keyvan/hero-keyvan.webp'],
   },
 };
 

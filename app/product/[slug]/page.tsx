@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { PRODUCTS, getProductBySlug, getGallery, getReviews, RICE_NUTRITION, REGION_LABELS, AROMA_LABELS } from '@/lib/products';
-import { fmtPrice, toFa } from '@/lib/format';
+import { fmtPackPrice, fmtUnitPrice, toFa } from '@/lib/format';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
 import { toast } from 'sonner';
@@ -95,7 +95,7 @@ export default function ProductPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
       />
       <Header />
-      <main className="bg-cream min-h-screen">
+      <main className="min-h-screen bg-cream pb-20 lg:pb-0">
         {/* Breadcrumb */}
         <div className="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-5">
           <nav className="flex items-center gap-2 text-[11px] text-muted">
@@ -177,14 +177,18 @@ export default function ProductPage() {
 
               {/* Price */}
               <div className="mt-7 pb-7 border-b border-line">
-                <p className="text-[32px] font-light tracking-tight">
-                  {fmtPrice(product.price)}
-                  <span className="text-[16px] text-muted mr-2">تومان</span>
-                </p>
+                <p className="text-[22px] font-semibold">{fmtUnitPrice(product.price)}</p>
+                <p className="mt-2 text-[15px] text-muted">{fmtPackPrice(product.packPrice, product.weightKg)}</p>
               </div>
 
               {/* Qty + Add to cart */}
               <div className="mt-6 space-y-3">
+                <div>
+                  <p className="mb-2 text-[12px] text-muted">وزن بسته</p>
+                  <button type="button" aria-pressed="true" className="min-h-11 border border-ink bg-paper px-4 text-[13px]">
+                    {product.weight}
+                  </button>
+                </div>
                 <div className="flex items-center gap-3">
                   <div className="flex items-center border border-line">
                     <button
@@ -374,6 +378,19 @@ export default function ProductPage() {
           </section>
         )}
 
+        <section className="border-y border-line bg-paper">
+          <div className="site-shell grid gap-8 py-12 md:grid-cols-2">
+            <div>
+              <p className="section-eyebrow mb-3 text-cypress">راهنمای پخت</p>
+              <p className="body-copy text-muted">{product.cookingNotes}</p>
+            </div>
+            <div>
+              <p className="section-eyebrow mb-3 text-cypress">شرایط نگهداری</p>
+              <p className="body-copy text-muted">{product.storageInstructions}</p>
+            </div>
+          </div>
+        </section>
+
         {/* Chef's note */}
         {product.chefNote && (
           <section className="max-w-[900px] mx-auto px-5 md:px-8 lg:px-12 py-20 text-center">
@@ -497,7 +514,7 @@ export default function ProductPage() {
                       <p className="text-[15px] font-medium group-hover:text-olive transition-colors">
                         {p.title}
                       </p>
-                      <p className="text-[13px] text-muted mt-1">{fmtPrice(p.price)}</p>
+                      <p className="mt-1 text-[12px] text-muted">{fmtPackPrice(p.packPrice, p.weightKg)}</p>
                     </Link>
                   </motion.article>
                 ))}
@@ -508,6 +525,23 @@ export default function ProductPage() {
       </main>
       <Footer />
       <CartDrawer />
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-paper/96 p-3 backdrop-blur lg:hidden">
+        <div className="mx-auto flex max-w-[640px] items-center gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[12px] font-medium">{product.title}</p>
+            <p className="mt-0.5 text-[11px] text-muted">{fmtPackPrice(product.packPrice, product.weightKg)}</p>
+          </div>
+          <button
+            type="button"
+            onClick={handleAdd}
+            disabled={!hydrated || !product.inStock || adding}
+            className="cta-ink inline-flex min-h-11 items-center justify-center gap-2 px-5 text-[12px] disabled:opacity-50"
+          >
+            <ShoppingBag className="h-4 w-4" />
+            افزودن به سبد
+          </button>
+        </div>
+      </div>
     </>
   );
 }

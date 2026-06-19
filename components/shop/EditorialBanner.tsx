@@ -6,10 +6,10 @@ const guideItems = ['طارم برای مهمانی', 'شیرودی برای م�
 
 export function EditorialBanner() {
   return (
-    <div className="my-2 sm:col-span-2 xl:col-span-3">
-      <div className="harvest-card overflow-hidden bg-ink text-rice">
+    <div className="my-4 sm:col-span-2 xl:col-span-3">
+      <div className="overflow-hidden border border-cypress bg-ink text-rice shadow-[0_18px_60px_rgba(19,37,30,0.14)]">
         <div className="grid md:grid-cols-[1fr_0.8fr]">
-          <div className="field-pattern p-7 md:p-10">
+          <div className="field-pattern p-7 md:p-10 lg:p-12">
             <p className="section-eyebrow mb-4 text-saffron">راهنمای سریع خرید</p>
             <h2 className="title-md max-w-[520px] text-rice">
               اگر مطمئن نیستید کدام برنج مناسب سفره شماست، از مصرف شروع کنید.
@@ -34,13 +34,13 @@ export function EditorialBanner() {
           </div>
           <div className="relative min-h-[260px]">
             <Image
-              src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=82"
+              src="/images/keyvan/hero-keyvan.webp"
               alt="برنج سفید پخته برای راهنمای خرید کیوان"
               fill
               sizes="(min-width: 768px) 45vw, 100vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-l from-ink/55 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-l from-ink/35 to-transparent" />
           </div>
         </div>
       </div>

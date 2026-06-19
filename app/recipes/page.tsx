@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Clock, ChefHat, Users, ChevronDown } from 'lucide-react';
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
@@ -24,7 +25,7 @@ const RECIPES: Recipe[] = [
     time: '۴۵ دقیقه',
     level: 'متوسط',
     serves: '۴ نفر',
-    image: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=900&q=80',
+    image: '/images/keyvan/recipe-majlesi.webp',
     intro: 'پلوی مجلسی با ته‌دیگ طلایی و دانه‌های جدا — تاج هر سفره‌ی ایرانی.',
     ingredients: [
       '۳ پیمانه برنج طارم هاشمی',
@@ -47,7 +48,7 @@ const RECIPES: Recipe[] = [
     time: '۳۵ دقیقه',
     level: 'آسان',
     serves: '۳ نفر',
-    image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=80',
+    image: '/images/keyvan/recipe-kateh.webp',
     intro: 'کته‌ی سنتی شمالی، ساده و دلنشین — با عطری که خانه را پر می‌کند.',
     ingredients: [
       '۲ پیمانه برنج دمسیاه',
@@ -68,7 +69,7 @@ const RECIPES: Recipe[] = [
     time: '۶۰ دقیقه',
     level: 'متوسط',
     serves: '۴ نفر',
-    image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?auto=format&fit=crop&w=900&q=80',
+    image: '/images/keyvan/recipe-lubia.webp',
     intro: 'ترکیب گوشت، لوبیا سبز و گوجه با برنج خوش‌پخت شیرودی — یک غذای کامل خانوادگی.',
     ingredients: [
       '۳ پیمانه برنج شیرودی',
@@ -90,7 +91,7 @@ const RECIPES: Recipe[] = [
     time: '۵۰ دقیقه',
     level: 'متوسط',
     serves: '۴ نفر',
-    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=900&q=80',
+    image: '/images/keyvan/recipe-baghali.webp',
     intro: 'باقالی پلوی معطر با شوید تازه — همراه همیشگی ماهیچه و ماهی.',
     ingredients: [
       '۳ پیمانه برنج علی‌کاظمی',
@@ -112,8 +113,14 @@ function RecipeCard({ recipe }: { recipe: Recipe }) {
   return (
     <div className="bg-[var(--paper)] border border-[var(--line)] overflow-hidden">
       <div className="grid sm:grid-cols-[180px_1fr]">
-        <div className="aspect-[4/3] sm:aspect-auto sm:h-full overflow-hidden bg-[var(--sand)]">
-          <img src={recipe.image} alt={recipe.title} loading="lazy" className="w-full h-full object-cover" />
+        <div className="relative aspect-[4/3] overflow-hidden bg-[var(--sand)] sm:aspect-auto sm:h-full">
+          <Image
+            src={recipe.image}
+            alt={recipe.title}
+            fill
+            sizes="(min-width: 640px) 180px, 100vw"
+            className="object-cover"
+          />
         </div>
         <div className="p-6">
           <h2 className="text-[var(--ink)] text-[18px] font-medium mb-2">{recipe.title}</h2>

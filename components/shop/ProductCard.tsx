@@ -1,40 +1,55 @@
 'use client';
-import { Heart, ScanEye, ShoppingBag, Star } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+
+import { Heart, MapPin, ScanEye, ShoppingBag, Sparkles } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { type Product } from '@/lib/products';
-import { fmtPriceShort, toFa } from '@/lib/format';
+import {
+  AROMA_LABELS,
+  REGION_LABELS,
+  RICE_TYPE_LABELS,
+  type Product,
+} from '@/lib/products';
+import { fmtPackPrice, fmtUnitPrice } from '@/lib/format';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
 import { useQuickViewStore } from '@/stores/quick-view-store';
-import { toast } from 'sonner';
 import { useHistory } from '@/lib/store/history';
-import { EASE } from '@/lib/motion';
+import { toast } from 'sonner';
 
 const TONE_CLASSES: Record<NonNullable<Product['badge']>['tone'], string> = {
   neutral: 'bg-paper text-ink border-line',
   olive: 'bg-cypress text-rice border-cypress',
-  gold: 'bg-saffron text-ink border-saffron',
-  ink: 'bg-ink text-rice border-ink',
+  gold: 'bg-saffron text-deep border-saffron',
+  ink: 'bg-indigo text-rice border-indigo',
 };
 
-export function ProductCard({ product }: { product: Product }) {
-  const add = useCart((s) => s.add);
-  const openCartDrawer = useCart((s) => s.open);
-  const wished = useWishlist((s) => s.ids.includes(product.id));
-  const toggleWish = useWishlist((s) => s.toggle);
-  const openQuickView = useQuickViewStore((s) => s.open);
-  const addRecentlyViewed = useHistory((s) => s.addRecentlyViewed);
+export function ProductCard({
+  product,
+  compact = false,
+  featured = false,
+}: {
+  product: Product;
+  compact?: boolean;
+  featured?: boolean;
+}) {
+  const add = useCart((state) => state.add);
+  const openCart = useCart((state) => state.open);
+  const wished = useWishlist((state) => state.ids.includes(product.id));
+  const toggleWish = useWishlist((state) => state.toggle);
+  const openQuickView = useQuickViewStore((state) => state.open);
+  const addRecentlyViewed = useHistory((state) => state.addRecentlyViewed);
   const [adding, setAdding] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => setHydrated(true), []);
 
   const handleAdd = () => {
     setAdding(true);
     add(product.id);
-    openCartDrawer();
+    openCart();
     toast.success('به سبد اضافه شد', { description: product.title });
-    setTimeout(() => setAdding(false), 450);
+    window.setTimeout(() => setAdding(false), 350);
   };
 
   const handleQuickView = () => {
@@ -42,97 +57,105 @@ export function ProductCard({ product }: { product: Product }) {
     openQuickView(product);
   };
 
-  const filled = Math.round(product.rating);
-
   return (
-    <motion.article
-      layout
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.98 }}
-      transition={{ duration: 0.35, ease: EASE }}
-      className="group harvest-card bg-rice overflow-hidden"
-    >
+    <article className={`group h-full overflow-hidden border border-line bg-paper transition-[box-shadow,border-color] duration-200 hover:border-gold hover:shadow-[0_24px_70px_rgba(19,37,30,0.11)] ${featured ? 'md:grid md:grid-cols-[1.08fr_0.92fr]' : 'flex flex-col'}`}>
       <div className="relative">
-        <Link href={`/product/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-sand">
+        <Link href={`/product/${product.slug}`} className={`relative block overflow-hidden bg-sand ${featured ? 'min-h-[420px] md:h-full' : 'aspect-[4/5]'}`}>
           <Image
             src={product.image}
-            alt={product.title}
+            alt={`بسته ${product.title} کیوان`}
             fill
-            sizes="(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 100vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.045]"
+            sizes={featured ? '(min-width: 1024px) 42vw, 100vw' : '(min-width: 1280px) 22vw, (min-width: 640px) 45vw, 100vw'}
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.025]"
           />
         </Link>
 
-        <div className="absolute top-3 right-3 flex flex-col gap-2">
+        <div className="absolute right-3 top-3 flex flex-wrap gap-2">
           {product.badge && (
-            <span className={`border px-2.5 py-1.5 text-[10px] ${TONE_CLASSES[product.badge.tone]}`}>
+            <span className={`border px-3 py-1.5 text-[11px] ${TONE_CLASSES[product.badge.tone]}`}>
               {product.badge.label}
             </span>
           )}
-          {product.isNew && (
-            <span className="bg-saffron text-ink border border-saffron px-2.5 py-1.5 text-[10px]">
-              جدید
-            </span>
-          )}
+          <span className="border border-paper/70 bg-paper/92 px-3 py-1.5 text-[11px] text-cypress backdrop-blur-sm">
+            کنترل کیفیت
+          </span>
         </div>
 
-        <div className="absolute top-3 left-3 flex flex-col gap-2">
+        <div className="absolute left-3 top-3 flex gap-2">
           <button
+            type="button"
+            disabled={!hydrated}
             onClick={() => {
               toggleWish(product.id);
-              toast.success(wished ? 'از علاقه‌مندی‌ها حذف شد' : 'به علاقه‌مندی‌ها اضافه شد', {
-                description: product.title,
-              });
+              toast.success(wished ? 'از علاقه‌مندی‌ها حذف شد' : 'به علاقه‌مندی‌ها اضافه شد', { description: product.title });
             }}
-            aria-label="افزودن به علاقه‌مندی"
-            className={`w-11 h-11 flex items-center justify-center border backdrop-blur-sm transition-colors ${
-              wished ? 'bg-ink text-rice border-ink' : 'bg-paper/90 text-ink border-line hover:border-ink'
+            aria-label={wished ? 'حذف از علاقه‌مندی‌ها' : 'افزودن به علاقه‌مندی‌ها'}
+            className={`flex h-11 w-11 items-center justify-center border backdrop-blur-sm transition-colors disabled:cursor-wait disabled:opacity-60 ${
+              wished ? 'border-ink bg-ink text-rice' : 'border-paper/70 bg-paper/92 text-ink hover:border-gold'
             }`}
           >
-            <Heart className="w-4 h-4" fill={wished ? 'currentColor' : 'none'} />
+            <Heart className="h-4 w-4" fill={wished ? 'currentColor' : 'none'} />
           </button>
           <button
+            type="button"
             onClick={handleQuickView}
-            aria-label="نمای سریع محصول"
-            className="w-11 h-11 flex items-center justify-center border border-line bg-paper/90 text-ink backdrop-blur-sm hover:border-ink transition-colors"
+            disabled={!hydrated}
+            data-testid={`quick-view-${product.id}`}
+            data-hydrated={hydrated ? 'true' : 'false'}
+            aria-label={`نمای سریع ${product.title}`}
+            className="flex h-11 w-11 items-center justify-center border border-paper/70 bg-paper/92 text-ink backdrop-blur-sm transition-colors hover:border-gold disabled:cursor-wait disabled:opacity-60"
           >
-            <ScanEye className="w-4 h-4" />
+            <ScanEye className="h-4 w-4" />
           </button>
         </div>
       </div>
 
-      <div className="p-4">
-        <p className="text-[12px] text-cypress mb-2">{product.kicker}</p>
-        <div className="flex items-start justify-between gap-3">
-          <Link href={`/product/${product.slug}`} className="product-title text-ink hover:text-cypress transition-colors">
-            {product.title}
-          </Link>
-          <p className="text-[14px] font-semibold whitespace-nowrap pt-0.5 text-ink">
-            {fmtPriceShort(product.price)} <span className="text-[11px] font-normal text-muted">ت</span>
-          </p>
+      <div className={`flex flex-1 flex-col ${featured ? 'justify-center p-6 md:p-8' : 'p-5'}`}>
+        <div className="mb-3 flex items-center justify-between gap-3 text-[12px]">
+          <span className="font-semibold text-cypress">{RICE_TYPE_LABELS[product.type]}</span>
+          <span className="flex items-center gap-1.5 text-muted">
+            <MapPin className="h-3.5 w-3.5 text-indigo" />
+            {REGION_LABELS[product.region]}
+          </span>
         </div>
-        <p className="small-copy text-muted mt-2 line-clamp-2">{product.shortNote}</p>
 
-        <div className="flex items-center justify-between gap-3 mt-4">
-          <div className="flex items-center gap-1.5 text-[11px] text-muted">
-            <span className="flex gap-0.5 text-saffron">
-              {Array.from({ length: 5 }, (_, index) => (
-                <Star key={index} className={`w-3.5 h-3.5 ${index < filled ? 'fill-current' : ''}`} />
-              ))}
-            </span>
-            <span>({toFa(product.reviewCount)})</span>
-          </div>
-          <button
-            onClick={handleAdd}
-            disabled={!product.inStock || adding}
-            className="cta-ink inline-flex items-center justify-center gap-2 px-4 py-2.5 text-[12px] disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <ShoppingBag className="w-4 h-4" />
-            {adding ? '...' : product.inStock ? 'افزودن' : 'ناموجود'}
-          </button>
+        <Link href={`/product/${product.slug}`} className={`${featured ? 'text-[30px] leading-[1.35]' : 'text-[19px] leading-7'} font-semibold text-ink transition-colors hover:text-cypress`}>
+          {product.title}
+        </Link>
+
+        {featured && <p className="mt-4 text-[14px] leading-8 text-muted">{product.copy}</p>}
+
+        {!compact && (
+          <>
+            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-y border-line/70 py-3 text-[12px] text-muted">
+              <span>{product.weight}</span>
+              <span className="h-3 w-px bg-line" />
+              <span>{AROMA_LABELS[product.aroma]}</span>
+              <span className="h-3 w-px bg-line" />
+              <span className="flex items-center gap-1.5 text-ink">
+                <Sparkles className="h-3.5 w-3.5 text-saffron" />
+                {product.recommendedUse}
+              </span>
+            </div>
+          </>
+        )}
+
+        <div className="mt-auto pt-5">
+          <p className="text-[15px] font-semibold tabular-nums text-ink">{fmtPackPrice(product.packPrice, product.weightKg)}</p>
+          <p className="mt-1 text-[12px] text-muted">{fmtUnitPrice(product.price)}</p>
         </div>
+
+        <button
+          type="button"
+          data-testid={`add-product-${product.id}`}
+          onClick={handleAdd}
+          disabled={!hydrated || !product.inStock || adding}
+          className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 bg-cypress px-4 text-[13px] font-semibold text-rice transition-colors hover:bg-deep disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <ShoppingBag className="h-4 w-4" />
+          {adding ? 'در حال افزودن...' : product.inStock ? 'افزودن به سبد' : 'ناموجود'}
+        </button>
       </div>
-    </motion.article>
+    </article>
   );
 }

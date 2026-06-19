@@ -26,9 +26,7 @@ const STEPS = [
 ];
 
 const PAYMENT_METHODS = [
-  { id: 'card', label: 'پرداخت آنلاین', sub: 'درگاه پرداخت زرین‌پال' },
-  { id: 'cod', label: 'پرداخت در محل', sub: 'هنگام تحویل مرسوله' },
-  { id: 'transfer', label: 'کارت به کارت', sub: 'واریز به حساب کیوان' },
+  { id: 'cod', label: 'ثبت درخواست سفارش', sub: 'پرداخت پس از تأیید سفارش هماهنگ می‌شود' },
 ];
 
 function Field({
@@ -76,7 +74,7 @@ export default function CheckoutPage() {
       city: '',
       address: '',
       postal: '',
-      payMethod: 'card',
+      payMethod: 'cod',
     },
   });
   const payMethod = watch('payMethod');
@@ -109,7 +107,7 @@ export default function CheckoutPage() {
     .map(i => ({ ...i, p: getProductById(i.id) }))
     .filter(l => l.p) as { id: string; qty: number; p: NonNullable<ReturnType<typeof getProductById>> }[];
 
-  const subtotal = lines.reduce((s, l) => s + l.p.price * l.qty, 0);
+  const subtotal = lines.reduce((s, l) => s + l.p.packPrice * l.qty, 0);
   const shipping = subtotal >= 500000 ? 0 : 45000;
   const total = subtotal + shipping;
 
@@ -120,11 +118,11 @@ export default function CheckoutPage() {
     addOrder({
       num: orderNum,
       date: new Date().toISOString(),
-      items: lines.map((l) => ({ id: l.p.id, title: l.p.title, weight: l.p.weight, qty: l.qty, price: l.p.price })),
+      items: lines.map((l) => ({ id: l.p.id, title: l.p.title, weight: l.p.weight, qty: l.qty, price: l.p.packPrice })),
       subtotal,
       shipping,
       total,
-      payMethod: values.payMethod === 'card' ? 'پرداخت آنلاین' : values.payMethod === 'cod' ? 'پرداخت در محل' : 'کارت به کارت',
+      payMethod: 'هماهنگی پس از تأیید سفارش',
       status: 'processing',
       address: [values.province, values.city, values.address].filter(Boolean).join('، '),
     });
@@ -252,8 +250,8 @@ export default function CheckoutPage() {
                     <h2 className="text-[18px] font-medium mb-7">آدرس تحویل</h2>
                     <div className="space-y-5">
                       <div className="grid grid-cols-2 gap-4">
-                        <Field label="استان" id="province" placeholder="گیلان" registration={register('province')} error={errors.province?.message} />
-                        <Field label="شهر" id="city" placeholder="رشت" registration={register('city')} error={errors.city?.message} />
+                        <Field label="استان" id="province" placeholder="مازندران" registration={register('province')} error={errors.province?.message} />
+                        <Field label="شهر" id="city" placeholder="آمل" registration={register('city')} error={errors.city?.message} />
                       </div>
                       <Field label="آدرس دقیق" id="address" placeholder="خیابان، کوچه، پلاک، طبقه، واحد" registration={register('address')} error={errors.address?.message} />
                       <Field label="کد پستی" id="postal" placeholder="1234567890" registration={register('postal')} error={errors.postal?.message} required={false} />
@@ -287,6 +285,9 @@ export default function CheckoutPage() {
                     transition={{ duration: 0.35, ease: EASE }}
                   >
                     <h2 className="text-[18px] font-medium mb-7">روش پرداخت</h2>
+                    <div className="mb-5 border border-saffron/40 bg-saffron/10 p-4 text-[12px] leading-7 text-ink">
+                      درگاه آنلاین هنوز متصل نشده است. در نسخه محلی، سفارش برای بررسی ثبت می‌شود و پرداختی انجام نمی‌شود.
+                    </div>
                     <div className="space-y-3">
                       {PAYMENT_METHODS.map(m => (
                         <button
@@ -337,7 +338,7 @@ export default function CheckoutPage() {
                         onClick={handleConfirm}
                         className="flex-1 bg-ink text-white py-4 text-[13px] tracking-[0.08em] hover:bg-[var(--terra)] transition-colors"
                       >
-                        ثبت و پرداخت — {fmtPrice(total)}
+                        ثبت درخواست سفارش — {fmtPrice(total)}
                       </button>
                     </div>
                   </motion.div>
@@ -360,16 +361,16 @@ export default function CheckoutPage() {
                     >
                       <Check className="w-7 h-7 text-olive" />
                     </motion.div>
-                    <p className="section-eyebrow text-olive mb-4">سفارش ثبت شد</p>
-                    <h2 className="title-md mb-4">ممنون از خرید شما!</h2>
+                    <p className="section-eyebrow text-olive mb-4">درخواست ثبت شد</p>
+                    <h2 className="title-md mb-4">درخواست سفارش ذخیره شد</h2>
                     <p className="body-copy text-muted mb-3 leading-relaxed">
-                      سفارش شما با موفقیت ثبت شد و به زودی پردازش خواهد شد.
+                      این سفارش در نسخه محلی ذخیره شده است. پیش از انتشار، این مرحله به backend و درگاه پرداخت متصل می‌شود.
                     </p>
                     <div className="inline-block border border-line px-6 py-3 text-[12px] text-muted mb-8">
                       شماره سفارش: <span className="font-medium text-ink">{orderNum}</span>
                     </div>
                     <p className="small-copy text-muted mb-8">
-                      {email ? `پیامک تأیید به ${phone} و ایمیل به ${email} ارسال خواهد شد.` : `پیامک تأیید به ${phone} ارسال خواهد شد.`}
+                      اطلاعات تماس ثبت‌شده: {phone}{email ? ` · ${email}` : ''}
                     </p>
                     <div className="flex flex-col gap-3">
                       {user && (
@@ -418,7 +419,7 @@ export default function CheckoutPage() {
                         <p className="text-[11px] text-muted mt-0.5">{l.p.weight}</p>
                         <div className="flex items-center justify-between mt-1.5">
                           <span className="text-[11px] text-muted">× {toFa(l.qty)}</span>
-                          <span className="text-[12px]">{fmtPrice(l.p.price * l.qty)}</span>
+                          <span className="text-[12px]">{fmtPrice(l.p.packPrice * l.qty)}</span>
                         </div>
                       </div>
                     </div>

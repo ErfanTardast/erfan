@@ -7,7 +7,7 @@ import { useSearchStore } from '@/stores/search-store';
 import { useQuickViewStore } from '@/stores/quick-view-store';
 import { useHistory } from '@/lib/store/history';
 import { PRODUCTS } from '@/lib/products';
-import { fmtPrice } from '@/lib/format';
+import { fmtPackPrice } from '@/lib/format';
 import { EASE } from '@/lib/motion';
 import { useDebounce } from '@/hooks/useDebounce';
 
@@ -173,7 +173,7 @@ export function SearchOverlay() {
                           <p className="text-[14px] font-medium">{p.title}</p>
                           <p className="small-copy text-muted mt-0.5 truncate">{p.shortNote}</p>
                         </div>
-                        <p className="text-[13px] text-muted shrink-0">{fmtPrice(p.price)}</p>
+                        <p className="shrink-0 text-[12px] text-muted">{fmtPackPrice(p.packPrice, p.weightKg)}</p>
                       </motion.button>
                     ))}
                   </div>

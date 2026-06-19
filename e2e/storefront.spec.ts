@@ -14,6 +14,42 @@ test('homepage loads in RTL with Keyvan branding', async ({ page }) => {
   await expect(page.getByRole('main')).toContainText('کیوان');
   await expect(page.locator('body')).not.toContainText('Server Error');
   await expect(page.locator('body')).not.toContainText(oldBrandPattern);
+  await expect(page.getByText('۹۲۵٬۰۰۰ تومان', { exact: true })).toBeVisible();
+});
+
+test('homepage commerce actions work without leaving the first shopping section', async ({ page }) => {
+  await gotoStorefront(page, '/');
+
+  const firstCard = page.locator('article').first();
+  await expect(firstCard).toBeVisible();
+  const cardBox = await firstCard.boundingBox();
+  const viewport = page.viewportSize();
+  expect(cardBox?.y ?? Number.POSITIVE_INFINITY).toBeLessThan((viewport?.height ?? 900) * 2);
+
+  const quickView = page.getByTestId('quick-view-1');
+  await expect(quickView).toHaveAttribute('data-hydrated', 'true');
+  await quickView.click();
+  await expect(page.getByRole('dialog', { name: /طارم هاشمی ممتاز/ })).toBeVisible();
+  await page.keyboard.press('Escape');
+
+  await firstCard.getByRole('button', { name: /افزودن به علاقه‌مندی‌ها/ }).click();
+  await gotoStorefront(page, '/wishlist');
+  await expect(page.getByText('طارم هاشمی ممتاز', { exact: true })).toBeVisible();
+
+  await gotoStorefront(page, '/');
+  await page.getByTestId('add-product-1').click();
+  await expect(page.getByTestId('cart-drawer')).toBeVisible();
+});
+
+test('homepage is responsive and respects reduced motion', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await gotoStorefront(page, '/');
+
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(1);
+  await expect(page.locator('article').first()).toBeVisible();
 });
 
 test('shop page loads product cards without old branding', async ({ page }) => {
@@ -35,6 +71,50 @@ test('product page can add to cart and navigate checkout', async ({ page }) => {
   await expect(page.getByTestId('cart-drawer')).toBeVisible();
   await page.getByTestId('cart-checkout-link').click();
   await expect(page).toHaveURL(/\/checkout$/);
+});
+
+test('local checkout request completes without claiming a real payment', async ({ page }) => {
+  await gotoStorefront(page, '/product/tarom-hashemi-premium');
+  await page.getByTestId('pdp-add-to-cart').click();
+  await page.getByTestId('cart-checkout-link').click();
+
+  await page.getByLabel(/نام و نام‌خانوادگی/).fill('رضا محمدی');
+  await page.getByLabel(/شماره موبایل/).fill('09123456789');
+  await page.getByRole('button', { name: /ادامه — آدرس تحویل/ }).click();
+
+  await page.getByLabel(/استان/).fill('تهران');
+  await page.getByLabel(/شهر/).fill('تهران');
+  await page.getByLabel(/آدرس دقیق/).fill('خیابان ولیعصر، کوچه نمونه، پلاک ۱۲');
+  await page.getByRole('button', { name: /ادامه — انتخاب پرداخت/ }).click();
+
+  await expect(page.getByText(/درگاه آنلاین هنوز متصل نشده است/)).toBeVisible();
+  await page.getByRole('button', { name: /ثبت درخواست سفارش —/ }).click();
+  await expect(page.getByRole('heading', { name: 'درخواست سفارش ذخیره شد' })).toBeVisible();
+});
+
+test('local account signup opens the customer account', async ({ page }) => {
+  await gotoStorefront(page, '/login');
+  const signupTab = page.getByTestId('account-tab-signup');
+  await expect(signupTab).toHaveAttribute('data-hydrated', 'true');
+  await signupTab.click();
+  await page.locator('#account-name').fill('کاربر کیوان');
+  await page.locator('#account-email').fill('customer@example.com');
+  await page.locator('#account-phone').fill('09121111111');
+  await page.locator('#account-password').fill('local-password');
+  await page.getByRole('button', { name: /ساخت حساب/ }).click();
+  await expect(page).toHaveURL(/\/account$/);
+  await expect(page.getByRole('heading', { name: 'کاربر کیوان' })).toBeVisible();
+});
+
+test('about and recipes use local Keyvan imagery', async ({ page }) => {
+  for (const route of ['/about', '/recipes']) {
+    await gotoStorefront(page, route);
+    const sources = await page.locator('main img').evaluateAll((images) =>
+      images.map((image) => (image as HTMLImageElement).currentSrc || (image as HTMLImageElement).src)
+    );
+    expect(sources.length).toBeGreaterThan(0);
+    expect(sources.every((source) => !source.includes('images.unsplash.com'))).toBe(true);
+  }
 });
 
 for (const route of ['/shipping', '/returns', '/faq', '/wholesale']) {
