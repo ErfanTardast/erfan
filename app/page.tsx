@@ -40,7 +40,7 @@ export default function HomePage() {
           <ProductSection
             title="تخفیف‌های هیجان‌انگیز"
             products={DISCOUNT_PRODUCTS}
-            showDiscount
+            showCountdown
           />
         </div>
 

@@ -294,6 +294,22 @@ a:focus-visible {
   --ec-card-shadow-hover: 0 4px 20px rgba(0,0,0,0.10), 0 8px 32px rgba(0,0,0,0.06);
 }
 
+/* Product card elevation */
+.ec-card {
+  box-shadow: var(--ec-card-shadow);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.ec-card:hover {
+  box-shadow: var(--ec-card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Tabular numbers for prices */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
 /* Line clamp utilities */
 .line-clamp-2 {
   display: -webkit-box;

@@ -41,31 +41,56 @@ const SERVICES = [
 export function ServiceHighlights() {
   return (
     <section className="bg-white border border-gray-100 rounded-lg md:rounded-xl mt-3 md:mt-4 overflow-hidden">
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 divide-x divide-x-reverse divide-gray-100">
-        {SERVICES.map((s, i) => {
-          const Icon = s.icon;
-          return (
-            <div
-              key={i}
-              className={`flex items-center gap-2.5 sm:gap-3 px-3 sm:px-4 py-3 sm:py-4 hover:bg-gray-50 transition-colors ${
-                i === 4 ? 'col-span-2 sm:col-span-1 sm:col-start-auto' : ''
-              }`}
-            >
-              <div className={`w-9 h-9 sm:w-10 sm:h-10 ${s.bg} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${s.color}`} />
-              </div>
-              <div className="min-w-0">
-                <p className="text-[11px] sm:text-xs md:text-[13px] font-semibold text-gray-800 leading-tight">
-                  {s.title}
-                </p>
-                <p className="text-[9px] sm:text-[10px] text-gray-500 mt-0.5 leading-tight hidden sm:block">
-                  {s.desc}
-                </p>
-              </div>
-            </div>
-          );
-        })}
+      {/* Mobile: 3+2 grid; sm+: 5 columns */}
+      <div className="grid grid-cols-3 md:grid-cols-5 divide-y divide-gray-100 md:divide-y-0 md:divide-x md:divide-x-reverse">
+        {/* First row: 3 items */}
+        {SERVICES.slice(0, 3).map((s, i) => (
+          <ServiceItem key={i} s={s} />
+        ))}
+        {/* Second row on mobile: 2 items centered via col-start */}
+        <div className="col-span-3 md:hidden grid grid-cols-2 border-t border-gray-100 divide-x divide-x-reverse divide-gray-100">
+          {SERVICES.slice(3).map((s, i) => (
+            <ServiceItem key={i + 3} s={s} center />
+          ))}
+        </div>
+        {/* md+ shows last 2 normally */}
+        {SERVICES.slice(3).map((s, i) => (
+          <div key={i + 3} className="hidden md:block divide-x divide-x-reverse divide-gray-100">
+            <ServiceItem s={s} />
+          </div>
+        ))}
       </div>
     </section>
+  );
+}
+
+function ServiceItem({
+  s,
+  center = false,
+}: {
+  s: (typeof SERVICES)[number];
+  center?: boolean;
+}) {
+  const Icon = s.icon;
+  return (
+    <div
+      className={`flex items-center gap-2 sm:gap-2.5 px-2.5 sm:px-4 py-3 sm:py-4 hover:bg-gray-50 transition-colors ${
+        center ? 'justify-center' : ''
+      }`}
+    >
+      <div
+        className={`w-8 h-8 sm:w-10 sm:h-10 ${s.bg} rounded-lg flex items-center justify-center flex-shrink-0`}
+      >
+        <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${s.color}`} />
+      </div>
+      <div className="min-w-0">
+        <p className="text-[10px] sm:text-xs md:text-[13px] font-semibold text-gray-800 leading-tight">
+          {s.title}
+        </p>
+        <p className="text-[9px] sm:text-[10px] text-gray-500 mt-0.5 leading-tight hidden sm:block">
+          {s.desc}
+        </p>
+      </div>
+    </div>
   );
 }

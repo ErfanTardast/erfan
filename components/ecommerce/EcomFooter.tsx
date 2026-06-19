@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Phone, Mail, ChevronDown, Instagram, Send } from 'lucide-react';
+import { Phone, ChevronDown, Instagram, Send, Shield, Lock, Truck, Headphones, CreditCard } from 'lucide-react';
 import Link from 'next/link';
 
 const FOOTER_COLS = [
@@ -87,17 +87,17 @@ export function EcomFooter() {
       {/* Trust badges row */}
       <div className="border-b border-gray-800">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 md:gap-8">
+          <div className="flex flex-wrap items-center justify-center sm:justify-between gap-4 sm:gap-3 w-full">
             {[
-              { label: 'ضمانت اصالت کالا', icon: '🛡️' },
-              { label: 'پرداخت امن', icon: '🔒' },
-              { label: 'ارسال سریع', icon: '🚚' },
-              { label: 'پشتیبانی ۲۴ ساعته', icon: '📞' },
-              { label: 'خرید اقساطی', icon: '💳' },
-            ].map((item) => (
-              <div key={item.label} className="flex items-center gap-2">
-                <span className="text-lg">{item.icon}</span>
-                <span className="text-[11px] sm:text-xs text-gray-300">{item.label}</span>
+              { label: 'ضمانت اصالت کالا', Icon: Shield, color: 'text-green-400' },
+              { label: 'پرداخت امن', Icon: Lock, color: 'text-blue-400' },
+              { label: 'ارسال سریع', Icon: Truck, color: 'text-orange-400' },
+              { label: 'پشتیبانی ۲۴ ساعته', Icon: Headphones, color: 'text-purple-400' },
+              { label: 'خرید اقساطی', Icon: CreditCard, color: 'text-red-400' },
+            ].map(({ label, Icon, color }) => (
+              <div key={label} className="flex items-center gap-2">
+                <Icon className={`w-4 h-4 flex-shrink-0 ${color}`} />
+                <span className="text-[11px] sm:text-xs text-gray-300 whitespace-nowrap">{label}</span>
               </div>
             ))}
           </div>
