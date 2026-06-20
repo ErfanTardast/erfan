@@ -10,34 +10,25 @@ test('homepage loads in RTL with Keyvan branding', async ({ page }) => {
   await gotoStorefront(page, '/');
 
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl');
-  await expect(page.getByRole('main').getByText('Keyvan', { exact: true })).toBeVisible();
+  await expect(page.getByText('Keyvan', { exact: true }).first()).toBeVisible();
   await expect(page.getByRole('main')).toContainText('کیوان');
   await expect(page.locator('body')).not.toContainText('Server Error');
   await expect(page.locator('body')).not.toContainText(oldBrandPattern);
-  await expect(page.getByText('۹۲۵٬۰۰۰ تومان', { exact: true })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: /برنج اصیل شمال/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'ورود به فروشگاه' }).first()).toBeVisible();
 });
 
-test('homepage commerce actions work without leaving the first shopping section', async ({ page }) => {
+test('homepage exposes shop and cart actions immediately', async ({ page }) => {
   await gotoStorefront(page, '/');
 
-  const firstCard = page.locator('article').first();
-  await expect(firstCard).toBeVisible();
-  const cardBox = await firstCard.boundingBox();
-  const viewport = page.viewportSize();
-  expect(cardBox?.y ?? Number.POSITIVE_INFINITY).toBeLessThan((viewport?.height ?? 900) * 2);
-
-  const quickView = page.getByTestId('quick-view-1');
-  await expect(quickView).toHaveAttribute('data-hydrated', 'true');
-  await quickView.click();
-  await expect(page.getByRole('dialog', { name: /طارم هاشمی ممتاز/ })).toBeVisible();
-  await page.keyboard.press('Escape');
-
-  await firstCard.getByRole('button', { name: /افزودن به علاقه‌مندی‌ها/ }).click();
-  await gotoStorefront(page, '/wishlist');
-  await expect(page.getByText('طارم هاشمی ممتاز', { exact: true })).toBeVisible();
-
-  await gotoStorefront(page, '/');
-  await page.getByTestId('add-product-1').click();
+  await expect(page.getByRole('link', { name: 'ورود به فروشگاه' })).toHaveAttribute('href', '/shop');
+  await expect(page.getByRole('link', { name: /طارم هاشمی ممتاز/ })).toHaveAttribute(
+    'href',
+    '/product/tarom-hashemi-premium'
+  );
+  const cartButton = page.getByRole('button', { name: 'سبد خرید' });
+  await expect(cartButton).toHaveAttribute('data-hydrated', 'true');
+  await cartButton.click();
   await expect(page.getByTestId('cart-drawer')).toBeVisible();
 });
 
@@ -49,7 +40,7 @@ test('homepage is responsive and respects reduced motion', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(1);
-  await expect(page.locator('article').first()).toBeVisible();
+  await expect(page.getByRole('link', { name: 'ورود به فروشگاه' })).toBeVisible();
 });
 
 test('shop page loads product cards without old branding', async ({ page }) => {

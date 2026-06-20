@@ -31,8 +31,8 @@ contrast.
 
 - RTL and mobile-first.
 - Use `site-shell` for consistent responsive gutters.
-- Homepage order: header, product hero, featured products, collections, trust,
-  short story, newsletter, footer.
+- Homepage is a hero gateway: minimal header, one direct product hero with
+  embedded trust and product facts, then a minimal footer.
 - Products appear within the first two scrolls.
 - Cards use square corners or a maximum radius of 8px.
 - Never nest cards or float whole page sections as cards.
