@@ -13,7 +13,7 @@ const shopLinks = [
   { label: 'طارم هاشمی', href: '/category/tarom' },
   { label: 'دمسیاه شمالی', href: '/category/domsiah' },
   { label: 'کیوان ممتاز', href: '/brand/keyvan-premium' },
-  { label: 'ارگانیک', href: '/brand/keyvan-organic' },
+  { label: 'کشت طبیعی', href: '/brand/keyvan-organic' },
 ];
 
 const helpLinks = [
@@ -56,11 +56,11 @@ export function Footer() {
               </span>
               <span>
                 <span className="latin block text-[42px] leading-none">Keyvan</span>
-                <span className="mt-1 block text-[11px] text-rice/52">برنج اصیل ایرانی</span>
+                <span className="mt-1 block text-[11px] text-rice/52">انتخاب برنج ایرانی از آمل</span>
               </span>
             </Link>
             <p className="mt-6 max-w-[380px] text-[14px] leading-8 text-rice/58">
-              فروشگاه تخصصی برنج ایرانی با اطلاعات روشن منشأ، کاربرد و قیمت کامل بسته.
+              کیوان برنج ایرانی منتخب آمل را با مشخصات روشن رقم، برداشت، کاربرد و قیمت کامل بسته عرضه می‌کند.
             </p>
             <div className="mt-7 flex gap-3">
               <a href="https://instagram.com/keyvanrice" target="_blank" rel="noopener noreferrer" className="inline-flex h-11 w-11 items-center justify-center border border-rice/18 text-rice/70 transition-colors hover:border-saffron hover:text-saffron" aria-label="اینستاگرام کیوان">
@@ -87,8 +87,8 @@ export function Footer() {
           </div>
 
           <div className="border-t border-rice/18 pt-6 lg:border-r lg:border-t-0 lg:pr-8 lg:pt-0">
-            <p className="section-eyebrow mb-4 text-saffron">خبرنامه برداشت</p>
-            <p className="mb-5 text-[12px] leading-7 text-rice/52">موجودی محدود و راهنمای پخت را دریافت کنید.</p>
+            <p className="section-eyebrow mb-4 text-saffron">اطلاع از برداشت و موجودی</p>
+            <p className="mb-5 text-[12px] leading-7 text-rice/52">زمان عرضه محصول تازه و راهنمای کاربردی پخت را دریافت کنید.</p>
             {done ? (
               <p className="text-[13px] text-saffron">عضویت شما ثبت شد.</p>
             ) : (
@@ -104,7 +104,7 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col justify-between gap-3 border-t border-rice/14 pt-5 text-[11px] text-rice/38 md:flex-row">
           <span>© ۱۴۰۵ کیوان. تمام حقوق محفوظ است.</span>
-          <span className="latin">Persian rice, documented by origin.</span>
+          <span className="latin">Selected in Amol. Clear from origin to cooking.</span>
         </div>
       </div>
     </footer>

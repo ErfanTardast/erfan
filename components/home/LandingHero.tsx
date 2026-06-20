@@ -1,18 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle2, MapPin, PackageCheck, Truck } from 'lucide-react';
+import { assetPath } from '@/lib/asset-path';
 
 const proofs = [
-  { icon: MapPin, label: 'آمل، مازندران' },
-  { icon: PackageCheck, label: 'کنترل کیفیت پیش از ارسال' },
-  { icon: Truck, label: 'ارسال قابل پیگیری' },
+  { icon: MapPin, label: 'منتخب شالیزارهای آمل' },
+  { icon: PackageCheck, label: 'بررسی دانه و نتیجه پخت' },
+  { icon: Truck, label: 'ارسال رهگیری‌پذیر' },
 ];
 
 export function LandingHero() {
   return (
     <section className="home-hero relative isolate overflow-hidden bg-cream">
       <Image
-        src="/images/keyvan/hero-amol-v2.webp"
+        src={assetPath('/images/keyvan/hero-amol-v2.webp')}
         alt="بسته برنج کیوان، کاسه مسی برنج و خوشه برنج ایرانی"
         fill
         priority
@@ -24,14 +25,14 @@ export function LandingHero() {
 
       <div className="site-shell relative z-10 flex min-h-[calc(100svh-68px)] items-center py-12 md:py-14">
         <div className="home-hero-copy max-w-[690px]">
-          <p className="section-eyebrow mb-5 text-cypress">کیوان · برنج منتخب آمل، مازندران</p>
+          <p className="section-eyebrow mb-5 text-cypress">کیوان · انتخاب برنج ایرانی از آمل</p>
           <h1 className="max-w-[680px] text-[clamp(42px,6.2vw,82px)] font-semibold leading-[1.12] text-ink">
-            برنج اصیل شمال،
-            <span className="block">انتخاب‌شده با منشأ مشخص</span>
+            برنج ایرانی منتخب،
+            <span className="block">با منشأ و نتیجه پخت روشن</span>
           </h1>
           <p className="mt-6 max-w-[610px] text-[16px] leading-8 text-muted md:text-[17px]">
-            کیوان برنج ایرانی را با تمرکز بر کیفیت پخت، عطر، پاکیزگی و بسته‌بندی مطمئن برای خانه،
-            مهمانی و رستوران عرضه می‌کند.
+            هر محصول کیوان با رقم برنج، سال برداشت، کاربرد پیشنهادی و قیمت کامل بسته معرفی می‌شود؛
+            برای انتخاب مطمئن خانه، مهمانی و رستوران.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -46,13 +47,13 @@ export function LandingHero() {
               href="/about"
               className="inline-flex min-h-12 items-center justify-center border border-ink/25 bg-paper/70 px-7 text-[14px] font-medium text-ink transition-colors hover:border-ink hover:bg-paper"
             >
-              درباره کیوان
+              روش انتخاب کیوان
             </Link>
           </div>
 
           <div className="mt-7 flex max-w-[610px] items-start gap-3 border-t border-ink/15 pt-5 text-[12px] leading-6 text-ink/70">
             <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-gold" />
-            <span>تست کیفیت قبل از ارسال · بسته‌بندی تمیز · پشتیبانی مستقیم</span>
+            <span>کنترل عطر و یکدستی دانه · بسته‌بندی ایمن · راهنمایی پیش از خرید</span>
           </div>
 
           <div className="mt-5 grid max-w-[640px] grid-cols-1 gap-2 sm:grid-cols-3">
@@ -70,7 +71,7 @@ export function LandingHero() {
         href="/product/tarom-hashemi-premium"
         className="absolute bottom-6 left-6 z-10 hidden min-w-[250px] border-r-2 border-gold bg-paper/92 px-5 py-4 text-ink shadow-sm backdrop-blur-sm transition-colors hover:bg-paper md:block"
       >
-        <span className="block text-[11px] text-cypress">انتخاب شاخص کیوان</span>
+        <span className="block text-[11px] text-cypress">پیشنهاد کیوان برای پلو مجلسی</span>
         <span className="mt-1 flex items-end justify-between gap-6">
           <strong className="text-[15px]">طارم هاشمی ممتاز</strong>
           <span className="text-[12px]">۹۲۵٬۰۰۰ تومان</span>

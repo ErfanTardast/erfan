@@ -45,10 +45,10 @@ export default function ContactPage() {
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 py-16 md:py-24">
           <p className="text-[var(--olive)] text-[10px] tracking-[0.24em] mb-5 text-center">— تماس با ما —</p>
           <h1 className="text-[var(--ink)] font-light text-center mb-4" style={{ fontSize: 'clamp(32px,5vw,56px)' }}>
-            در تماس باشید
+            برای انتخاب و پیگیری، با کیوان در تماس باشید
           </h1>
           <p className="text-[var(--muted)] text-[14px] text-center max-w-[460px] mx-auto mb-16 leading-loose">
-            سوال، پیشنهاد یا درخواست همکاری دارید؟ خوشحال می‌شویم از شما بشنویم.
+            درباره انتخاب برنج، شیوه پخت، وضعیت سفارش یا خرید عمده پرسشی دارید؟ پیام شما مستقیم به تیم کیوان می‌رسد.
           </p>
 
           <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20">

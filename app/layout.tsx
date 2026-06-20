@@ -3,6 +3,7 @@ import { Vazirmatn, Fraunces } from 'next/font/google';
 import { Toaster } from 'sonner';
 import './globals.css';
 import { organizationJsonLd } from '@/lib/catalog/structured-data';
+import { absoluteAssetUrl } from '@/lib/asset-path';
 
 const vazir = Vazirmatn({
   subsets: ['arabic', 'latin'],
@@ -21,31 +22,31 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://keyvanrice.ir'),
   title: {
-    default: 'Keyvan Rice — برنج‌های ممتاز ایرانی',
+    default: 'کیوان | برنج منتخب آمل با منشأ مشخص',
     template: '%s | Keyvan Rice',
   },
   description:
-    'از مزارع سبز شمال ایران تا سفره شما — تجربه‌ای از طبیعت اصیل ایران در هر دانه برنج.',
-  keywords: ['برنج', 'طارم هاشمی', 'برنج ایرانی', 'کیوان', 'persian rice'],
+    'فروش برنج ایرانی منتخب آمل با اطلاعات روشن رقم، سال برداشت، نتیجه پخت و قیمت کامل هر بسته.',
+  keywords: ['برنج آمل', 'برنج مازندران', 'طارم هاشمی', 'برنج ایرانی', 'کیوان', 'persian rice'],
   openGraph: {
-    title: 'Keyvan Rice',
-    description: 'برنج‌های اصیل ایرانی، از مزارع شمال تا سفره شما',
+    title: 'کیوان | برنج منتخب آمل',
+    description: 'برنج ایرانی با منشأ مشخص، نتیجه پخت روشن و قیمت کامل هر بسته.',
     locale: 'fa_IR',
     type: 'website',
     images: [
       {
-        url: '/images/keyvan/hero-keyvan.webp',
+        url: absoluteAssetUrl('/images/keyvan/hero-amol-v2.webp'),
         width: 1200,
         height: 630,
-        alt: 'برنج ایرانی کیوان',
+        alt: 'برنج ایرانی منتخب کیوان از آمل',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Keyvan Rice',
-    description: 'برنج‌های اصیل ایرانی، از مزارع شمال تا سفره شما',
-    images: ['/images/keyvan/hero-keyvan.webp'],
+    title: 'کیوان | برنج منتخب آمل',
+    description: 'برنج ایرانی با منشأ مشخص، نتیجه پخت روشن و قیمت کامل هر بسته.',
+    images: [absoluteAssetUrl('/images/keyvan/hero-amol-v2.webp')],
   },
 };
 

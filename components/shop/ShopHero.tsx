@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ChevronLeft, MapPin } from 'lucide-react';
+import { assetPath } from '@/lib/asset-path';
 
 const ROUTES = [
   { label: 'مجلسی', sub: 'طارم و دمسیاه', href: '/use-case/guest-table' },
   { label: 'مصرف روزانه', sub: 'شیرودی و ندا', href: '/use-case/daily-cooking' },
-  { label: 'کشت طبیعی', sub: 'انتخاب‌های ارگانیک', href: '/use-case/organic-family' },
+  { label: 'کشت طبیعی', sub: 'محموله‌های محدود آمل', href: '/use-case/organic-family' },
 ];
 
 export function ShopHero() {
@@ -21,7 +22,7 @@ export function ShopHero() {
         <div className="grid overflow-hidden border border-line bg-paper lg:grid-cols-[0.62fr_1.38fr]">
           <div className="relative min-h-[300px] lg:min-h-[420px]">
             <Image
-              src="/images/keyvan/hero-ledger.webp"
+              src={assetPath('/images/keyvan/hero-ledger.webp')}
               alt="برنج‌های منتخب فروشگاه کیوان"
               fill
               priority
@@ -36,10 +37,10 @@ export function ShopHero() {
               آمل، مازندران
             </div>
             <h1 className="mt-5 max-w-[760px] text-[clamp(38px,6vw,78px)] font-semibold leading-[1.08] text-ink">
-              برنج را با نتیجه پخت انتخاب کنید.
+              برنج مناسب سفره‌تان را با اطلاعات کامل انتخاب کنید.
             </h1>
             <p className="mt-5 max-w-[650px] text-[15px] leading-8 text-muted">
-              نوع برنج، عطر، منطقه کشت، وزن بسته و قیمت کامل در یک نگاه؛ بدون حدس‌زدن و قیمت مبهم.
+              رقم برنج، عطر، نتیجه پخت، وزن و قیمت کامل هر بسته را کنار هم ببینید؛ بدون توضیح کلی و قیمت مبهم.
             </p>
 
             <div className="mt-8 grid gap-px border border-line bg-line sm:grid-cols-3">

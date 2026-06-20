@@ -3,25 +3,26 @@ import { Footer } from '@/components/shop/Footer';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Sprout, Hand, ShieldCheck, Heart } from 'lucide-react';
+import { assetPath } from '@/lib/asset-path';
 
 export const metadata = { title: 'داستان ما — Keyvan Rice' };
 
 const STATS = [
   { value: '۱۸', label: 'سال فعالیت' },
   { value: '۱', label: 'منطقه اصلی کشت' },
-  { value: '۸', label: 'نوع برنج اصیل' },
-  { value: '۱۰۰٪', label: 'منشأ قابل رهگیری' },
+  { value: '۸', label: 'انتخاب برای مصرف متفاوت' },
+  { value: '۱۰۰٪', label: 'محصول با مشخصات روشن' },
 ];
 
 const VALUES = [
-  { icon: Sprout, title: 'کشت اصیل', text: 'تنها بذرهای بومی شمال ایران، در خاکی که نسل‌ها برنج پرورده است.' },
+  { icon: Sprout, title: 'منشأ مشخص', text: 'رقم برنج، منطقه کشت و سال برداشت در معرفی هر محصول ثبت می‌شود.' },
   { icon: Hand, title: 'انتخاب دقیق', text: 'هر محموله از نظر عطر، یکدستی دانه و نتیجه پخت بررسی می‌شود.' },
-  { icon: ShieldCheck, title: 'تضمین اصالت', text: 'بدون اختلاط، بدون افزودنی. هر کیسه دقیقاً همان است که روی برچسب نوشته شده.' },
-  { icon: Heart, title: 'رابطه مستقیم', text: 'همکاری پایدار با تأمین‌کنندگان منتخب شمال و اطلاعات روشن برای خریدار.' },
+  { icon: ShieldCheck, title: 'معرفی شفاف', text: 'وزن، قیمت کامل بسته، کاربرد پیشنهادی و شیوه پخت پیش از خرید روشن است.' },
+  { icon: Heart, title: 'پشتیبانی پاسخ‌گو', text: 'برای انتخاب محصول، شیوه پخت و پیگیری سفارش می‌توانید مستقیم با کیوان در تماس باشید.' },
 ];
 
 const TIMELINE = [
-  { year: '۱۳۸۷', title: 'آغاز کیوان', text: 'فعالیت کیوان با تمرکز بر انتخاب و عرضه برنج اصیل شمال آغاز شد.' },
+  { year: '۱۳۸۷', title: 'آغاز کیوان', text: 'فعالیت کیوان با تمرکز بر انتخاب و عرضه برنج ایرانی از آمل آغاز شد.' },
   { year: '۱۳۹۵', title: 'شفافیت منشأ', text: 'اطلاعات نوع برنج و منطقه کشت به بخش ثابت معرفی محصولات تبدیل شد.' },
   { year: '۱۴۰۳', title: 'فروشگاه آنلاین', text: 'خرید مستقیم محصولات کیوان برای مشتریان سراسر ایران فراهم شد.' },
   { year: '۱۴۰۵', title: 'تجربه خرید تازه', text: 'فروشگاه با قیمت‌گذاری شفاف، انتخاب سریع و اطلاعات دقیق‌تر محصول بازطراحی شد.' },
@@ -35,7 +36,7 @@ export default function AboutPage() {
         {/* Hero */}
         <section className="relative h-[58vh] min-h-[420px] overflow-hidden">
           <Image
-            src="/images/keyvan/about-quality.webp"
+            src={assetPath('/images/keyvan/about-quality.webp')}
             alt="بررسی کیفیت دانه‌های برنج کیوان پیش از بسته‌بندی"
             fill
             priority
@@ -46,10 +47,10 @@ export default function AboutPage() {
           <div className="relative z-10 flex h-full flex-col items-center justify-end px-6 pb-12 text-center md:pb-16">
             <p className="text-[var(--cream)]/60 text-[11px] tracking-[0.3em] mb-5">— داستان ما —</p>
             <h1 className="text-[var(--cream)] font-light leading-tight" style={{ fontSize: 'clamp(36px,6vw,72px)' }}>
-              از خاک آمل، مازندران
+              کیوان؛ انتخاب دقیق برنج ایرانی
             </h1>
             <p className="text-[var(--cream)]/70 text-[14px] md:text-[16px] mt-5 max-w-[480px] leading-loose">
-              یک برند خانوادگی با تمرکز بر انتخاب، کیفیت و منشأ روشن.
+              از شالیزارهای آمل تا بسته‌بندی نهایی، هر محصول با معیار مشخص انتخاب و معرفی می‌شود.
             </p>
           </div>
         </section>
@@ -57,9 +58,9 @@ export default function AboutPage() {
         {/* Intro */}
         <section className="max-w-[760px] mx-auto px-6 md:px-12 py-20 md:py-28 text-center">
           <p className="text-[var(--ink)] text-[18px] md:text-[22px] font-light leading-[2.1]">
-            کیوان از سال ۱۳۸۷ بر انتخاب برنج ایرانی از شالیزارهای آمل در مازندران تمرکز دارد.
-            هر محصول با نوع برنج، منطقه کشت، وزن بسته و نتیجه پخت پیشنهادی معرفی می‌شود تا انتخاب
-            برای مصرف روزانه یا مهمانی روشن و قابل اعتماد باشد.
+            کیوان از سال ۱۳۸۷ بر انتخاب و عرضه برنج ایرانی از شالیزارهای آمل تمرکز دارد.
+            هر محموله بر اساس عطر، یکدستی دانه و نتیجه پخت بررسی می‌شود و با مشخصات روشن رقم،
+            سال برداشت، وزن و کاربرد پیشنهادی در اختیار خریدار قرار می‌گیرد.
           </p>
         </section>
 
@@ -121,13 +122,13 @@ export default function AboutPage() {
         {/* CTA */}
         <section className="max-w-[760px] mx-auto px-6 md:px-12 py-20 md:py-28 text-center">
           <h2 className="text-[var(--ink)] font-light mb-6" style={{ fontSize: 'clamp(28px,4vw,44px)' }}>
-            طعم اصالت را تجربه کنید
+            برنج مناسب مصرف خود را دقیق‌تر انتخاب کنید
           </h2>
           <p className="text-[var(--muted)] text-[15px] leading-loose mb-9 max-w-[480px] mx-auto">
-            هر دانه‌ی کیوان، روایتی از خاک و آفتاب و دست‌های کشاورز است. به جمع خانواده‌ی ما بپیوندید.
+            محصولات را بر اساس عطر، نوع پخت و کاربرد مقایسه کنید و پیش از سفارش، قیمت کامل هر بسته را ببینید.
           </p>
           <Link href="/shop" className="inline-flex items-center gap-2 bg-[var(--ink)] text-[var(--cream)] text-[13px] tracking-[0.1em] px-9 py-4 hover:bg-[var(--deep)] transition-colors">
-            مشاهده محصولات
+            مقایسه و خرید محصولات
           </Link>
         </section>
       </main>

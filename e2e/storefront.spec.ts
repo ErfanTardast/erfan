@@ -14,7 +14,7 @@ test('homepage loads in RTL with Keyvan branding', async ({ page }) => {
   await expect(page.getByRole('main')).toContainText('کیوان');
   await expect(page.locator('body')).not.toContainText('Server Error');
   await expect(page.locator('body')).not.toContainText(oldBrandPattern);
-  await expect(page.getByRole('heading', { level: 1, name: /برنج اصیل شمال/ })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: /برنج ایرانی منتخب/ })).toBeVisible();
   await expect(page.getByRole('link', { name: 'ورود به فروشگاه' }).first()).toBeVisible();
 });
 

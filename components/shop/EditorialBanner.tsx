@@ -1,6 +1,7 @@
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { assetPath } from '@/lib/asset-path';
 
 const guideItems = ['طارم برای مهمانی', 'شیرودی برای مصرف روزانه', 'دمسیاه برای عطر قوی'];
 
@@ -12,7 +13,7 @@ export function EditorialBanner() {
           <div className="field-pattern p-7 md:p-10 lg:p-12">
             <p className="section-eyebrow mb-4 text-saffron">راهنمای سریع خرید</p>
             <h2 className="title-md max-w-[520px] text-rice">
-              اگر مطمئن نیستید کدام برنج مناسب سفره شماست، از مصرف شروع کنید.
+              انتخاب را از نوع مصرف شروع کنید: مهمانی، مصرف روزانه یا عطر بیشتر.
             </h2>
             <div className="mt-6 grid gap-3 text-[13px] text-rice/78 sm:grid-cols-3">
               {guideItems.map((item) => (
@@ -34,7 +35,7 @@ export function EditorialBanner() {
           </div>
           <div className="relative min-h-[260px]">
             <Image
-              src="/images/keyvan/hero-keyvan.webp"
+              src={assetPath('/images/keyvan/hero-keyvan.webp')}
               alt="برنج سفید پخته برای راهنمای خرید کیوان"
               fill
               sizes="(min-width: 768px) 45vw, 100vw"

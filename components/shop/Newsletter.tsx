@@ -50,12 +50,12 @@ export function Newsletter() {
     <section className="border-b border-line bg-paper">
       <div className="site-shell grid lg:grid-cols-[0.9fr_1.1fr]">
         <div className="border-b border-line py-14 lg:border-b-0 lg:border-l lg:py-20 lg:pl-14">
-          <p className="section-eyebrow mb-4 text-clay">نامه برداشت</p>
+          <p className="section-eyebrow mb-4 text-clay">خبرنامه کیوان</p>
           <h2 className="max-w-[520px] text-[clamp(32px,4vw,56px)] font-semibold leading-[1.22] text-ink">
-            موجودی تازه و راهنمای پخت، کوتاه و کاربردی.
+            موجودی برداشت‌های تازه و راهنمای دقیق پخت
           </h2>
           <p className="mt-5 max-w-[500px] text-[14px] leading-8 text-muted">
-            فقط زمان عرضه برداشت‌های محدود، پیشنهادهای فصلی و نکته‌های واقعی برای بهتر پختن برنج.
+            فقط زمان عرضه محصول تازه، موجودی محدود و نکته‌های آزموده‌شده پخت برای شما ایمیل می‌فرستیم.
           </p>
         </div>
 

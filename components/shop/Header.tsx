@@ -9,6 +9,7 @@ import { useSearchStore } from '@/stores/search-store';
 import { useMobileMenuStore } from '@/stores/mobile-menu-store';
 import { useAccount } from '@/lib/store/account';
 import { toFa } from '@/lib/format';
+import { assetPath } from '@/lib/asset-path';
 
 const riceLinks = [
   { label: 'طارم هاشمی', href: '/category/tarom' },
@@ -61,7 +62,7 @@ export function Header() {
             </span>
             <span className="leading-none">
               <span className="latin block text-[29px] text-ink">Keyvan</span>
-              <span className="mt-1 block text-[10px] text-muted">دفتر انتخاب برنج ایرانی</span>
+              <span className="mt-1 block text-[10px] text-muted">مرجع انتخاب برنج ایرانی از آمل</span>
             </span>
           </Link>
         </div>
@@ -96,7 +97,7 @@ export function Header() {
                 </div>
                 <Link href="/shop?premium=true" className="relative min-h-[210px] overflow-hidden bg-ink text-rice group/card">
                   <Image
-                    src="/images/keyvan/tarom-premium.webp"
+                    src={assetPath('/images/keyvan/tarom-premium.webp')}
                     alt="دانه‌های برنج کیوان"
                     fill
                     sizes="312px"

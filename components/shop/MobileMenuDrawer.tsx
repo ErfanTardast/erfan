@@ -69,7 +69,7 @@ export function MobileMenuDrawer() {
                   </span>
                   <span>
                     <span className="latin block text-[30px] leading-none text-ink">Keyvan</span>
-                    <span className="mt-1 block text-[11px] text-muted">برنج اصیل ایرانی</span>
+                    <span className="mt-1 block text-[11px] text-muted">انتخاب برنج ایرانی از آمل</span>
                   </span>
                 </Link>
                 <button ref={closeRef} onClick={close} aria-label="بستن" className="flex h-11 w-11 items-center justify-center border border-line bg-rice">

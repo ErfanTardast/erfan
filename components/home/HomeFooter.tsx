@@ -11,7 +11,7 @@ export function HomeFooter() {
           </span>
           <span>
             <span className="latin block text-[27px] leading-none">Keyvan</span>
-            <span className="mt-1 block text-[10px] text-rice/55">برنج اصیل ایرانی</span>
+            <span className="mt-1 block text-[10px] text-rice/55">برنج ایرانی با معیار انتخاب روشن</span>
           </span>
         </Link>
 

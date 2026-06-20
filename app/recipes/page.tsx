@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Clock, ChefHat, Users, ChevronDown } from 'lucide-react';
 import { Header } from '@/components/shop/Header';
 import { Footer } from '@/components/shop/Footer';
+import { assetPath } from '@/lib/asset-path';
 
 type Recipe = {
   title: string;
@@ -25,7 +26,7 @@ const RECIPES: Recipe[] = [
     time: '۴۵ دقیقه',
     level: 'متوسط',
     serves: '۴ نفر',
-    image: '/images/keyvan/recipe-majlesi.webp',
+    image: assetPath('/images/keyvan/recipe-majlesi.webp'),
     intro: 'پلوی مجلسی با ته‌دیگ طلایی و دانه‌های جدا — تاج هر سفره‌ی ایرانی.',
     ingredients: [
       '۳ پیمانه برنج طارم هاشمی',
@@ -48,7 +49,7 @@ const RECIPES: Recipe[] = [
     time: '۳۵ دقیقه',
     level: 'آسان',
     serves: '۳ نفر',
-    image: '/images/keyvan/recipe-kateh.webp',
+    image: assetPath('/images/keyvan/recipe-kateh.webp'),
     intro: 'کته‌ی سنتی شمالی، ساده و دلنشین — با عطری که خانه را پر می‌کند.',
     ingredients: [
       '۲ پیمانه برنج دمسیاه',
@@ -69,7 +70,7 @@ const RECIPES: Recipe[] = [
     time: '۶۰ دقیقه',
     level: 'متوسط',
     serves: '۴ نفر',
-    image: '/images/keyvan/recipe-lubia.webp',
+    image: assetPath('/images/keyvan/recipe-lubia.webp'),
     intro: 'ترکیب گوشت، لوبیا سبز و گوجه با برنج خوش‌پخت شیرودی — یک غذای کامل خانوادگی.',
     ingredients: [
       '۳ پیمانه برنج شیرودی',
@@ -91,7 +92,7 @@ const RECIPES: Recipe[] = [
     time: '۵۰ دقیقه',
     level: 'متوسط',
     serves: '۴ نفر',
-    image: '/images/keyvan/recipe-baghali.webp',
+    image: assetPath('/images/keyvan/recipe-baghali.webp'),
     intro: 'باقالی پلوی معطر با شوید تازه — همراه همیشگی ماهیچه و ماهی.',
     ingredients: [
       '۳ پیمانه برنج علی‌کاظمی',

@@ -48,7 +48,7 @@ export function HomeHeader() {
             </span>
             <span>
               <span className="latin block text-[27px] leading-none text-ink">Keyvan</span>
-              <span className="mt-1 block text-[10px] text-muted">برنج اصیل آمل، مازندران</span>
+              <span className="mt-1 block text-[10px] text-muted">انتخاب و عرضه برنج ایرانی از آمل</span>
             </span>
           </Link>
 
