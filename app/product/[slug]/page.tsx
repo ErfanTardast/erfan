@@ -2,11 +2,11 @@
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { ChevronLeft, Heart, Minus, Plus, ShoppingBag, ShieldCheck, Truck, Star } from 'lucide-react';
+import { ChevronLeft, Heart, Minus, Plus, ShoppingBag, ShieldCheck, Truck, PackageCheck } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { PRODUCTS, getProductBySlug, getGallery, getReviews, RICE_NUTRITION, REGION_LABELS, AROMA_LABELS } from '@/lib/products';
+import { PRODUCTS, getProductBySlug, getGallery, RICE_NUTRITION, REGION_LABELS, AROMA_LABELS } from '@/lib/products';
 import { fmtPackPrice, fmtUnitPrice, toFa } from '@/lib/format';
 import { useCart } from '@/lib/store/cart';
 import { useWishlist } from '@/lib/store/wishlist';
@@ -72,12 +72,16 @@ export default function ProductPage() {
     setTimeout(() => setAdding(false), 600);
   };
 
-  const filled = Math.round(product.rating);
-  const stars = Array.from({ length: 5 }, (_, i) => i < filled);
-
   const related = PRODUCTS.filter(
     (p) => p.id !== product.id && (p.type === product.type || p.region === product.region)
   ).slice(0, 3);
+  const purchaseFacts = [
+    { label: 'منشأ', value: REGION_LABELS[product.region] },
+    { label: 'سال برداشت', value: product.harvestYear ?? 'درج‌شده روی بسته' },
+    { label: 'کاربرد پیشنهادی', value: product.recommendedUse },
+    { label: 'وضعیت موجودی', value: product.inStock ? (product.stockStatus === 'low-stock' ? 'موجودی محدود' : 'آماده سفارش') : 'ناموجود' },
+    { label: 'وزن و قیمت بسته', value: fmtPackPrice(product.packPrice, product.weightKg) },
+  ];
 
   const jsonLd = [
     productJsonLd(product),
@@ -158,14 +162,9 @@ export default function ProductPage() {
               <p className="section-eyebrow text-olive mb-3">{product.kicker}</p>
               <h1 className="title-lg !leading-tight">{product.title}</h1>
 
-              {/* Rating */}
-              <div className="flex items-center gap-2 mt-4">
-                <div className="flex gap-0.5">
-                  {stars.map((f, i) => (
-                    <Star key={i} className={`w-3.5 h-3.5 ${f ? 'text-gold fill-gold' : 'text-[#d9d3ca]'}`} />
-                  ))}
-                </div>
-                <span className="text-[12px] text-muted">({toFa(product.reviewCount)} نظر)</span>
+              <div className="mt-4 inline-flex items-center gap-2 border border-line bg-paper px-3 py-2 text-[12px] text-cypress">
+                <PackageCheck className="h-4 w-4" />
+                <span>{product.inStock ? 'مشخصات محموله ثبت شده و آماده سفارش است' : 'این محصول در حال حاضر ناموجود است'}</span>
               </div>
 
               {/* Aroma profile */}
@@ -244,7 +243,7 @@ export default function ProductPage() {
                 </div>
                 <div className="flex items-center gap-3 text-[12px] text-muted">
                   <ShieldCheck className="w-4 h-4 text-olive shrink-0" />
-                  <span>تضمین اصالت ۱۰۰٪ — بازگشت رایگان تا ۷ روز</span>
+                  <span>ضمانت تطابق مشخصات و سلامت بسته — امکان درخواست بازگشت تا ۷ روز</span>
                 </div>
               </div>
             </motion.div>
@@ -409,7 +408,7 @@ export default function ProductPage() {
           </section>
         )}
 
-        {/* Nutrition + Reviews */}
+        {/* Nutrition + verifiable purchase facts */}
         <section className="border-t border-sand bg-cream">
           <div className="max-w-[1500px] mx-auto px-5 md:px-8 lg:px-12 py-16 md:py-24 grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20">
             {/* Nutrition */}
@@ -429,46 +428,21 @@ export default function ProductPage() {
               </p>
             </div>
 
-            {/* Reviews */}
+            {/* Purchase facts */}
             <div>
-              <div className="flex items-end justify-between mb-7">
-                <div>
-                  <p className="section-eyebrow text-olive mb-3">نظر مشتریان</p>
-                  <h2 className="title-md">{toFa(product.reviewCount)} دیدگاه ثبت‌شده</h2>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Star className="w-5 h-5 text-gold fill-gold" />
-                  <span className="text-[22px] font-light">{toFa(product.rating.toFixed(1))}</span>
-                </div>
-              </div>
-              <div className="space-y-5">
-                {getReviews(product).map((r, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 14 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ delay: i * 0.06, duration: 0.6, ease: EASE }}
-                    className="border border-line bg-paper p-5"
-                  >
-                    <div className="flex items-center justify-between mb-2.5">
-                      <div className="flex items-center gap-2.5">
-                        <span className="w-8 h-8 rounded-full bg-ink text-cream text-[12px] flex items-center justify-center">
-                          {r.name.charAt(0)}
-                        </span>
-                        <span className="text-[13px] font-medium">{r.name}</span>
-                      </div>
-                      <span className="text-[11px] text-muted">{r.date}</span>
-                    </div>
-                    <div className="flex gap-0.5 mb-2.5">
-                      {Array.from({ length: 5 }, (_, s) => (
-                        <Star key={s} className={`w-3 h-3 ${s < r.rating ? 'text-gold fill-gold' : 'text-[#d9d3ca]'}`} />
-                      ))}
-                    </div>
-                    <p className="small-copy text-ink/80 leading-[1.9]">{r.text}</p>
-                  </motion.div>
+              <p className="section-eyebrow text-olive mb-3">اطلاعات قابل بررسی</p>
+              <h2 className="title-md mb-7">پیش از سفارش چه می‌دانید؟</h2>
+              <div className="divide-y divide-line border-y border-line">
+                {purchaseFacts.map((fact) => (
+                  <div key={fact.label} className="grid grid-cols-[140px_1fr] gap-5 py-4 text-[13px]">
+                    <span className="text-muted">{fact.label}</span>
+                    <span className="font-medium text-ink">{fact.value}</span>
+                  </div>
                 ))}
               </div>
+              <p className="small-copy mt-5 leading-7 text-muted">
+                برای حفظ شفافیت، بازخورد مشتریان فقط پس از ثبت و تأیید سفارش واقعی منتشر می‌شود.
+              </p>
             </div>
           </div>
         </section>

@@ -1,6 +1,6 @@
 import { PRODUCTS, type Aroma, type GrainLength, type Product, type Region, type RiceType } from '@/lib/products';
 
-export type CatalogSortKey = 'featured' | 'newest' | 'price-asc' | 'price-desc' | 'rating';
+export type CatalogSortKey = 'featured' | 'newest' | 'price-asc' | 'price-desc';
 
 export type CatalogFilterInput = {
   types?: Set<RiceType> | RiceType[];
@@ -64,8 +64,6 @@ export function sortProducts(products: Product[], sort: CatalogSortKey = 'featur
       return copy.sort((a, b) => a.price - b.price);
     case 'price-desc':
       return copy.sort((a, b) => b.price - a.price);
-    case 'rating':
-      return copy.sort((a, b) => b.rating - a.rating);
     case 'newest':
       return copy.sort((a, b) => Number(b.isNew || 0) - Number(a.isNew || 0));
     case 'featured':

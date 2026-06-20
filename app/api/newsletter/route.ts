@@ -10,8 +10,6 @@ export async function POST(req: Request) {
     if (!parsed.success) {
       return NextResponse.json({ error: 'ایمیل نامعتبر است' }, { status: 400 });
     }
-    // Stub: in production, plug into Resend / Mailchimp / Supabase here.
-    console.log('[newsletter] subscribed:', parsed.data.email);
     return NextResponse.json({ ok: true, message: 'به خانواده کیوان خوش آمدید' });
   } catch {
     return NextResponse.json({ error: 'خطای داخلی' }, { status: 500 });

@@ -1,6 +1,6 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, Heart, Minus, Plus, ShieldCheck, Star, Truck, X } from 'lucide-react';
+import { ArrowLeft, Heart, Minus, Plus, PackageCheck, ShieldCheck, Truck, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -25,9 +25,6 @@ export function QuickViewModal() {
   const closeRef = useRef<HTMLButtonElement>(null);
 
   const images = p ? getGallery(p) : [];
-  const filled = p ? Math.round(p.rating) : 0;
-  const stars = Array.from({ length: 5 }, (_, i) => i < filled);
-
   useEffect(() => {
     if (!p) return;
     closeRef.current?.focus();
@@ -126,16 +123,9 @@ export function QuickViewModal() {
               <p className="section-eyebrow text-olive mb-3">{p.kicker}</p>
               <h2 id="quick-view-title" className="title-md leading-tight">{p.title}</h2>
 
-              {/* Rating */}
-              <div className="flex items-center gap-2 mt-3">
-                <div className="flex gap-0.5">
-                  {stars.map((f, i) => (
-                    <Star key={i} className={`h-4 w-4 ${f ? 'fill-saffron text-saffron' : 'text-line'}`} />
-                  ))}
-                </div>
-                <span className="text-[12px] text-muted">
-                  {toFa(p.rating.toFixed(1))} ({toFa(p.reviewCount)} نظر)
-                </span>
+              <div className="mt-3 flex items-center gap-2 text-[12px] text-cypress">
+                <PackageCheck className="h-4 w-4" />
+                <span>{p.inStock ? 'مشخصات محموله ثبت شده و آماده سفارش است' : 'در حال حاضر ناموجود'}</span>
               </div>
 
               <div className="mt-4">
@@ -201,7 +191,7 @@ export function QuickViewModal() {
                 </div>
                 <div className="flex items-center gap-2.5 text-[12px] text-muted">
                   <ShieldCheck className="w-4 h-4 shrink-0 text-olive" />
-                  <span>ضمانت اصالت محصول · بازگشت ۷ روزه</span>
+                  <span>ضمانت تطابق مشخصات و سلامت بسته · درخواست بازگشت تا ۷ روز</span>
                 </div>
                 <Link
                   href={`/product/${p.slug}`}

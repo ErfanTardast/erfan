@@ -40,5 +40,7 @@ describe('catalog foundation', () => {
     expect(jsonLd['@type']).toBe('Product');
     expect(jsonLd.offers.priceCurrency).toBe('IRR');
     expect(jsonLd.offers.url).toContain(`/product/${product.slug}`);
+    expect(jsonLd).not.toHaveProperty('aggregateRating');
+    expect(jsonLd.image[0]).toMatch(/^https?:\/\//);
   });
 });

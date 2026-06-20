@@ -9,7 +9,6 @@ const SORT_LABELS: Record<SortKey, string> = {
   newest: 'جدیدترین',
   'price-asc': 'ارزان‌تر',
   'price-desc': 'گران‌تر',
-  rating: 'بیشترین امتیاز',
 };
 
 type Props = { count: number; gridCols: 2 | 3; onGridChange: (n: 2 | 3) => void };

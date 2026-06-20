@@ -1,4 +1,5 @@
 import type { Product } from '@/lib/products';
+import { absoluteAssetUrl } from '@/lib/asset-path';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://keyvanrice.ir';
 
@@ -22,7 +23,7 @@ export function productJsonLd(product: Product) {
     '@type': 'Product',
     name: product.title,
     description: product.shortNote || product.copy,
-    image: [product.image],
+    image: [absoluteAssetUrl(product.image)],
     sku: `KEYVAN-${product.id}`,
     brand: {
       '@type': 'Brand',
@@ -35,11 +36,6 @@ export function productJsonLd(product: Product) {
       price: product.packPrice * 10,
       availability: product.inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       itemCondition: 'https://schema.org/NewCondition',
-    },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: product.rating,
-      reviewCount: product.reviewCount,
     },
   };
 }

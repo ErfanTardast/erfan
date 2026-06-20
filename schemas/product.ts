@@ -23,8 +23,6 @@ export const productSchema = z.object({
   copy: z.string().min(1),
   shortNote: z.string().min(1),
   image: z.string().min(1),
-  rating: z.number().min(0).max(5),
-  reviewCount: z.number().int().nonnegative(),
   badge: z.object({
     label: z.string(),
     tone: z.enum(['neutral', 'olive', 'gold', 'ink']),

@@ -21,7 +21,7 @@ const riceLinks = [
 const intentLinks = [
   { label: 'سفره مهمانی', href: '/use-case/guest-table' },
   { label: 'پخت روزانه', href: '/use-case/daily-cooking' },
-  { label: 'خانواده ارگانیک', href: '/use-case/organic-family' },
+  { label: 'کشت طبیعی', href: '/use-case/organic-family' },
   { label: 'هدیه و پذیرایی', href: '/use-case/gift-pack' },
 ];
 

@@ -55,11 +55,16 @@ test('product page can add to cart and navigate checkout', async ({ page }) => {
   await gotoStorefront(page, '/product/tarom-hashemi-premium');
 
   await expect(page.locator('body')).not.toContainText('Server Error');
+  await expect(page.getByText('اطلاعات قابل بررسی')).toBeVisible();
+  await expect(page.locator('main')).not.toContainText('دیدگاه ثبت‌شده');
+  await expect(page.locator('main')).not.toContainText('نظر مشتریان');
   const addToCart = page.getByTestId('pdp-add-to-cart');
   await expect(addToCart).toHaveAttribute('data-hydrated', 'true');
   await expect(addToCart).toBeEnabled();
   await addToCart.click();
   await expect(page.getByTestId('cart-drawer')).toBeVisible();
+  await expect(page.getByTestId('cart-drawer')).not.toContainText('اشتراک ماهانه');
+  await expect(page.getByTestId('cart-drawer')).not.toContainText('بسته‌بندی هدیه');
   await page.getByTestId('cart-checkout-link').click();
   await expect(page).toHaveURL(/\/checkout$/);
 });

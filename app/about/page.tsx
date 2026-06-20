@@ -11,7 +11,7 @@ const STATS = [
   { value: '۱۸', label: 'سال فعالیت' },
   { value: '۱', label: 'منطقه اصلی کشت' },
   { value: '۸', label: 'انتخاب برای مصرف متفاوت' },
-  { value: '۱۰۰٪', label: 'محصول با مشخصات روشن' },
+  { value: 'شفاف', label: 'مشخصات پیش از خرید' },
 ];
 
 const VALUES = [

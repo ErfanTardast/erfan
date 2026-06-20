@@ -11,7 +11,7 @@ import { fmtPackPrice } from '@/lib/format';
 import { EASE } from '@/lib/motion';
 import { useDebounce } from '@/hooks/useDebounce';
 
-const TRENDING = ['طارم هاشمی', 'برنج ارگانیک', 'بسته هدیه', 'دمسیاه', 'کشت اول'];
+const TRENDING = ['طارم هاشمی', 'کشت طبیعی', 'پلو مجلسی', 'دمسیاه', 'کشت اول'];
 
 export function SearchOverlay() {
   const open = useSearchStore((s) => s.isOpen);

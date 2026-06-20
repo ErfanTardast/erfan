@@ -34,7 +34,7 @@ export function ActiveFilters() {
   f.weights.forEach((w) =>
     chips.push({ key: 'w-' + w, label: `${toFa(w)} کیلوگرم`, onRemove: () => f.toggleWeight(w) })
   );
-  if (f.organic) chips.push({ key: 'org', label: 'ارگانیک', onRemove: () => f.setOrganic(false) });
+  if (f.organic) chips.push({ key: 'org', label: 'کشت طبیعی', onRemove: () => f.setOrganic(false) });
   if (f.premium) chips.push({ key: 'prem', label: 'ممتاز', onRemove: () => f.setPremium(false) });
 
   if (chips.length === 0) return null;

@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Minus, Plus, ShoppingBag, Trash2, Truck, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useCart } from '@/lib/store/cart';
 import { getProductById, PRODUCTS, type Product } from '@/lib/products';
 import { fmtPrice, toFa, fmtPriceShort } from '@/lib/format';
@@ -43,8 +43,6 @@ function ShippingBar({ total }: { total: number }) {
 
 export function CartDrawer() {
   const { items, isOpen, close, inc, dec, remove } = useCart();
-  const [giftWrap, setGiftWrap] = useState(false);
-  const [subscribed, setSubscribed] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -211,53 +209,19 @@ export function CartDrawer() {
             {/* Footer */}
             {lines.length > 0 && (
               <div className="shrink-0 border-t border-line bg-paper p-5">
-                {/* Extras */}
-                <div className="space-y-2.5 mb-5">
-                  <label className="flex items-center justify-between cursor-pointer group">
-                    <div>
-                      <p className="text-[12px] font-medium">بسته‌بندی هدیه</p>
-                      <p className="text-[10px] text-muted mt-0.5">کاغذ کرافت، روبان طلایی، کارت دست‌نویس</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[11px] text-muted">+{toFa(25000)} ت</span>
-                      <button
-                        onClick={() => setGiftWrap(v => !v)}
-                        className={`relative h-11 w-14 rounded-full transition-colors ${giftWrap ? 'bg-cypress' : 'bg-line'}`}
-                        aria-pressed={giftWrap}
-                        type="button"
-                      >
-                        <span className={`absolute top-3 h-5 w-5 rounded-full bg-white shadow transition-all ${giftWrap ? 'right-2' : 'right-7'}`} />
-                      </button>
-                    </div>
-                  </label>
-                  <label className="flex items-center justify-between cursor-pointer group">
-                    <div>
-                      <p className="text-[12px] font-medium">اشتراک ماهانه</p>
-                      <p className="text-[10px] text-muted mt-0.5">هر ماه تحویل، ۱۰٪ تخفیف دائمی</p>
-                    </div>
-                    <button
-                      onClick={() => setSubscribed(v => !v)}
-                      className={`relative mr-2 h-11 w-14 shrink-0 rounded-full transition-colors ${subscribed ? 'bg-cypress' : 'bg-line'}`}
-                      aria-pressed={subscribed}
-                      type="button"
-                    >
-                      <span className={`absolute top-3 h-5 w-5 rounded-full bg-white shadow transition-all ${subscribed ? 'right-2' : 'right-7'}`} />
-                    </button>
-                  </label>
-                </div>
                 <div className="flex justify-between items-baseline mb-1">
                   <span className="text-[13px] text-muted">جمع</span>
                   <motion.span
-                    key={total + (giftWrap ? 25000 : 0)}
+                    key={total}
                     initial={{ opacity: 0.6 }}
                     animate={{ opacity: 1 }}
                     className="text-[16px] font-medium"
                   >
-                    {fmtPrice(total + (giftWrap ? 25000 : 0))}
+                    {fmtPrice(total)}
                   </motion.span>
                 </div>
                 <p className="small-copy text-muted mb-5">
-                  مالیات و هزینه ارسال در مرحله پرداخت محاسبه می‌شود
+                  هزینه ارسال در مرحله تکمیل سفارش مشخص می‌شود؛ مبلغ دیگری بدون تأیید شما اضافه نخواهد شد.
                 </p>
                 <Link
                   href="/checkout"

@@ -2,7 +2,7 @@
 import { create } from 'zustand';
 import type { RiceType, Region, Aroma, GrainLength } from '@/lib/products';
 
-export type SortKey = 'featured' | 'newest' | 'price-asc' | 'price-desc' | 'rating';
+export type SortKey = 'featured' | 'newest' | 'price-asc' | 'price-desc';
 
 type FilterState = {
   types: Set<RiceType>;

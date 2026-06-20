@@ -10,7 +10,6 @@ const SORT_LABELS: Record<SortKey, string> = {
   newest: 'جدیدترین',
   'price-asc': 'قیمت: کم به زیاد',
   'price-desc': 'قیمت: زیاد به کم',
-  rating: 'بیشترین امتیاز',
 };
 
 export function MobileFilterBar({ activeCount }: { activeCount: number }) {

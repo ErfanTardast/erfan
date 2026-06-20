@@ -25,8 +25,6 @@ export type Product = {
   copy: string;
   shortNote: string;
   image: string;
-  rating: number;
-  reviewCount: number;
   badge?: { label: string; tone: 'neutral' | 'olive' | 'gold' | 'ink' };
   type: RiceType;
   region: Region;
@@ -65,8 +63,6 @@ const rawProducts: ProductSource[] = [
     copy: 'طارم هاشمی ممتاز کیوان، دانه‌بلند و معطر، برای پلوهای مجلسی و مهمانی انتخاب شده است. پس از پخت، دانه‌ها کشیده و جدا می‌مانند.',
     shortNote: 'عطر قوی، دانه کشیده و پخت مجلسی',
     image: '/images/keyvan/tarom-premium.webp',
-    rating: 4.9,
-    reviewCount: 127,
     badge: { label: '۵ کیلوگرم', tone: 'neutral' },
     type: 'tarom',
     region: 'mazandaran',
@@ -97,8 +93,6 @@ const rawProducts: ProductSource[] = [
     copy: 'شیرودی کیوان با پخت یکنواخت و بافت نرم، انتخابی اقتصادی برای کته، دمی و مصرف روزانه خانواده است.',
     shortNote: 'پخت یکنواخت و مقرون‌به‌صرفه برای مصرف روزانه',
     image: '/images/keyvan/daily.webp',
-    rating: 4.7,
-    reviewCount: 89,
     badge: { label: '۵ کیلوگرم', tone: 'neutral' },
     type: 'shirudi',
     region: 'mazandaran',
@@ -126,8 +120,6 @@ const rawProducts: ProductSource[] = [
     copy: 'دمسیاه منتخب کیوان با عطر ماندگار و دانه‌های کشیده، برای پذیرایی رسمی و پلوهای زعفرانی پیشنهاد می‌شود.',
     shortNote: 'عطر ماندگار و دانه کشیده برای پذیرایی رسمی',
     image: '/images/keyvan/domsiah.webp',
-    rating: 5,
-    reviewCount: 64,
     badge: { label: 'ممتاز', tone: 'ink' },
     type: 'domsiah',
     region: 'mazandaran',
@@ -158,8 +150,6 @@ const rawProducts: ProductSource[] = [
     copy: 'علی‌کاظمی درجه یک با دانه بلند و عطر ملایم، برای پلو خانوادگی، کباب و خورش‌های ایرانی انتخابی متعادل است.',
     shortNote: 'دانه بلند و عطر ملایم برای پلو خانوادگی',
     image: '/images/keyvan/tarom-premium.webp',
-    rating: 4.6,
-    reviewCount: 102,
     badge: { label: '۵ کیلوگرم', tone: 'neutral' },
     type: 'alikazemi',
     region: 'mazandaran',
@@ -187,8 +177,6 @@ const rawProducts: ProductSource[] = [
     copy: 'طارم کشت طبیعی از محموله محدود آمل، با توجه بیشتر به سلامت خاک و کاهش مصرف نهاده‌های شیمیایی انتخاب شده است.',
     shortNote: 'محموله محدود با رویکرد کشت طبیعی',
     image: '/images/keyvan/organic.webp',
-    rating: 4.8,
-    reviewCount: 73,
     badge: { label: 'کشت طبیعی', tone: 'olive' },
     type: 'tarom',
     region: 'mazandaran',
@@ -218,8 +206,6 @@ const rawProducts: ProductSource[] = [
     copy: 'هاشمی سفید کیوان با عطر ملایم و پخت یکنواخت، برای مصرف روزانه و خورش‌های ایرانی انتخابی آشنا و قابل اتکا است.',
     shortNote: 'عطر ملایم و پخت یکنواخت برای هر روز',
     image: '/images/keyvan/daily.webp',
-    rating: 4.5,
-    reviewCount: 156,
     badge: { label: '۵ کیلوگرم', tone: 'neutral' },
     type: 'tarom',
     region: 'mazandaran',
@@ -247,8 +233,6 @@ const rawProducts: ProductSource[] = [
     copy: 'کشت اول سال از محموله محدود آمل، با عطر تازه‌تر و رطوبت بیشتر دانه عرضه می‌شود و به زمان خیساندن کوتاه‌تری نیاز دارد.',
     shortNote: 'کشت اول سال با موجودی محدود و زمان خیساندن کمتر',
     image: '/images/keyvan/tarom-premium.webp',
-    rating: 5,
-    reviewCount: 42,
     badge: { label: 'فصلی', tone: 'gold' },
     type: 'tarom',
     region: 'mazandaran',
@@ -279,8 +263,6 @@ const rawProducts: ProductSource[] = [
     copy: 'برنج ندا ممتاز با پخت یکنواخت و بافت نرم، برای دمی و کته‌های روزانه انتخابی مطمئن است.',
     shortNote: 'بافت نرم و پخت یکنواخت برای دمی و کته',
     image: '/images/keyvan/organic.webp',
-    rating: 4.7,
-    reviewCount: 58,
     badge: { label: '۳ کیلوگرم', tone: 'neutral' },
     type: 'neda',
     region: 'mazandaran',
@@ -356,26 +338,6 @@ export const RICE_NUTRITION: { label: string; value: string }[] = [
   { label: 'فیبر', value: '۰٫۴ گرم' },
   { label: 'بدون گلوتن', value: '✓' },
 ];
-
-// --- Reviews -------------------------------------------------------------
-export type Review = { name: string; rating: number; date: string; text: string };
-
-const REVIEW_POOL: Review[] = [
-  { name: 'مریم احمدی', rating: 5, date: '۲ هفته پیش', text: 'عطرش فوق‌العاده است، دقیقاً مثل برنج شمال خودمان. حتماً دوباره سفارش می‌دهم.' },
-  { name: 'رضا کریمی', rating: 5, date: '۱ ماه پیش', text: 'کیفیت واقعاً عالی بود و دانه‌ها بعد از پخت کاملاً جدا و قدکشیده شدند. بسته‌بندی هم بی‌نقص.' },
-  { name: 'سحر موسوی', rating: 4, date: '۳ هفته پیش', text: 'برنج خیلی خوبیه، ته‌دیگش معرکه می‌شه. فقط کاش ارسالش کمی سریع‌تر بود.' },
-  { name: 'علی رضایی', rating: 5, date: '۵ روز پیش', text: 'بعد از سال‌ها بالاخره یک برنج اصیل پیدا کردم. ممنون از کیوان، کیفیت ثابت و قابل اعتماد.' },
-  { name: 'نگار حسینی', rating: 5, date: '۱ هفته پیش', text: 'برای مهمانی سفارش دادم و همه از طعم و عطرش تعریف کردند. ارزش خریدش را دارد.' },
-  { name: 'محمد قاسمی', rating: 4, date: '۲ ماه پیش', text: 'پخت آسانی دارد و خیلی خوش‌عطر است. مناسب مصرف روزانه خانواده.' },
-];
-
-export function getReviews(p: Product): Review[] {
-  const seed = parseInt(p.id, 10) || 1;
-  const n = Math.min(REVIEW_POOL.length, Math.max(2, (p.reviewCount % 4) + 2));
-  const out: Review[] = [];
-  for (let i = 0; i < n; i++) out.push(REVIEW_POOL[(seed + i) % REVIEW_POOL.length]);
-  return out;
-}
 
 export const RICE_TYPE_LABELS: Record<RiceType, string> = {
   tarom: 'طارم هاشمی',

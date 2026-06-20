@@ -147,7 +147,7 @@ export function FilterSidebar() {
         </Accordion>
 
         <div className="py-5 border-b border-line flex justify-between items-center">
-          <span className="text-[13px]">فقط ارگانیک</span>
+          <span className="text-[13px]">فقط کشت طبیعی</span>
           <Toggle on={f.organic} onChange={() => f.setOrganic(!f.organic)} />
         </div>
         <div className="py-5 border-b border-line flex justify-between items-center">
